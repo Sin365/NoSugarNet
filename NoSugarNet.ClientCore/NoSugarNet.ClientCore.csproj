@@ -13,6 +13,9 @@
     <Reference Include="HaoYueNet.ClientNetwork">
       <HintPath>..\Lib\HaoYueNet.ClientNetwork.dll</HintPath>
     </Reference>
+    <Reference Include="HaoYueNet.ServerNetwork">
+      <HintPath>..\Lib\HaoYueNet.ServerNetwork.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
