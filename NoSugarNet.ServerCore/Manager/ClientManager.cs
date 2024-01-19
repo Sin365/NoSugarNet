@@ -11,6 +11,7 @@ namespace ServerCore.Manager
         public Socket _socket { get; set; }
         public bool IsOffline { get; set; } = false;
         public DateTime LogOutDT { get; set; }
+
     }
 
     public class ClientManager
@@ -64,7 +65,6 @@ namespace ServerCore.Manager
         public ClientInfo JoinNewClient(Protobuf_Login data, Socket _socket)
         {
             //也许这个函数需加lock
-
             ClientInfo cinfo = GetClientForSocket(_socket);
             //如果连接还在
             if (cinfo != null)

@@ -1,5 +1,5 @@
 ﻿using AxibugProtobuf;
-using ClientCore.Network;
+using NoSugarNet.ClientCore.Network;
 using Google.Protobuf;
 using NoSugarNet.ServerCore.Common;
 using ServerCore.Common;
@@ -17,8 +17,13 @@ namespace ServerCore.Manager
         }
 
         Dictionary<byte, TunnelClientData> mDictTunnelID2Cfg = new Dictionary<byte, TunnelClientData>();
-        Dictionary<long, Dictionary<byte, ServerLocalClient>> mDictUid2ServerLocalClients = new Dictionary<long, Dictionary<byte, ServerLocalClient>>();
+        Dictionary<long, ServerLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, ServerLocalClient>();
         CompressAdapter mCompressAdapter;
+
+        static long GetCommKey(long Uid, int Tunnel, int Idx)
+        {
+            return (Uid * 10000000) + (Tunnel * 10000) + Idx;
+        }
 
         public LocalClientManager() 
         {
@@ -37,51 +42,45 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="serverClient"></param>
-        void AddServerLocalClient(long uid, byte tunnelId, ServerLocalClient serverClient)
+        void AddServerLocalClient(long uid, byte tunnelId,byte Idx, ServerLocalClient serverClient)
         {
-            lock (mDictUid2ServerLocalClients)
+            long CommKey = GetCommKey(uid, tunnelId, Idx);
+            lock (mDictCommKey2ServerLocalClients)
             {
-                if (!mDictUid2ServerLocalClients.ContainsKey(uid))
-                    mDictUid2ServerLocalClients[uid] = new Dictionary<byte, ServerLocalClient>();
-
-                mDictUid2ServerLocalClients[uid][tunnelId] = serverClient;
+                mDictCommKey2ServerLocalClients[CommKey] = serverClient;
             }
         }
+
         /// <summary>
         /// 删除连接
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        void RemoveServerLocalClient(long uid, byte tunnelId)
+        void RemoveServerLocalClient(long uid, byte tunnelId, byte Idx)
         {
-            lock (mDictUid2ServerLocalClients)
+            lock (mDictCommKey2ServerLocalClients)
             {
-                if (!mDictUid2ServerLocalClients.ContainsKey(uid))
+                long CommKey = GetCommKey(uid, tunnelId, Idx);
+
+                if (!mDictCommKey2ServerLocalClients.ContainsKey(CommKey))
                     return;
-
-                if (!mDictUid2ServerLocalClients[uid].ContainsKey(tunnelId))
-                    return;
-
-                mDictUid2ServerLocalClients[uid].Remove(tunnelId);
-
-                if (mDictUid2ServerLocalClients[uid].Count < 1)
-                    mDictUid2ServerLocalClients.Remove(uid);
+                mDictCommKey2ServerLocalClients.Remove(CommKey);
             }
         }
-        bool GetServerLocalClient(long uid, byte tunnelId,out ServerLocalClient serverLocalClient)
+
+        bool GetServerLocalClient(long uid, byte tunnelId, byte Idx,out ServerLocalClient serverLocalClient)
         {
             serverLocalClient = null;
-            if (!mDictUid2ServerLocalClients.ContainsKey(uid))
+
+            long CommKey = GetCommKey(uid, tunnelId, Idx);
+
+            if (!mDictCommKey2ServerLocalClients.ContainsKey(CommKey))
                 return false;
 
-            if (!mDictUid2ServerLocalClients[uid].ContainsKey(tunnelId))
-                return false;
-
-            serverLocalClient = mDictUid2ServerLocalClients[uid][tunnelId];
+            serverLocalClient = mDictCommKey2ServerLocalClients[CommKey];
             return true;
         }
         #endregion
-
 
         #region 解析客户端上行数据
         public void Recive_TunnelC2SConnect(Socket sk, byte[] reqData)
@@ -89,24 +88,24 @@ namespace ServerCore.Manager
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             ServerManager.g_Log.Debug("OnTunnelC2SConnect");
             Protobuf_C2S_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_Connect>(reqData);
-            OnClientLocalConnect(_c.UID, (byte)msg.TunnelID);
+            OnClientLocalConnect(_c.UID, (byte)msg.TunnelID, (byte)msg.Idx);
         }
+
         public void Recive_TunnelC2SDisconnect(Socket sk, byte[] reqData)
         {
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             ServerManager.g_Log.Debug("Recive_TunnelC2SDisconnect");
             Protobuf_C2S_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_Disconnect>(reqData);
-            OnClientLocalDisconnect(_c.UID, (byte)msg.TunnelID);
+            OnClientLocalDisconnect(_c.UID, (byte)msg.TunnelID,(byte)msg.Idx);
         }
         public void Recive_TunnelC2SData(Socket sk, byte[] reqData)
         {
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             ServerManager.g_Log.Debug("OnTunnelC2SData");
             Protobuf_C2S_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_DATA>(reqData);
-            OnClientTunnelDataCallBack(_c.UID, (byte)msg.TunnelID, msg.HunterNetCoreData.ToArray());
+            OnClientTunnelDataCallBack(_c.UID, (byte)msg.TunnelID, (byte)msg.Idx, msg.HunterNetCoreData.ToArray());
         }
         #endregion
-
 
         #region 两端本地端口连接事件通知
         /// <summary>
@@ -114,7 +113,7 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        void OnClientLocalConnect(long uid, byte tunnelId)
+        void OnClientLocalConnect(long uid, byte tunnelId,int Idx)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
@@ -127,7 +126,7 @@ namespace ServerCore.Manager
             {
                 //服务器本地局域网连接指定端口
                 TunnelClientData tunnelDataCfg = mDictTunnelID2Cfg[tunnelId];
-                ServerLocalClient serverLocalClient = new ServerLocalClient(tunnelId);
+                ServerLocalClient serverLocalClient = new ServerLocalClient(tunnelId, (byte)Idx);
                 //连接成功
                 if (!serverLocalClient.Init(tunnelDataCfg.IP, tunnelDataCfg.Port))
                 {
@@ -142,17 +141,17 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        void OnClientLocalDisconnect(long uid, byte tunnelId)
+        void OnClientLocalDisconnect(long uid, byte tunnelId,byte Idx)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
             //隧道ID定位投递服务端本地连接
-            if (!GetServerLocalClient(uid, tunnelId, out ServerLocalClient serverLocalClient))
+            if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;
 
             //清楚服务器数据
-            RemoveServerLocalClient(uid, tunnelId);
+            RemoveServerLocalClient(uid, tunnelId, Idx);
             //断开服务端本地客户端连接
             serverLocalClient.CloseConntect();
         }
@@ -161,17 +160,18 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalConnect(long uid, byte tunnelId, ServerLocalClient serverLocalClient)
+        public void OnServerLocalConnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
             //添加到服务端本地连接列表
-            AddServerLocalClient(uid, tunnelId, serverLocalClient);
+            AddServerLocalClient(uid, tunnelId, Idx, serverLocalClient);
 
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Connect()
             {
                 TunnelID = tunnelId,
+                Idx = Idx,
             });
             //发送给客户端，指定服务端本地端口已连接
             ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CConnect, (int)ErrorCode.ErrorOk, respData);
@@ -181,16 +181,17 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalDisconnect(long uid, byte tunnelId, ServerLocalClient serverLocalClient)
+        public void OnServerLocalDisconnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
             //添加到服务端本地连接列表
-            RemoveServerLocalClient(uid, tunnelId);
+            RemoveServerLocalClient(uid, tunnelId, Idx);
 
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Disconnect()
             {
                 TunnelID = tunnelId,
+                Idx= Idx,
             });
             //发送给客户端，指定服务端本地端口连接已断开
             ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CDisconnect, (int)ErrorCode.ErrorOk, respData);
@@ -204,7 +205,7 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="data"></param>
-        public void OnServerLocalDataCallBack(long uid, byte tunnelId, byte[] data)
+        public void OnServerLocalDataCallBack(long uid, byte tunnelId,byte Idx, byte[] data)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
@@ -214,6 +215,7 @@ namespace ServerCore.Manager
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_DATA()
             {
                 TunnelID = tunnelId,
+                Idx = Idx,
                 HunterNetCoreData = ByteString.CopyFrom(data)
             });
 
@@ -226,10 +228,10 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="data"></param>
-        public void OnClientTunnelDataCallBack(long uid, byte tunnelId, byte[] data)
+        public void OnClientTunnelDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
             //隧道ID定位投递服务端本地连接
-            if (!GetServerLocalClient(uid, tunnelId, out ServerLocalClient serverLocalClient))
+            if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;
 
             //解压

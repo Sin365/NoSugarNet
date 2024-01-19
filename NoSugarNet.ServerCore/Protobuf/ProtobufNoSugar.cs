@@ -31,40 +31,47 @@ namespace AxibugProtobuf {
             "cmQYBCABKAkifwoTUHJvdG9idWZfTG9naW5fUkVTUBINCgVUb2tlbhgBIAEo",
             "CRIVCg1MYXN0TG9naW5EYXRlGAIgASgJEg8KB1JlZ0RhdGUYAyABKAkSMQoG",
             "U3RhdHVzGAQgASgOMiEuQXhpYnVnUHJvdG9idWYuTG9naW5SZXN1bHRTdGF0",
-            "dXMiIwoQUHJvdG9idWZfQ2hhdE1zZxIPCgdDaGF0TXNnGAEgASgJIkgKFVBy",
-            "b3RvYnVmX0NoYXRNc2dfUkVTUBIQCghOaWNrTmFtZRgBIAEoCRIPCgdDaGF0",
-            "TXNnGAIgASgJEgwKBERhdGUYAyABKAMiKAoUUHJvdG9idWZfQzJTX0Nvbm5l",
-            "Y3QSEAoIVHVubmVsSUQYASABKAUiKAoUUHJvdG9idWZfUzJDX0Nvbm5lY3QS",
-            "EAoIVHVubmVsSUQYASABKAUiKwoXUHJvdG9idWZfQzJTX0Rpc2Nvbm5lY3QS",
-            "EAoIVHVubmVsSUQYASABKAUiKwoXUHJvdG9idWZfUzJDX0Rpc2Nvbm5lY3QS",
-            "EAoIVHVubmVsSUQYASABKAUiQQoRUHJvdG9idWZfQzJTX0RBVEESEAoIVHVu",
-            "bmVsSUQYASABKAUSGgoSSHVudGVyTmV0Q29yZV9EYXRhGAIgASgMIkEKEVBy",
-            "b3RvYnVmX1MyQ19EQVRBEhAKCFR1bm5lbElEGAEgASgFEhoKEkh1bnRlck5l",
-            "dENvcmVfRGF0YRgCIAEoDCrrAQoJQ29tbWFuZElEEg4KCkNNRF9ERUZBVUwQ",
-            "ABIOCglDTURfTE9HSU4Q0Q8SEAoLQ01EX0NIQVRNU0cQoR8SGwoWQ01EX1RV",
-            "Tk5FTF9DMlNfQ09OTkVDVBCIJxIbChZDTURfVFVOTkVMX1MyQ19DT05ORUNU",
-            "EIknEh4KGUNNRF9UVU5ORUxfQzJTX0RJU0NPTk5FQ1QQiicSHgoZQ01EX1RV",
-            "Tk5FTF9TMkNfRElTQ09OTkVDVBCLJxIYChNDTURfVFVOTkVMX0MyU19EQVRB",
-            "EIwnEhgKE0NNRF9UVU5ORUxfUzJDX0RBVEEQjScqKwoJRXJyb3JDb2RlEhAK",
-            "DEVSUk9SX0RFRkFVTBAAEgwKCEVSUk9SX09LEAEqPgoJTG9naW5UeXBlEg8K",
-            "C0Jhc2VEZWZhdWx0EAASDgoKSGFvWXVlQXV0aBABEgcKA0JGMxADEgcKA0JG",
-            "NBAEKksKCkRldmljZVR5cGUSFgoSRGV2aWNlVHlwZV9EZWZhdWx0EAASBgoC",
-            "UEMQARILCgdBbmRyb2lkEAISBwoDSU9TEAMSBwoDUFNWEAQqTgoRTG9naW5S",
-            "ZXN1bHRTdGF0dXMSIQodTG9naW5SZXN1bHRTdGF0dXNfQmFzZURlZmF1bHQQ",
-            "ABIGCgJPSxABEg4KCkFjY291bnRFcnIQAkICSAFiBnByb3RvMw=="));
+            "dXMiQwoNUHJvdG9idWZfQ2ZncxIyCgRjZmdzGAEgAygLMiQuQXhpYnVnUHJv",
+            "dG9idWYuUHJvdG9idWZfQ2Znc19TaW5nbGUiQgoUUHJvdG9idWZfQ2Znc19T",
+            "aW5nbGUSEAoIVHVubmVsSUQYASABKA0SCgoCSVAYAiABKAkSDAoEUG9ydBgD",
+            "IAEoBSIjChBQcm90b2J1Zl9DaGF0TXNnEg8KB0NoYXRNc2cYASABKAkiSAoV",
+            "UHJvdG9idWZfQ2hhdE1zZ19SRVNQEhAKCE5pY2tOYW1lGAEgASgJEg8KB0No",
+            "YXRNc2cYAiABKAkSDAoERGF0ZRgDIAEoAyI1ChRQcm90b2J1Zl9DMlNfQ29u",
+            "bmVjdBIQCghUdW5uZWxJRBgBIAEoDRILCgNJZHgYAiABKA0iNQoUUHJvdG9i",
+            "dWZfUzJDX0Nvbm5lY3QSEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgN",
+            "IjgKF1Byb3RvYnVmX0MyU19EaXNjb25uZWN0EhAKCFR1bm5lbElEGAEgASgN",
+            "EgsKA0lkeBgCIAEoDSI4ChdQcm90b2J1Zl9TMkNfRGlzY29ubmVjdBIQCghU",
+            "dW5uZWxJRBgBIAEoDRILCgNJZHgYAiABKA0iTgoRUHJvdG9idWZfQzJTX0RB",
+            "VEESEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgNEhoKEkh1bnRlck5l",
+            "dENvcmVfRGF0YRgDIAEoDCJOChFQcm90b2J1Zl9TMkNfREFUQRIQCghUdW5u",
+            "ZWxJRBgBIAEoDRILCgNJZHgYAiABKA0SGgoSSHVudGVyTmV0Q29yZV9EYXRh",
+            "GAMgASgMKvoBCglDb21tYW5kSUQSDgoKQ01EX0RFRkFVTBAAEg4KCUNNRF9M",
+            "T0dJThDRDxINCghDTURfQ0ZHUxC5FxIQCgtDTURfQ0hBVE1TRxChHxIbChZD",
+            "TURfVFVOTkVMX0MyU19DT05ORUNUEIgnEhsKFkNNRF9UVU5ORUxfUzJDX0NP",
+            "Tk5FQ1QQiScSHgoZQ01EX1RVTk5FTF9DMlNfRElTQ09OTkVDVBCKJxIeChlD",
+            "TURfVFVOTkVMX1MyQ19ESVNDT05ORUNUEIsnEhgKE0NNRF9UVU5ORUxfQzJT",
+            "X0RBVEEQjCcSGAoTQ01EX1RVTk5FTF9TMkNfREFUQRCNJyorCglFcnJvckNv",
+            "ZGUSEAoMRVJST1JfREVGQVVMEAASDAoIRVJST1JfT0sQASo+CglMb2dpblR5",
+            "cGUSDwoLQmFzZURlZmF1bHQQABIOCgpIYW9ZdWVBdXRoEAESBwoDQkYzEAMS",
+            "BwoDQkY0EAQqSwoKRGV2aWNlVHlwZRIWChJEZXZpY2VUeXBlX0RlZmF1bHQQ",
+            "ABIGCgJQQxABEgsKB0FuZHJvaWQQAhIHCgNJT1MQAxIHCgNQU1YQBCpOChFM",
+            "b2dpblJlc3VsdFN0YXR1cxIhCh1Mb2dpblJlc3VsdFN0YXR1c19CYXNlRGVm",
+            "YXVsdBAAEgYKAk9LEAESDgoKQWNjb3VudEVychACQgJIAWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::AxibugProtobuf.CommandID), typeof(global::AxibugProtobuf.ErrorCode), typeof(global::AxibugProtobuf.LoginType), typeof(global::AxibugProtobuf.DeviceType), typeof(global::AxibugProtobuf.LoginResultStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Login), global::AxibugProtobuf.Protobuf_Login.Parser, new[]{ "LoginType", "DeviceType", "Account", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Login_RESP), global::AxibugProtobuf.Protobuf_Login_RESP.Parser, new[]{ "Token", "LastLoginDate", "RegDate", "Status" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Cfgs), global::AxibugProtobuf.Protobuf_Cfgs.Parser, new[]{ "Cfgs" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Cfgs_Single), global::AxibugProtobuf.Protobuf_Cfgs_Single.Parser, new[]{ "TunnelID", "IP", "Port" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_ChatMsg), global::AxibugProtobuf.Protobuf_ChatMsg.Parser, new[]{ "ChatMsg" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_ChatMsg_RESP), global::AxibugProtobuf.Protobuf_ChatMsg_RESP.Parser, new[]{ "NickName", "ChatMsg", "Date" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Connect), global::AxibugProtobuf.Protobuf_C2S_Connect.Parser, new[]{ "TunnelID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Connect), global::AxibugProtobuf.Protobuf_S2C_Connect.Parser, new[]{ "TunnelID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Disconnect), global::AxibugProtobuf.Protobuf_C2S_Disconnect.Parser, new[]{ "TunnelID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Disconnect), global::AxibugProtobuf.Protobuf_S2C_Disconnect.Parser, new[]{ "TunnelID" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_DATA), global::AxibugProtobuf.Protobuf_C2S_DATA.Parser, new[]{ "TunnelID", "HunterNetCoreData" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_DATA), global::AxibugProtobuf.Protobuf_S2C_DATA.Parser, new[]{ "TunnelID", "HunterNetCoreData" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Connect), global::AxibugProtobuf.Protobuf_C2S_Connect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Connect), global::AxibugProtobuf.Protobuf_S2C_Connect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Disconnect), global::AxibugProtobuf.Protobuf_C2S_Disconnect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Disconnect), global::AxibugProtobuf.Protobuf_S2C_Disconnect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_DATA), global::AxibugProtobuf.Protobuf_C2S_DATA.Parser, new[]{ "TunnelID", "Idx", "HunterNetCoreData" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_DATA), global::AxibugProtobuf.Protobuf_S2C_DATA.Parser, new[]{ "TunnelID", "Idx", "HunterNetCoreData" }, null, null, null, null)
           }));
     }
     #endregion
@@ -77,11 +84,15 @@ namespace AxibugProtobuf {
     /// </summary>
     [pbr::OriginalName("CMD_DEFAUL")] CmdDefaul = 0,
     /// <summary>
-    ///登录上行 | 下行 对应 Protobuf_Login | Protobuf_Login_RESP
+    ///自动登录上行 | 下行 对应 Protobuf_Login | Protobuf_Login_RESP
     /// </summary>
     [pbr::OriginalName("CMD_LOGIN")] CmdLogin = 2001,
     /// <summary>
-    ///登录上行 | 下行 对应 Protobuf_ChatMsg | Protobuf_ChatMsg_RESP
+    ///配置信息 下行 对应 Protobuf_Cfgs
+    /// </summary>
+    [pbr::OriginalName("CMD_CFGS")] CmdCfgs = 3001,
+    /// <summary>
+    ///广播信息上行 | 下行 对应 Protobuf_ChatMsg | Protobuf_ChatMsg_RESP
     /// </summary>
     [pbr::OriginalName("CMD_CHATMSG")] CmdChatmsg = 4001,
     /// <summary>
@@ -745,6 +756,426 @@ namespace AxibugProtobuf {
   }
 
   /// <summary>
+  ///配置下行
+  /// </summary>
+  public sealed partial class Protobuf_Cfgs : pb::IMessage<Protobuf_Cfgs>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Protobuf_Cfgs> _parser = new pb::MessageParser<Protobuf_Cfgs>(() => new Protobuf_Cfgs());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Protobuf_Cfgs> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs(Protobuf_Cfgs other) : this() {
+      cfgs_ = other.cfgs_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs Clone() {
+      return new Protobuf_Cfgs(this);
+    }
+
+    /// <summary>Field number for the "cfgs" field.</summary>
+    public const int CfgsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::AxibugProtobuf.Protobuf_Cfgs_Single> _repeated_cfgs_codec
+        = pb::FieldCodec.ForMessage(10, global::AxibugProtobuf.Protobuf_Cfgs_Single.Parser);
+    private readonly pbc::RepeatedField<global::AxibugProtobuf.Protobuf_Cfgs_Single> cfgs_ = new pbc::RepeatedField<global::AxibugProtobuf.Protobuf_Cfgs_Single>();
+    /// <summary>
+    ///配置
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::AxibugProtobuf.Protobuf_Cfgs_Single> Cfgs {
+      get { return cfgs_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Protobuf_Cfgs);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Protobuf_Cfgs other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!cfgs_.Equals(other.cfgs_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= cfgs_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      cfgs_.WriteTo(output, _repeated_cfgs_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      cfgs_.WriteTo(ref output, _repeated_cfgs_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += cfgs_.CalculateSize(_repeated_cfgs_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Protobuf_Cfgs other) {
+      if (other == null) {
+        return;
+      }
+      cfgs_.Add(other.cfgs_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            cfgs_.AddEntriesFrom(input, _repeated_cfgs_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            cfgs_.AddEntriesFrom(ref input, _repeated_cfgs_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class Protobuf_Cfgs_Single : pb::IMessage<Protobuf_Cfgs_Single>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Protobuf_Cfgs_Single> _parser = new pb::MessageParser<Protobuf_Cfgs_Single>(() => new Protobuf_Cfgs_Single());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Protobuf_Cfgs_Single> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs_Single() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs_Single(Protobuf_Cfgs_Single other) : this() {
+      tunnelID_ = other.tunnelID_;
+      iP_ = other.iP_;
+      port_ = other.port_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Protobuf_Cfgs_Single Clone() {
+      return new Protobuf_Cfgs_Single(this);
+    }
+
+    /// <summary>Field number for the "TunnelID" field.</summary>
+    public const int TunnelIDFieldNumber = 1;
+    private uint tunnelID_;
+    /// <summary>
+    ///TunnelID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint TunnelID {
+      get { return tunnelID_; }
+      set {
+        tunnelID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "IP" field.</summary>
+    public const int IPFieldNumber = 2;
+    private string iP_ = "";
+    /// <summary>
+    ///IP
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string IP {
+      get { return iP_; }
+      set {
+        iP_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Port" field.</summary>
+    public const int PortFieldNumber = 3;
+    private int port_;
+    /// <summary>
+    ///端口
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Port {
+      get { return port_; }
+      set {
+        port_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Protobuf_Cfgs_Single);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Protobuf_Cfgs_Single other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (TunnelID != other.TunnelID) return false;
+      if (IP != other.IP) return false;
+      if (Port != other.Port) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (IP.Length != 0) hash ^= IP.GetHashCode();
+      if (Port != 0) hash ^= Port.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (TunnelID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(TunnelID);
+      }
+      if (IP.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(IP);
+      }
+      if (Port != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Port);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (TunnelID != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(TunnelID);
+      }
+      if (IP.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(IP);
+      }
+      if (Port != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Port);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (TunnelID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (IP.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(IP);
+      }
+      if (Port != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Port);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Protobuf_Cfgs_Single other) {
+      if (other == null) {
+        return;
+      }
+      if (other.TunnelID != 0) {
+        TunnelID = other.TunnelID;
+      }
+      if (other.IP.Length != 0) {
+        IP = other.IP;
+      }
+      if (other.Port != 0) {
+        Port = other.Port;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            IP = input.ReadString();
+            break;
+          }
+          case 24: {
+            Port = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            IP = input.ReadString();
+            break;
+          }
+          case 24: {
+            Port = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
   ///聊天 上行
   /// </summary>
   public sealed partial class Protobuf_ChatMsg : pb::IMessage<Protobuf_ChatMsg>
@@ -759,7 +1190,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[2]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -937,7 +1368,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[3]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -997,7 +1428,7 @@ namespace AxibugProtobuf {
     public const int DateFieldNumber = 3;
     private long date_;
     /// <summary>
-    ///消息
+    ///时间
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public long Date {
@@ -1190,7 +1621,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[4]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1208,6 +1639,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_C2S_Connect(Protobuf_C2S_Connect other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1218,15 +1650,29 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
       }
     }
 
@@ -1244,6 +1690,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1251,6 +1698,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1269,7 +1717,11 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1282,7 +1734,11 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1294,7 +1750,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1309,6 +1768,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1325,7 +1787,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1343,7 +1809,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1365,7 +1835,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[5]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1383,6 +1853,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_S2C_Connect(Protobuf_S2C_Connect other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1393,15 +1864,29 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
       }
     }
 
@@ -1419,6 +1904,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1426,6 +1912,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1444,7 +1931,11 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1457,7 +1948,11 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1469,7 +1964,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1484,6 +1982,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1500,7 +2001,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1518,7 +2023,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1540,7 +2049,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[6]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1558,6 +2067,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_C2S_Disconnect(Protobuf_C2S_Disconnect other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1568,15 +2078,29 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
       }
     }
 
@@ -1594,6 +2118,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1601,6 +2126,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1619,7 +2145,11 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1632,7 +2162,11 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1644,7 +2178,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1659,6 +2196,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1675,7 +2215,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1693,7 +2237,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1715,7 +2263,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[7]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1733,6 +2281,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_S2C_Disconnect(Protobuf_S2C_Disconnect other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1743,15 +2292,29 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
       }
     }
 
@@ -1769,6 +2332,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1776,6 +2340,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1794,7 +2359,11 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1807,7 +2376,11 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1819,7 +2392,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1834,6 +2410,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1850,7 +2429,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1868,7 +2451,11 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Idx = input.ReadUInt32();
             break;
           }
         }
@@ -1890,7 +2477,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[8]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1908,6 +2495,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_C2S_DATA(Protobuf_C2S_DATA other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       hunterNetCoreData_ = other.hunterNetCoreData_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1919,20 +2507,34 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
       }
     }
 
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
+      }
+    }
+
     /// <summary>Field number for the "HunterNetCore_Data" field.</summary>
-    public const int HunterNetCoreDataFieldNumber = 2;
+    public const int HunterNetCoreDataFieldNumber = 3;
     private pb::ByteString hunterNetCoreData_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString HunterNetCoreData {
@@ -1956,6 +2558,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       if (HunterNetCoreData != other.HunterNetCoreData) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1964,6 +2567,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (HunterNetCoreData.Length != 0) hash ^= HunterNetCoreData.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1983,10 +2587,14 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteBytes(HunterNetCoreData);
       }
       if (_unknownFields != null) {
@@ -2000,10 +2608,14 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteBytes(HunterNetCoreData);
       }
       if (_unknownFields != null) {
@@ -2016,7 +2628,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(HunterNetCoreData);
@@ -2034,6 +2649,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       if (other.HunterNetCoreData.Length != 0) {
         HunterNetCoreData = other.HunterNetCoreData;
@@ -2053,10 +2671,14 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Idx = input.ReadUInt32();
+            break;
+          }
+          case 26: {
             HunterNetCoreData = input.ReadBytes();
             break;
           }
@@ -2075,10 +2697,14 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Idx = input.ReadUInt32();
+            break;
+          }
+          case 26: {
             HunterNetCoreData = input.ReadBytes();
             break;
           }
@@ -2101,7 +2727,7 @@ namespace AxibugProtobuf {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[9]; }
+      get { return global::AxibugProtobuf.ProtobufNoSugarReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2119,6 +2745,7 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_S2C_DATA(Protobuf_S2C_DATA other) : this() {
       tunnelID_ = other.tunnelID_;
+      idx_ = other.idx_;
       hunterNetCoreData_ = other.hunterNetCoreData_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -2130,20 +2757,34 @@ namespace AxibugProtobuf {
 
     /// <summary>Field number for the "TunnelID" field.</summary>
     public const int TunnelIDFieldNumber = 1;
-    private int tunnelID_;
+    private uint tunnelID_;
     /// <summary>
     ///TunnelID
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TunnelID {
+    public uint TunnelID {
       get { return tunnelID_; }
       set {
         tunnelID_ = value;
       }
     }
 
+    /// <summary>Field number for the "Idx" field.</summary>
+    public const int IdxFieldNumber = 2;
+    private uint idx_;
+    /// <summary>
+    ///单个隧道连接下标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Idx {
+      get { return idx_; }
+      set {
+        idx_ = value;
+      }
+    }
+
     /// <summary>Field number for the "HunterNetCore_Data" field.</summary>
-    public const int HunterNetCoreDataFieldNumber = 2;
+    public const int HunterNetCoreDataFieldNumber = 3;
     private pb::ByteString hunterNetCoreData_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString HunterNetCoreData {
@@ -2167,6 +2808,7 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
+      if (Idx != other.Idx) return false;
       if (HunterNetCoreData != other.HunterNetCoreData) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -2175,6 +2817,7 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
+      if (Idx != 0) hash ^= Idx.GetHashCode();
       if (HunterNetCoreData.Length != 0) hash ^= HunterNetCoreData.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -2194,10 +2837,14 @@ namespace AxibugProtobuf {
     #else
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteBytes(HunterNetCoreData);
       }
       if (_unknownFields != null) {
@@ -2211,10 +2858,14 @@ namespace AxibugProtobuf {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       if (TunnelID != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(TunnelID);
+        output.WriteUInt32(TunnelID);
+      }
+      if (Idx != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteBytes(HunterNetCoreData);
       }
       if (_unknownFields != null) {
@@ -2227,7 +2878,10 @@ namespace AxibugProtobuf {
     public int CalculateSize() {
       int size = 0;
       if (TunnelID != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TunnelID);
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
+      }
+      if (Idx != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
       }
       if (HunterNetCoreData.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(HunterNetCoreData);
@@ -2245,6 +2899,9 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
+      }
+      if (other.Idx != 0) {
+        Idx = other.Idx;
       }
       if (other.HunterNetCoreData.Length != 0) {
         HunterNetCoreData = other.HunterNetCoreData;
@@ -2264,10 +2921,14 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Idx = input.ReadUInt32();
+            break;
+          }
+          case 26: {
             HunterNetCoreData = input.ReadBytes();
             break;
           }
@@ -2286,10 +2947,14 @@ namespace AxibugProtobuf {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            TunnelID = input.ReadInt32();
+            TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
+          case 16: {
+            Idx = input.ReadUInt32();
+            break;
+          }
+          case 26: {
             HunterNetCoreData = input.ReadBytes();
             break;
           }

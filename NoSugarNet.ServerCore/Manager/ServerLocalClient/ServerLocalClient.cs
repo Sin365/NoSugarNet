@@ -1,7 +1,7 @@
-﻿using HaoYueNet.ClientNetwork;
+﻿using HaoYueNet.ClientNetwork.OtherMode;
 using ServerCore.Manager;
 
-namespace ClientCore.Network
+namespace NoSugarNet.ClientCore.Network
 {
     /// <summary>
     /// 继承网络库，以支持网络功能
@@ -10,9 +10,11 @@ namespace ClientCore.Network
     {
         public long mUID;
         public byte mTunnelID;
-        public ServerLocalClient(byte TunnelID)
+        public byte mIdx;
+        public ServerLocalClient(byte TunnelID, byte Idx)
         {
             mTunnelID = TunnelID;
+            mIdx = Idx;
             //指定接收服务器数据事件
             OnReceiveData += GetDataCallBack;
             //断开连接
@@ -27,7 +29,7 @@ namespace ClientCore.Network
             NetworkDeBugLog($"NetworkConnected:{IsConnect}");
             if (IsConnect)
             {
-                ServerManager.g_Local.OnServerLocalConnect(mUID, mTunnelID,this);
+                ServerManager.g_Local.OnServerLocalConnect(mUID, mTunnelID, mIdx, this);
             }
             else
             {
@@ -55,7 +57,7 @@ namespace ClientCore.Network
             try
             {
                 //抛出网络数据
-                ServerManager.g_Local.OnServerLocalDataCallBack(mUID, mTunnelID, data);
+                ServerManager.g_Local.OnServerLocalDataCallBack(mUID, mTunnelID, mIdx, data);
             }
             catch (Exception ex)
             {
@@ -70,7 +72,7 @@ namespace ClientCore.Network
         public void OnConnectClose()
         {
             NetworkDeBugLog("OnConnectClose");
-            ServerManager.g_Local.OnServerLocalDisconnect(mUID, mTunnelID,this);
+            ServerManager.g_Local.OnServerLocalDisconnect(mUID, mTunnelID,mIdx,this);
         }
     }
 }

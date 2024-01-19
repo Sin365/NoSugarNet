@@ -6,7 +6,10 @@ enum CommandID
 {
     CMD_DEFAUL = 0;//缺省不使用
 	
+	
 	CMD_LOGIN = 2001;  //自动登录上行 | 下行 对应 Protobuf_Login | Protobuf_Login_RESP
+	
+	CMD_CFGS = 3001; //配置信息 下行 对应 Protobuf_Cfgs
 	
 	CMD_CHATMSG = 4001;  //广播信息上行 | 下行 对应 Protobuf_ChatMsg | Protobuf_ChatMsg_RESP
 	
@@ -66,6 +69,18 @@ message Protobuf_Login_RESP
 	LoginResultStatus Status = 4;//账号状态 （预留） [1]正常[0]被禁封
 }
 
+//配置下行
+message Protobuf_Cfgs
+{
+	repeated Protobuf_Cfgs_Single cfgs = 1;//配置
+}
+
+message Protobuf_Cfgs_Single
+{
+	uint32 TunnelID = 1;//TunnelID
+	string IP = 2;//IP
+	int32 Port = 3;//端口
+}
 
 //聊天 上行
 message Protobuf_ChatMsg
@@ -78,38 +93,44 @@ message Protobuf_ChatMsg_RESP
 {
 	string NickName = 1;//昵称
 	string ChatMsg = 2;//消息
-	int64 Date = 3;//消息
+	int64 Date = 3;//时间
 }
 
 
 message Protobuf_C2S_Connect
 {
-	int32 TunnelID = 1;//TunnelID
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
 }
 
 message Protobuf_S2C_Connect
 {
-	int32 TunnelID = 1;//TunnelID
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
 }
 
 message Protobuf_C2S_Disconnect
 {
-	int32 TunnelID = 1;//TunnelID
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
 }
 
 message Protobuf_S2C_Disconnect
 {
-	int32 TunnelID = 1;//TunnelID
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
 }
 
 message Protobuf_C2S_DATA
 {
-	int32 TunnelID = 1;//TunnelID
-    bytes HunterNetCore_Data = 2;
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
+    bytes HunterNetCore_Data = 3;
 }
 
 message Protobuf_S2C_DATA
 {
-	int32 TunnelID = 1;//TunnelID
-    bytes HunterNetCore_Data = 2;
+	uint32 TunnelID = 1;//TunnelID
+	uint32 Idx = 2;//单个隧道连接下标
+    bytes HunterNetCore_Data = 3;
 }
