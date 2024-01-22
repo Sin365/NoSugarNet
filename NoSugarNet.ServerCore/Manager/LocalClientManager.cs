@@ -10,13 +10,6 @@ namespace ServerCore.Manager
 {
     public class LocalClientManager
     {
-        struct TunnelClientData
-        {
-            public string IP;
-            public ushort Port;
-        }
-
-        Dictionary<byte, TunnelClientData> mDictTunnelID2Cfg = new Dictionary<byte, TunnelClientData>();
         Dictionary<long, ServerLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, ServerLocalClient>();
         CompressAdapter mCompressAdapter;
 
@@ -115,23 +108,32 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         void OnClientLocalConnect(long uid, byte tunnelId,int Idx)
         {
+            ServerManager.g_Log.Debug($"OnClientLocalConnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
-            if (!mDictTunnelID2Cfg.ContainsKey(tunnelId))
+            if (!Config.Cfgs.ContainsKey(tunnelId))
                 return;
 
             //开一个线程去建立连接
             Thread thread = new Thread(() =>
             {
                 //服务器本地局域网连接指定端口
-                TunnelClientData tunnelDataCfg = mDictTunnelID2Cfg[tunnelId];
-                ServerLocalClient serverLocalClient = new ServerLocalClient(tunnelId, (byte)Idx);
+                TunnelClientData tunnelDataCfg = Config.Cfgs[tunnelId];
+                ServerLocalClient serverLocalClient = new ServerLocalClient(uid, tunnelId, (byte)Idx);
                 //连接成功
-                if (!serverLocalClient.Init(tunnelDataCfg.IP, tunnelDataCfg.Port))
+                if (!serverLocalClient.Init(tunnelDataCfg.ServerLocalIP, tunnelDataCfg.ServerLocalPort))
                 {
-                    //连接失败
                     //TODO告知客户端连接失败
+
+                    byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Connect()
+                    {
+                        TunnelID = tunnelId,
+                        Idx = (uint)Idx,
+                        Connected = 0//失败
+                    });
+                    //发送给客户端，指定服务端本地端口已连接
+                    ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CConnect, (int)ErrorCode.ErrorOk, respData);
                 }
             });
             thread.Start();
@@ -143,6 +145,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         void OnClientLocalDisconnect(long uid, byte tunnelId,byte Idx)
         {
+            ServerManager.g_Log.Debug($"OnClientLocalDisconnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
@@ -162,6 +165,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalConnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
         {
+            ServerManager.g_Log.Debug($"OnServerLocalConnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
@@ -172,6 +176,7 @@ namespace ServerCore.Manager
             {
                 TunnelID = tunnelId,
                 Idx = Idx,
+                Connected = 1
             });
             //发送给客户端，指定服务端本地端口已连接
             ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CConnect, (int)ErrorCode.ErrorOk, respData);
@@ -183,6 +188,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalDisconnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
         {
+            ServerManager.g_Log.Debug($"OnServerLocalDisconnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
             //添加到服务端本地连接列表
@@ -207,6 +213,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnServerLocalDataCallBack(long uid, byte tunnelId,byte Idx, byte[] data)
         {
+            ServerManager.g_Log.Debug($"OnServerLocalDataCallBack {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
@@ -230,6 +237,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientTunnelDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
+            ServerManager.g_Log.Debug($"OnClientTunnelDataCallBack {uid},{tunnelId},{Idx}");
             //隧道ID定位投递服务端本地连接
             if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;

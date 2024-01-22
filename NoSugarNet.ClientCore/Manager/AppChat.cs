@@ -18,7 +18,7 @@ namespace NoSugarNet.ClientCore.Manager
             {
                 ChatMsg = ChatMsg,
             };
-            App.networkHelper.SendToServer((int)CommandID.CmdChatmsg, ProtoBufHelper.Serizlize(msg));
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdChatmsg, ProtoBufHelper.Serizlize(msg));
         }
 
         public void RecvChatMsg(byte[] reqData)

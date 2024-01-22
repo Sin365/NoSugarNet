@@ -66,7 +66,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message);
+                        AppNoSugarNet.log.Error(e.Message);
                     }
                 }
             }

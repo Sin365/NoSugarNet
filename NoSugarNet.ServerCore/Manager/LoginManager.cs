@@ -1,4 +1,5 @@
 ﻿using AxibugProtobuf;
+using NoSugarNet.ServerCore.Common;
 using ServerCore.Common;
 using ServerCore.NetWork;
 using System.Net.Sockets;
@@ -29,10 +30,12 @@ namespace ServerCore.Manager
             ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdLogin, (int)ErrorCode.ErrorOk, respData);
 
             Protobuf_Cfgs cfgsSP = new Protobuf_Cfgs();
-            cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single { TunnelID = 0, IP = "127.0.0.1", Port = 10001 });
-            cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single { TunnelID = 1, IP = "127.0.0.1", Port = 10002 });
-            cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single { TunnelID = 2, IP = "127.0.0.1", Port = 10003 });
-            cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single { TunnelID = 3, IP = "127.0.0.1", Port = 10004 });
+            byte[] keys = Config.Cfgs.Keys.ToArray();
+            for (int i = 0; i < Config.Cfgs.Count; i++) 
+            {
+                TunnelClientData cfg = Config.Cfgs[keys[i]];
+                cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single() { TunnelID = cfg.TunnelId, Port = cfg.ClientLocalPort });
+            }
 
             byte[] respDataCfg = ProtoBufHelper.Serizlize(cfgsSP);
             ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdCfgs, (int)ErrorCode.ErrorOk, respDataCfg);

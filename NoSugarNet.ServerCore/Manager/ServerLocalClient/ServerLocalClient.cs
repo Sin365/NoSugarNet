@@ -1,5 +1,6 @@
 ﻿using HaoYueNet.ClientNetwork.OtherMode;
 using ServerCore.Manager;
+using System;
 
 namespace NoSugarNet.ClientCore.Network
 {
@@ -11,8 +12,9 @@ namespace NoSugarNet.ClientCore.Network
         public long mUID;
         public byte mTunnelID;
         public byte mIdx;
-        public ServerLocalClient(byte TunnelID, byte Idx)
+        public ServerLocalClient(long UID,byte TunnelID, byte Idx)
         {
+            mUID = UID;
             mTunnelID = TunnelID;
             mIdx = Idx;
             //指定接收服务器数据事件

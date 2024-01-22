@@ -32,42 +32,43 @@ namespace AxibugProtobuf {
             "CRIVCg1MYXN0TG9naW5EYXRlGAIgASgJEg8KB1JlZ0RhdGUYAyABKAkSMQoG",
             "U3RhdHVzGAQgASgOMiEuQXhpYnVnUHJvdG9idWYuTG9naW5SZXN1bHRTdGF0",
             "dXMiQwoNUHJvdG9idWZfQ2ZncxIyCgRjZmdzGAEgAygLMiQuQXhpYnVnUHJv",
-            "dG9idWYuUHJvdG9idWZfQ2Znc19TaW5nbGUiQgoUUHJvdG9idWZfQ2Znc19T",
-            "aW5nbGUSEAoIVHVubmVsSUQYASABKA0SCgoCSVAYAiABKAkSDAoEUG9ydBgD",
-            "IAEoBSIjChBQcm90b2J1Zl9DaGF0TXNnEg8KB0NoYXRNc2cYASABKAkiSAoV",
-            "UHJvdG9idWZfQ2hhdE1zZ19SRVNQEhAKCE5pY2tOYW1lGAEgASgJEg8KB0No",
-            "YXRNc2cYAiABKAkSDAoERGF0ZRgDIAEoAyI1ChRQcm90b2J1Zl9DMlNfQ29u",
-            "bmVjdBIQCghUdW5uZWxJRBgBIAEoDRILCgNJZHgYAiABKA0iNQoUUHJvdG9i",
-            "dWZfUzJDX0Nvbm5lY3QSEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgN",
-            "IjgKF1Byb3RvYnVmX0MyU19EaXNjb25uZWN0EhAKCFR1bm5lbElEGAEgASgN",
-            "EgsKA0lkeBgCIAEoDSI4ChdQcm90b2J1Zl9TMkNfRGlzY29ubmVjdBIQCghU",
-            "dW5uZWxJRBgBIAEoDRILCgNJZHgYAiABKA0iTgoRUHJvdG9idWZfQzJTX0RB",
-            "VEESEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgNEhoKEkh1bnRlck5l",
-            "dENvcmVfRGF0YRgDIAEoDCJOChFQcm90b2J1Zl9TMkNfREFUQRIQCghUdW5u",
-            "ZWxJRBgBIAEoDRILCgNJZHgYAiABKA0SGgoSSHVudGVyTmV0Q29yZV9EYXRh",
-            "GAMgASgMKvoBCglDb21tYW5kSUQSDgoKQ01EX0RFRkFVTBAAEg4KCUNNRF9M",
-            "T0dJThDRDxINCghDTURfQ0ZHUxC5FxIQCgtDTURfQ0hBVE1TRxChHxIbChZD",
-            "TURfVFVOTkVMX0MyU19DT05ORUNUEIgnEhsKFkNNRF9UVU5ORUxfUzJDX0NP",
-            "Tk5FQ1QQiScSHgoZQ01EX1RVTk5FTF9DMlNfRElTQ09OTkVDVBCKJxIeChlD",
-            "TURfVFVOTkVMX1MyQ19ESVNDT05ORUNUEIsnEhgKE0NNRF9UVU5ORUxfQzJT",
-            "X0RBVEEQjCcSGAoTQ01EX1RVTk5FTF9TMkNfREFUQRCNJyorCglFcnJvckNv",
-            "ZGUSEAoMRVJST1JfREVGQVVMEAASDAoIRVJST1JfT0sQASo+CglMb2dpblR5",
-            "cGUSDwoLQmFzZURlZmF1bHQQABIOCgpIYW9ZdWVBdXRoEAESBwoDQkYzEAMS",
-            "BwoDQkY0EAQqSwoKRGV2aWNlVHlwZRIWChJEZXZpY2VUeXBlX0RlZmF1bHQQ",
-            "ABIGCgJQQxABEgsKB0FuZHJvaWQQAhIHCgNJT1MQAxIHCgNQU1YQBCpOChFM",
-            "b2dpblJlc3VsdFN0YXR1cxIhCh1Mb2dpblJlc3VsdFN0YXR1c19CYXNlRGVm",
-            "YXVsdBAAEgYKAk9LEAESDgoKQWNjb3VudEVychACQgJIAWIGcHJvdG8z"));
+            "dG9idWYuUHJvdG9idWZfQ2Znc19TaW5nbGUiNgoUUHJvdG9idWZfQ2Znc19T",
+            "aW5nbGUSEAoIVHVubmVsSUQYASABKA0SDAoEUG9ydBgCIAEoBSIjChBQcm90",
+            "b2J1Zl9DaGF0TXNnEg8KB0NoYXRNc2cYASABKAkiSAoVUHJvdG9idWZfQ2hh",
+            "dE1zZ19SRVNQEhAKCE5pY2tOYW1lGAEgASgJEg8KB0NoYXRNc2cYAiABKAkS",
+            "DAoERGF0ZRgDIAEoAyI1ChRQcm90b2J1Zl9DMlNfQ29ubmVjdBIQCghUdW5u",
+            "ZWxJRBgBIAEoDRILCgNJZHgYAiABKA0iSAoUUHJvdG9idWZfUzJDX0Nvbm5l",
+            "Y3QSEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgNEhEKCUNvbm5lY3Rl",
+            "ZBgDIAEoDSI4ChdQcm90b2J1Zl9DMlNfRGlzY29ubmVjdBIQCghUdW5uZWxJ",
+            "RBgBIAEoDRILCgNJZHgYAiABKA0iOAoXUHJvdG9idWZfUzJDX0Rpc2Nvbm5l",
+            "Y3QSEAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgNIk4KEVByb3RvYnVm",
+            "X0MyU19EQVRBEhAKCFR1bm5lbElEGAEgASgNEgsKA0lkeBgCIAEoDRIaChJI",
+            "dW50ZXJOZXRDb3JlX0RhdGEYAyABKAwiTgoRUHJvdG9idWZfUzJDX0RBVEES",
+            "EAoIVHVubmVsSUQYASABKA0SCwoDSWR4GAIgASgNEhoKEkh1bnRlck5ldENv",
+            "cmVfRGF0YRgDIAEoDCr6AQoJQ29tbWFuZElEEg4KCkNNRF9ERUZBVUwQABIO",
+            "CglDTURfTE9HSU4Q0Q8SDQoIQ01EX0NGR1MQuRcSEAoLQ01EX0NIQVRNU0cQ",
+            "oR8SGwoWQ01EX1RVTk5FTF9DMlNfQ09OTkVDVBCIJxIbChZDTURfVFVOTkVM",
+            "X1MyQ19DT05ORUNUEIknEh4KGUNNRF9UVU5ORUxfQzJTX0RJU0NPTk5FQ1QQ",
+            "iicSHgoZQ01EX1RVTk5FTF9TMkNfRElTQ09OTkVDVBCLJxIYChNDTURfVFVO",
+            "TkVMX0MyU19EQVRBEIwnEhgKE0NNRF9UVU5ORUxfUzJDX0RBVEEQjScqKwoJ",
+            "RXJyb3JDb2RlEhAKDEVSUk9SX0RFRkFVTBAAEgwKCEVSUk9SX09LEAEqPgoJ",
+            "TG9naW5UeXBlEg8KC0Jhc2VEZWZhdWx0EAASDgoKSGFvWXVlQXV0aBABEgcK",
+            "A0JGMxADEgcKA0JGNBAEKksKCkRldmljZVR5cGUSFgoSRGV2aWNlVHlwZV9E",
+            "ZWZhdWx0EAASBgoCUEMQARILCgdBbmRyb2lkEAISBwoDSU9TEAMSBwoDUFNW",
+            "EAQqTgoRTG9naW5SZXN1bHRTdGF0dXMSIQodTG9naW5SZXN1bHRTdGF0dXNf",
+            "QmFzZURlZmF1bHQQABIGCgJPSxABEg4KCkFjY291bnRFcnIQAkICSAFiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::AxibugProtobuf.CommandID), typeof(global::AxibugProtobuf.ErrorCode), typeof(global::AxibugProtobuf.LoginType), typeof(global::AxibugProtobuf.DeviceType), typeof(global::AxibugProtobuf.LoginResultStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Login), global::AxibugProtobuf.Protobuf_Login.Parser, new[]{ "LoginType", "DeviceType", "Account", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Login_RESP), global::AxibugProtobuf.Protobuf_Login_RESP.Parser, new[]{ "Token", "LastLoginDate", "RegDate", "Status" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Cfgs), global::AxibugProtobuf.Protobuf_Cfgs.Parser, new[]{ "Cfgs" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Cfgs_Single), global::AxibugProtobuf.Protobuf_Cfgs_Single.Parser, new[]{ "TunnelID", "IP", "Port" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_Cfgs_Single), global::AxibugProtobuf.Protobuf_Cfgs_Single.Parser, new[]{ "TunnelID", "Port" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_ChatMsg), global::AxibugProtobuf.Protobuf_ChatMsg.Parser, new[]{ "ChatMsg" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_ChatMsg_RESP), global::AxibugProtobuf.Protobuf_ChatMsg_RESP.Parser, new[]{ "NickName", "ChatMsg", "Date" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Connect), global::AxibugProtobuf.Protobuf_C2S_Connect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Connect), global::AxibugProtobuf.Protobuf_S2C_Connect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Connect), global::AxibugProtobuf.Protobuf_S2C_Connect.Parser, new[]{ "TunnelID", "Idx", "Connected" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_Disconnect), global::AxibugProtobuf.Protobuf_C2S_Disconnect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_S2C_Disconnect), global::AxibugProtobuf.Protobuf_S2C_Disconnect.Parser, new[]{ "TunnelID", "Idx" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AxibugProtobuf.Protobuf_C2S_DATA), global::AxibugProtobuf.Protobuf_C2S_DATA.Parser, new[]{ "TunnelID", "Idx", "HunterNetCoreData" }, null, null, null, null),
@@ -952,7 +953,6 @@ namespace AxibugProtobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Protobuf_Cfgs_Single(Protobuf_Cfgs_Single other) : this() {
       tunnelID_ = other.tunnelID_;
-      iP_ = other.iP_;
       port_ = other.port_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -976,22 +976,8 @@ namespace AxibugProtobuf {
       }
     }
 
-    /// <summary>Field number for the "IP" field.</summary>
-    public const int IPFieldNumber = 2;
-    private string iP_ = "";
-    /// <summary>
-    ///IP
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string IP {
-      get { return iP_; }
-      set {
-        iP_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "Port" field.</summary>
-    public const int PortFieldNumber = 3;
+    public const int PortFieldNumber = 2;
     private int port_;
     /// <summary>
     ///端口
@@ -1018,7 +1004,6 @@ namespace AxibugProtobuf {
         return true;
       }
       if (TunnelID != other.TunnelID) return false;
-      if (IP != other.IP) return false;
       if (Port != other.Port) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1027,7 +1012,6 @@ namespace AxibugProtobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
-      if (IP.Length != 0) hash ^= IP.GetHashCode();
       if (Port != 0) hash ^= Port.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1049,12 +1033,8 @@ namespace AxibugProtobuf {
         output.WriteRawTag(8);
         output.WriteUInt32(TunnelID);
       }
-      if (IP.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(IP);
-      }
       if (Port != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(Port);
       }
       if (_unknownFields != null) {
@@ -1070,12 +1050,8 @@ namespace AxibugProtobuf {
         output.WriteRawTag(8);
         output.WriteUInt32(TunnelID);
       }
-      if (IP.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(IP);
-      }
       if (Port != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteInt32(Port);
       }
       if (_unknownFields != null) {
@@ -1089,9 +1065,6 @@ namespace AxibugProtobuf {
       int size = 0;
       if (TunnelID != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TunnelID);
-      }
-      if (IP.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(IP);
       }
       if (Port != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Port);
@@ -1109,9 +1082,6 @@ namespace AxibugProtobuf {
       }
       if (other.TunnelID != 0) {
         TunnelID = other.TunnelID;
-      }
-      if (other.IP.Length != 0) {
-        IP = other.IP;
       }
       if (other.Port != 0) {
         Port = other.Port;
@@ -1134,11 +1104,7 @@ namespace AxibugProtobuf {
             TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
-            IP = input.ReadString();
-            break;
-          }
-          case 24: {
+          case 16: {
             Port = input.ReadInt32();
             break;
           }
@@ -1160,11 +1126,7 @@ namespace AxibugProtobuf {
             TunnelID = input.ReadUInt32();
             break;
           }
-          case 18: {
-            IP = input.ReadString();
-            break;
-          }
-          case 24: {
+          case 16: {
             Port = input.ReadInt32();
             break;
           }
@@ -1854,6 +1816,7 @@ namespace AxibugProtobuf {
     public Protobuf_S2C_Connect(Protobuf_S2C_Connect other) : this() {
       tunnelID_ = other.tunnelID_;
       idx_ = other.idx_;
+      connected_ = other.connected_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1890,6 +1853,20 @@ namespace AxibugProtobuf {
       }
     }
 
+    /// <summary>Field number for the "Connected" field.</summary>
+    public const int ConnectedFieldNumber = 3;
+    private uint connected_;
+    /// <summary>
+    ///[0]连接失败 [1]连接成功
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint Connected {
+      get { return connected_; }
+      set {
+        connected_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Protobuf_S2C_Connect);
@@ -1905,6 +1882,7 @@ namespace AxibugProtobuf {
       }
       if (TunnelID != other.TunnelID) return false;
       if (Idx != other.Idx) return false;
+      if (Connected != other.Connected) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1913,6 +1891,7 @@ namespace AxibugProtobuf {
       int hash = 1;
       if (TunnelID != 0) hash ^= TunnelID.GetHashCode();
       if (Idx != 0) hash ^= Idx.GetHashCode();
+      if (Connected != 0) hash ^= Connected.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1937,6 +1916,10 @@ namespace AxibugProtobuf {
         output.WriteRawTag(16);
         output.WriteUInt32(Idx);
       }
+      if (Connected != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(Connected);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1954,6 +1937,10 @@ namespace AxibugProtobuf {
         output.WriteRawTag(16);
         output.WriteUInt32(Idx);
       }
+      if (Connected != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(Connected);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1968,6 +1955,9 @@ namespace AxibugProtobuf {
       }
       if (Idx != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Idx);
+      }
+      if (Connected != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Connected);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1985,6 +1975,9 @@ namespace AxibugProtobuf {
       }
       if (other.Idx != 0) {
         Idx = other.Idx;
+      }
+      if (other.Connected != 0) {
+        Connected = other.Connected;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2008,6 +2001,10 @@ namespace AxibugProtobuf {
             Idx = input.ReadUInt32();
             break;
           }
+          case 24: {
+            Connected = input.ReadUInt32();
+            break;
+          }
         }
       }
     #endif
@@ -2028,6 +2025,10 @@ namespace AxibugProtobuf {
           }
           case 16: {
             Idx = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            Connected = input.ReadUInt32();
             break;
           }
         }

@@ -1,7 +1,5 @@
 ﻿using HaoYueNet.ServerNetwork;
-using NoSugarNet.ClientCore.Network;
 using System.Net.Sockets;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NoSugarNet.ClientCore
 {
@@ -89,7 +87,7 @@ namespace NoSugarNet.ClientCore
         /// <param name="sk"></param>
         public void OnDisconnect(AsyncUserToken token)
         {
-            Console.WriteLine("断开连接");
+            AppNoSugarNet.log.Debug("断开连接");
 
             if (!GetSocketIdxBySocket(token.Socket, out int Idx))
                 return;
@@ -251,7 +249,6 @@ namespace NoSugarNet.ClientCore
                 {
                     IdxWithMsg msg = _localClientInfo.msgQueue.Dequeue();
                     MsgList.Add(msg);
-                    AppNoSugarNet.local._localMsgPool.Enqueue(msg);
                 }
                 return true;
             }

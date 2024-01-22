@@ -1,4 +1,6 @@
-﻿using ServerCore.NetWork;
+﻿using NoSugarNet.ServerCore.Common;
+using ServerCore.NetWork;
+using ServerCore.Common;
 using System.Net;
 
 namespace ServerCore.Manager
@@ -12,8 +14,9 @@ namespace ServerCore.Manager
         public static LocalClientManager g_Local;
         public static IOCPNetWork g_SocketMgr;
 
-        public static void InitServer(int port)
+        public static void InitServer(int port, Dictionary<byte, TunnelClientData> cfgs)
         {
+            Config.Cfgs = cfgs;
             g_ClientMgr = new ClientManager();
             g_ClientMgr.Init(45000, 120);
             g_Log = new LogManager();

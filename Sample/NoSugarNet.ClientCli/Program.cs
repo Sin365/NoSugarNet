@@ -7,6 +7,10 @@ namespace NoSugarNet.ClientCli
         static void Main(string[] args)
         {
             AppNoSugarNet.Init("127.0.0.1", 1000);
+            while (true)
+            {
+                Console.ReadLine();
+            }
         }
     }
 }

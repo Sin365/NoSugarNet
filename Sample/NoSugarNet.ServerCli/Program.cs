@@ -6,7 +6,14 @@ namespace NoSugarNet.ServerCli
     {
         static void Main(string[] args)
         {
-            ServerManager.InitServer(1000);
+            if (!Config.LoadConfig())
+            {
+                Console.WriteLine("配置文件错误");
+                Console.ReadLine();
+                return;
+            }
+
+            ServerManager.InitServer(1000,Config.Cfgs);
             while (true) 
             {
                 Console.ReadLine();

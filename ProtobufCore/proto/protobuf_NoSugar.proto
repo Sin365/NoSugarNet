@@ -78,8 +78,7 @@ message Protobuf_Cfgs
 message Protobuf_Cfgs_Single
 {
 	uint32 TunnelID = 1;//TunnelID
-	string IP = 2;//IP
-	int32 Port = 3;//端口
+	int32 Port = 2;//端口
 }
 
 //聊天 上行
@@ -107,6 +106,7 @@ message Protobuf_S2C_Connect
 {
 	uint32 TunnelID = 1;//TunnelID
 	uint32 Idx = 2;//单个隧道连接下标
+	uint32 Connected = 3;//[0]连接失败 [1]连接成功
 }
 
 message Protobuf_C2S_Disconnect

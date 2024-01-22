@@ -133,7 +133,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message);
+                        AppNoSugarNet.log.Error(e.Message);
                     }
                 }
             }
@@ -152,7 +152,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message);
+                        AppNoSugarNet.log.Error(e.Message);
                     }
                 }
             }
@@ -171,7 +171,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message);
+                        AppNoSugarNet.log.Error(e.Message);
                     }
                 }
             }
@@ -190,7 +190,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message + ", method name : " + callback.Method);
+                        AppNoSugarNet.log.Error(e.Message + ", method name : " + callback.Method);
                     }
                 }
             }
@@ -210,7 +210,7 @@
                     }
                     catch (Exception e)
                     {
-                        App.log.Error(e.Message);
+                        AppNoSugarNet.log.Error(e.Message);
                     }
                 }
             }

@@ -34,6 +34,7 @@ namespace ServerCore.Manager
             foreach (var cfg in mDictTunnelID2Cfg)
             {
                 LocalListener listener = new LocalListener(1024, 1024, cfg.Key);
+                AppNoSugarNet.log.Debug($"开始监听配置 Tunnel:{cfg.Key},Port:{cfg.Value.Port}");
                 listener.Init();
                 listener.Start(new IPEndPoint(IPAddress.Any.Address, (int)cfg.Value.Port));
                 AddLocalListener(listener);
@@ -99,7 +100,7 @@ namespace ServerCore.Manager
             AppNoSugarNet.log.Debug("Recive_CmdCfgs");
             Protobuf_Cfgs msg = ProtoBufHelper.DeSerizlize<Protobuf_Cfgs>(reqData);
 
-            for (int i = 0;msg.Cfgs.Count > 0;i++) 
+            for (int i = 0;i < msg.Cfgs.Count;i++) 
             {
                 Protobuf_Cfgs_Single cfg = msg.Cfgs[i];
                 mDictTunnelID2Cfg[(byte)cfg.TunnelID] = cfg;
@@ -110,7 +111,10 @@ namespace ServerCore.Manager
         {
             AppNoSugarNet.log.Debug("Recive_TunnelS2CConnect");
             Protobuf_S2C_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_S2C_Connect>(reqData);
-            OnServerLocalConnect((byte)msg.TunnelID,(byte)msg.Idx);
+            if(msg.Connected == 1)
+                OnServerLocalConnect((byte)msg.TunnelID,(byte)msg.Idx);
+            else
+                OnServerLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
         }
         public void Recive_TunnelS2CDisconnect(byte[] reqData)
         {
@@ -134,6 +138,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnClientLocalConnect(byte tunnelId,byte _Idx)
         {
+            AppNoSugarNet.log.Debug($"OnClientLocalConnect {tunnelId},{_Idx}");
             if (!mDictTunnelID2Cfg.ContainsKey(tunnelId))
                 return;
 
@@ -153,6 +158,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnClientLocalDisconnect(byte tunnelId, byte _Idx)
         {
+            AppNoSugarNet.log.Debug($"OnClientLocalDisconnect {tunnelId},{_Idx}");
             //隧道ID定位投递服务端本地连接
             if (!mDictTunnelID2Cfg.ContainsKey(tunnelId))
                 return;
@@ -162,6 +168,7 @@ namespace ServerCore.Manager
                 TunnelID = tunnelId,
                 Idx= _Idx,
             });
+
             //告知给服务端，来自客户端本地的连接断开
             AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SDisconnect, respData);
         }
@@ -171,6 +178,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalConnect(byte tunnelId,byte Idx)
         {
+            AppNoSugarNet.log.Debug($"OnServerLocalConnect {tunnelId},{Idx}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
             //维护状态
@@ -179,8 +187,11 @@ namespace ServerCore.Manager
             {
                 for(int i = 0; i < msglist.Count; i++) 
                 {
+                    IdxWithMsg msg = msglist[i];
                     //投递给服务端，来自客户端本地的连接数据
-                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SData, msglist[i].data);
+                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SData, msg.data);
+                    //发送后回收
+                    AppNoSugarNet.local._localMsgPool.Enqueue(msg);
                 }
             }
         }
@@ -191,6 +202,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalDisconnect(byte tunnelId, byte Idx)
         {
+            AppNoSugarNet.log.Debug($"OnServerLocalDisconnect {tunnelId},{Idx}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
 
@@ -208,6 +220,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnServerLocalDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
+            AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
             //解压
@@ -222,6 +235,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientTunnelDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
+            AppNoSugarNet.log.Debug($"OnClientTunnelDataCallBack {tunnelId},{Idx}");
             //压缩
             data = mCompressAdapter.Compress(data);
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_DATA()
