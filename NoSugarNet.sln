@@ -5,10 +5,20 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{EDA9D3FD-1A72-434D-81F6-B1B420406D20}"
 	ProjectSection(SolutionItems) = preProject
+		Lib\Google.Protobuf.dll = Lib\Google.Protobuf.dll
+		Lib\HaoYueNet.ClientNetwork.dll = Lib\HaoYueNet.ClientNetwork.dll
 		Lib\HaoYueNet.ServerNetwork.dll = Lib\HaoYueNet.ServerNetwork.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.ServerCore", "NoSugarNet.ServerCore\NoSugarNet.ServerCore.csproj", "{25FB6F12-4619-4D2C-8FC1-70AAAA8AD100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.ClientCore", "NoSugarNet.ClientCore\NoSugarNet.ClientCore.csproj", "{80AF9D64-681C-4B6F-B2FF-5DD847186749}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{5E65F25A-8B59-4FC7-8582-C6887C3CD0A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.ClientCli", "Sample\NoSugarNet.ClientCli\NoSugarNet.ClientCli.csproj", "{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.ServerCli", "Sample\NoSugarNet.ServerCli\NoSugarNet.ServerCli.csproj", "{65220036-9A81-49FA-A5BC-DA06783D2E52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +30,25 @@ Global
 		{25FB6F12-4619-4D2C-8FC1-70AAAA8AD100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25FB6F12-4619-4D2C-8FC1-70AAAA8AD100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25FB6F12-4619-4D2C-8FC1-70AAAA8AD100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80AF9D64-681C-4B6F-B2FF-5DD847186749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AF9D64-681C-4B6F-B2FF-5DD847186749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AF9D64-681C-4B6F-B2FF-5DD847186749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AF9D64-681C-4B6F-B2FF-5DD847186749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{29D76CF3-BF7E-45A5-9957-2CBC0A41B6FB} = {5E65F25A-8B59-4FC7-8582-C6887C3CD0A1}
+		{65220036-9A81-49FA-A5BC-DA06783D2E52} = {5E65F25A-8B59-4FC7-8582-C6887C3CD0A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {637DC2BB-F9BB-41A2-ADC0-B41B871F66DE}

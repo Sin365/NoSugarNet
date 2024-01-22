@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -9,6 +9,9 @@
   <ItemGroup>
     <Reference Include="Google.Protobuf">
       <HintPath>..\Lib\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="HaoYueNet.ClientNetwork">
+      <HintPath>..\Lib\HaoYueNet.ClientNetwork.dll</HintPath>
     </Reference>
     <Reference Include="HaoYueNet.ServerNetwork">
       <HintPath>..\Lib\HaoYueNet.ServerNetwork.dll</HintPath>
