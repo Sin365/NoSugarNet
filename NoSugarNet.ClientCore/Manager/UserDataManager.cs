@@ -18,7 +18,7 @@ namespace NoSugarNet.ClientCore.Manager
         public UserDataManager()
         {
             //注册重连成功事件，以便后续自动登录
-            App.networkHelper.OnReConnected += OnReConnected;
+            AppNoSugarNet.networkHelper.OnReConnected += OnReConnected;
         }
         public MainUserDataBase userdata { get;private set; } = new MainUserDataBase();
         public bool IsLoggedIn => userdata.IsLoggedIn;
@@ -49,7 +49,7 @@ namespace NoSugarNet.ClientCore.Manager
             //如果之前已登录，则重新登录
             if (userdata.IsLoggedIn)
             {
-                App.login.Login(userdata.Account);
+                AppNoSugarNet.login.Login(userdata.Account);
             }
         }
     }

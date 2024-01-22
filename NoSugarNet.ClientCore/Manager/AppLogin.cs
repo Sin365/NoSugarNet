@@ -17,7 +17,7 @@ namespace NoSugarNet.ClientCore.Manager
                 LoginType = 0,
                 Account = Account,
             };
-            App.networkHelper.SendToServer((int)CommandID.CmdLogin, ProtoBufHelper.Serizlize(msg));
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdLogin, ProtoBufHelper.Serizlize(msg));
         }
 
         public void RecvLoginMsg(byte[] reqData)
@@ -25,12 +25,12 @@ namespace NoSugarNet.ClientCore.Manager
             Protobuf_Login_RESP msg = ProtoBufHelper.DeSerizlize<Protobuf_Login_RESP>(reqData);
             if (msg.Status == LoginResultStatus.Ok)
             {
-                App.log.Debug("登录成功");
-                App.user.InitMainUserData(App.user.userdata.Account);
+                AppNoSugarNet.log.Debug("登录成功");
+                AppNoSugarNet.user.InitMainUserData(AppNoSugarNet.user.userdata.Account);
             }
             else
             {
-                App.log.Debug("登录失败");
+                AppNoSugarNet.log.Debug("登录失败");
             }
         }
 

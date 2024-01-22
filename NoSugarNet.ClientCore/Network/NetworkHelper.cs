@@ -44,7 +44,7 @@ namespace NoSugarNet.ClientCore.Network
             NetworkDeBugLog($"NetworkConnected:{IsConnect}");
             if (IsConnect)
             {
-
+                AppNoSugarNet.login.Login(Guid.NewGuid().ToString());
             }
             else
             {
@@ -81,7 +81,6 @@ namespace NoSugarNet.ClientCore.Network
             {
                 NetworkDeBugLog("逻辑处理错误：" + ex.ToString());
             }
-
         }
 
         /// <summary>
@@ -90,6 +89,9 @@ namespace NoSugarNet.ClientCore.Network
         public void OnConnectClose()
         {
             NetworkDeBugLog("OnConnectClose");
+
+            //停止所有
+            AppNoSugarNet.local.StopAll();
 
             //自动重连开关
             if (bAutoReConnect)
@@ -112,13 +114,13 @@ namespace NoSugarNet.ClientCore.Network
             {
                 //等待时间
                 Thread.Sleep(ReConnectTryTime);
-                App.log.Debug($"尝试自动重连{LastConnectIP}:{LastConnectPort}……");
+                AppNoSugarNet.log.Debug($"尝试自动重连{LastConnectIP}:{LastConnectPort}……");
                 //第一步
                 if (Init(LastConnectIP, LastConnectPort))
                 {
-                    App.log.Debug($"自动重连成功!");
+                    AppNoSugarNet.log.Debug($"自动重连成功!");
                     bflagDone = true;
-                    App.log.Debug($"触发重连后的自动逻辑!");
+                    AppNoSugarNet.log.Debug($"触发重连后的自动逻辑!");
                     OnReConnected?.Invoke();
                 }
             } while (!bflagDone);
