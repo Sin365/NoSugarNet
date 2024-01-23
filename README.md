@@ -2,7 +2,9 @@
 
 NoSugarNet（无糖网络），一个有效降低任意C/S程序（软件，程序）网络流量传输的网络中间工具。
 
-
+本项目使用，我自构建的HaoYueNet高性能网络库作为基础而开发
+`->[HaoYueNet-Github](https://github.com/Sin365/HaoYueNet)`
+`->[HaoYueNet-自建Git站点](http://git.axibug.com/sin365/HaoYueNet)`
 
 ## 流程诠释：
 
