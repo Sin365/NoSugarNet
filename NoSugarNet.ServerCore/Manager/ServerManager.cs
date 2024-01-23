@@ -23,7 +23,8 @@ namespace ServerCore.Manager
             g_Login = new LoginManager();
             g_Chat = new ChatManager();
             g_Local = new LocalClientManager();
-            g_SocketMgr = new IOCPNetWork(1024, 1024);
+            //g_SocketMgr = new IOCPNetWork(1024, 1024);
+            g_SocketMgr = new IOCPNetWork(1024, 4096);
             g_SocketMgr.Init();
             g_SocketMgr.Start(new IPEndPoint(IPAddress.Any.Address, port));
             Console.WriteLine("Succeed!");

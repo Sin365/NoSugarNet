@@ -6,7 +6,13 @@ namespace NoSugarNet.ClientCli
     {
         static void Main(string[] args)
         {
-            AppNoSugarNet.Init("127.0.0.1", 1000);
+            if (!Config.LoadConfig())
+            {
+                Console.WriteLine("配置文件错误");
+                Console.ReadLine();
+                return;
+            }
+            AppNoSugarNet.Init(Config.ServerIP, Config.ServerPort);
             while (true)
             {
                 Console.ReadLine();

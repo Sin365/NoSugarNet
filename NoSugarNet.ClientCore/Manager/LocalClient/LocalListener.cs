@@ -58,7 +58,7 @@ namespace NoSugarNet.ClientCore
 
         public void DataCallBack(Socket sk, byte[] data)
         {
-            AppNoSugarNet.log.Debug("收到消息 数据长度=>" + data.Length);
+            //AppNoSugarNet.log.Debug("收到消息 数据长度=>" + data.Length);
 
             if (!GetSocketIdxBySocket(sk, out int Idx))
                 return;
@@ -201,9 +201,9 @@ namespace NoSugarNet.ClientCore
             if (!GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
                 return;
             if (bConnected)
-                AppNoSugarNet.log.Debug("远端本地连接已连接");
+                AppNoSugarNet.log.Debug("远端本地连接已连接！！！！");
             else
-                AppNoSugarNet.log.Debug("远端本地连接已断开连接");
+                AppNoSugarNet.log.Debug("远端本地连接已断开连接！！！！");
             _localClientInfo.bRemoteConnect = bConnected;
         }
 

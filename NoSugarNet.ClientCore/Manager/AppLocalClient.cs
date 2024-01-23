@@ -220,7 +220,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnServerLocalDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
-            AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx},Data长度：{data.Length}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
             //解压

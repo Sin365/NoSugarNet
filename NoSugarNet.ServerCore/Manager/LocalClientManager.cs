@@ -108,7 +108,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         void OnClientLocalConnect(long uid, byte tunnelId,int Idx)
         {
-            ServerManager.g_Log.Debug($"OnClientLocalConnect {uid},{tunnelId},{Idx}");
+            ServerManager.g_Log.Debug($"OnClientLocalConnect!!!!!! {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
@@ -145,7 +145,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         void OnClientLocalDisconnect(long uid, byte tunnelId,byte Idx)
         {
-            ServerManager.g_Log.Debug($"OnClientLocalDisconnect {uid},{tunnelId},{Idx}");
+            ServerManager.g_Log.Debug($"OnClientLocalDisconnect,收到客户端断开链接!!!!!! {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
@@ -153,7 +153,7 @@ namespace ServerCore.Manager
             if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;
 
-            //清楚服务器数据
+            //清除服务器数据
             RemoveServerLocalClient(uid, tunnelId, Idx);
             //断开服务端本地客户端连接
             serverLocalClient.CloseConntect();

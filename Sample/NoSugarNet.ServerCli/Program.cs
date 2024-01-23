@@ -6,6 +6,7 @@ namespace NoSugarNet.ServerCli
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             if (!Config.LoadConfig())
             {
                 Console.WriteLine("配置文件错误");
