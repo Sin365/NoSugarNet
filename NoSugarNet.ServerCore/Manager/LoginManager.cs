@@ -30,12 +30,13 @@ namespace ServerCore.Manager
             ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdLogin, (int)ErrorCode.ErrorOk, respData);
 
             Protobuf_Cfgs cfgsSP = new Protobuf_Cfgs();
-            byte[] keys = Config.Cfgs.Keys.ToArray();
-            for (int i = 0; i < Config.Cfgs.Count; i++) 
+            byte[] keys = Config.cfgs.Keys.ToArray();
+            for (int i = 0; i < Config.cfgs.Count; i++) 
             {
-                TunnelClientData cfg = Config.Cfgs[keys[i]];
+                TunnelClientData cfg = Config.cfgs[keys[i]];
                 cfgsSP.Cfgs.Add(new Protobuf_Cfgs_Single() { TunnelID = cfg.TunnelId, Port = cfg.ClientLocalPort });
             }
+            cfgsSP.CompressAdapterType = (int)Config.compressAdapterType;
 
             byte[] respDataCfg = ProtoBufHelper.Serizlize(cfgsSP);
             ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdCfgs, (int)ErrorCode.ErrorOk, respDataCfg);

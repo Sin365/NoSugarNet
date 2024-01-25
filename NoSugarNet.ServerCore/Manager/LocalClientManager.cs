@@ -1,11 +1,11 @@
 ﻿using AxibugProtobuf;
-using NoSugarNet.ClientCore.Network;
 using Google.Protobuf;
+using NoSugarNet.ClientCore.Network;
+using NoSugarNet.DataHelper;
 using NoSugarNet.ServerCore.Common;
 using ServerCore.Common;
 using ServerCore.NetWork;
 using System.Net.Sockets;
-using System.Collections.Generic;
 
 namespace ServerCore.Manager
 {
@@ -13,6 +13,9 @@ namespace ServerCore.Manager
     {
         Dictionary<long, ServerLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, ServerLocalClient>();
         CompressAdapter mCompressAdapter;
+
+        public long tReciveAllLenght { get; private set; }
+        public long tSendAllLenght { get;private set; }
 
         static long GetCommKey(long Uid, int Tunnel, int Idx)
         {
@@ -24,10 +27,11 @@ namespace ServerCore.Manager
             return CommKey / 10000000;
         }
 
-        public LocalClientManager() 
+        public LocalClientManager(E_CompressAdapter compressAdapterType)
         {
+            ServerManager.g_Log.Debug("初始化压缩适配器" + compressAdapterType);
             //初始化压缩适配器，暂时使用0，代表压缩类型
-            mCompressAdapter = new CompressAdapter(0);
+            mCompressAdapter = new CompressAdapter(compressAdapterType);
             //注册网络消息
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SConnect, Recive_TunnelC2SConnect);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SDisconnect, Recive_TunnelC2SDisconnect);
@@ -176,14 +180,14 @@ namespace ServerCore.Manager
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
-            if (!Config.Cfgs.ContainsKey(tunnelId))
+            if (!Config.cfgs.ContainsKey(tunnelId))
                 return;
 
             //开一个线程去建立连接
             Thread thread = new Thread(() =>
             {
                 //服务器本地局域网连接指定端口
-                TunnelClientData tunnelDataCfg = Config.Cfgs[tunnelId];
+                TunnelClientData tunnelDataCfg = Config.cfgs[tunnelId];
                 ServerLocalClient serverLocalClient = new ServerLocalClient(uid, tunnelId, (byte)Idx);
                 //连接成功
                 if (!serverLocalClient.Init(tunnelDataCfg.ServerLocalTargetIP, tunnelDataCfg.ServerLocalTargetPort))
@@ -279,7 +283,8 @@ namespace ServerCore.Manager
             //隧道ID定位投递服务端本地连接
             if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;
-
+            //记录数据长度
+            tSendAllLenght += data.Length;
             //解压
             data = mCompressAdapter.Decompress(data);
             //记录数据长度
@@ -331,8 +336,12 @@ namespace ServerCore.Manager
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
+
             //压缩
             data = mCompressAdapter.Compress(data);
+            //记录压缩后数据长度
+            tReciveAllLenght += data.Length;
+
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_DATA()
             {
                 TunnelID = tunnelId,

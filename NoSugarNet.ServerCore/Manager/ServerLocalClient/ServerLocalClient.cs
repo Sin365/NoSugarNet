@@ -1,6 +1,7 @@
 ﻿using HaoYueNet.ClientNetwork.OtherMode;
 using ServerCore.Manager;
 using System;
+using System.Security.Cryptography;
 
 namespace NoSugarNet.ClientCore.Network
 {

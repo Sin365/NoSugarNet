@@ -30,7 +30,7 @@ namespace NoSugarNet.ServerCli
             }
 
             ServerManager.OnUpdateStatus += OnUpdateStatus;
-            ServerManager.InitServer(Config.cfg.ServerPort, dictTunnel);
+            ServerManager.InitServer(Config.cfg.ServerPort, dictTunnel,Config.cfg.CompressAdapterType);
 
             while (true) 
             {
@@ -40,8 +40,8 @@ namespace NoSugarNet.ServerCli
 
         static void OnUpdateStatus(NetStatus netState)
         {
-            string info = $"{Title} RecLen:{netState.ReciveAllLenght} SendLen:{netState.SendAllLenght} tUserNum:{netState.ClientUserCount} tTunnelNum:{netState.TunnelCount} recSpeed:{ConvertBytesToKilobytes(netState.ReciveSecSpeed)}K/s sendSpeed:{ConvertBytesToKilobytes(netState.SendSecSpeed)}K/s";
-            Console.Title = info;
+            string info = $"User:{netState.ClientUserCount}   Tun:{netState.TunnelCount}    rec:{netState.srcReciveAllLenght}|{netState.tReciveAllLenght}   {ConvertBytesToKilobytes(netState.srcReciveSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tReciveSecSpeed)}K/s   send:{netState.srcSendAllLenght}|{netState.tSendAllLenght} {ConvertBytesToKilobytes(netState.srcSendSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tSendSecSpeed)}K/s";
+            Console.Title = Title + info;
             Console.WriteLine(info);
         }
 

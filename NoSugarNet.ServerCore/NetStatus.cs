@@ -4,9 +4,13 @@
     {
         public int ClientUserCount;
         public int TunnelCount;
-        public long ReciveAllLenght;
-        public long SendAllLenght;
-        public long ReciveSecSpeed;
-        public long SendSecSpeed;
+        public long srcReciveAllLenght;
+        public long srcSendAllLenght;
+        public long srcReciveSecSpeed;
+        public long srcSendSecSpeed;
+        public long tReciveAllLenght;
+        public long tSendAllLenght;
+        public long tReciveSecSpeed;
+        public long tSendSecSpeed;
     }
 }

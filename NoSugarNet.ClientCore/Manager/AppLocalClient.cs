@@ -4,9 +4,8 @@ using HaoYueNet.ServerNetwork;
 using NoSugarNet.ClientCore;
 using NoSugarNet.ClientCore.Common;
 using NoSugarNet.ClientCore.Network;
-using System.Data;
+using NoSugarNet.DataHelper;
 using System.Net;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServerCore.Manager
 {
@@ -15,12 +14,11 @@ namespace ServerCore.Manager
         Dictionary<byte, Protobuf_Cfgs_Single> mDictTunnelID2Cfg = new Dictionary<byte, Protobuf_Cfgs_Single>();
         Dictionary<byte, LocalListener> mDictTunnelID2Listeners = new Dictionary<byte, LocalListener>();
         CompressAdapter mCompressAdapter;
+        E_CompressAdapter compressAdapterType;
         public LocalMsgQueuePool _localMsgPool = new LocalMsgQueuePool(1000);
 
-        public AppLocalClient() 
+        public AppLocalClient()
         {
-            //初始化压缩适配器，暂时使用0，代表压缩类型
-            mCompressAdapter = new CompressAdapter(0);
             //注册网络消息
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdCfgs, Recive_CmdCfgs);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CConnect, Recive_TunnelS2CConnect);
@@ -45,6 +43,9 @@ namespace ServerCore.Manager
         /// </summary>
         void InitListenerMode()
         {
+            AppNoSugarNet.log.Debug("初始化压缩适配器" + compressAdapterType);
+            //初始化压缩适配器，代表压缩类型
+            mCompressAdapter = new CompressAdapter(compressAdapterType);
             foreach (var cfg in mDictTunnelID2Cfg)
             {
                 LocalListener listener = new LocalListener(256, 1024, cfg.Key);
@@ -120,6 +121,7 @@ namespace ServerCore.Manager
                 Protobuf_Cfgs_Single cfg = msg.Cfgs[i];
                 mDictTunnelID2Cfg[(byte)cfg.TunnelID] = cfg;
             }
+            compressAdapterType = (E_CompressAdapter)msg.CompressAdapterType;
             InitListenerMode();
         }
         public void Recive_TunnelS2CConnect(byte[] reqData)
@@ -278,7 +280,6 @@ namespace ServerCore.Manager
             }
             SendDataToRemote(tunnelId, Idx, data);
         }
-
 
         void SendDataToRemote(byte tunnelId, byte Idx, byte[] data)
         {

@@ -8,6 +8,7 @@ namespace NoSugarNet.ServerCli
     public class ConfigDataModel
     {
         public int ServerPort { get; set; }
+        public int CompressAdapterType { get; set; }
         public List<ConfigDataModel_Single> TunnelList { get; set; }
     }
 

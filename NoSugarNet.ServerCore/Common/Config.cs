@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using NoSugarNet.DataHelper;
+using System.Text;
 
 namespace NoSugarNet.ServerCore.Common
 {
@@ -12,6 +13,7 @@ namespace NoSugarNet.ServerCore.Common
 
     public static class Config
     {
-        public static Dictionary<byte, TunnelClientData> Cfgs = new Dictionary<byte, TunnelClientData>();
+        public static Dictionary<byte, TunnelClientData> cfgs = new Dictionary<byte, TunnelClientData>();
+        public static E_CompressAdapter compressAdapterType;
     }
 }

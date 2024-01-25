@@ -1,4 +1,5 @@
-﻿using NoSugarNet.ServerCore;
+﻿using NoSugarNet.DataHelper;
+using NoSugarNet.ServerCore;
 using NoSugarNet.ServerCore.Common;
 using ServerCore.NetWork;
 using System.Net;
@@ -24,15 +25,16 @@ namespace ServerCore.Manager
         public static event OnUpdateStatusHandler OnUpdateStatus;
         #endregion
 
-        public static void InitServer(int port, Dictionary<byte, TunnelClientData> cfgs)
+        public static void InitServer(int port, Dictionary<byte, TunnelClientData> cfgs,int compressAdapterType = 1)
         {
-            Config.Cfgs = cfgs;
+            Config.cfgs = cfgs;
+            Config.compressAdapterType = (E_CompressAdapter)compressAdapterType;
             g_ClientMgr = new ClientManager();
             g_ClientMgr.Init(45000, 120);
             g_Log = new LogManager();
             g_Login = new LoginManager();
             g_Chat = new ChatManager();
-            g_Local = new LocalClientManager();
+            g_Local = new LocalClientManager((E_CompressAdapter)compressAdapterType);
             //g_SocketMgr = new IOCPNetWork(1024, 1024);
             g_SocketMgr = new IOCPNetWork(1024, 4096);
 
@@ -57,10 +59,14 @@ namespace ServerCore.Manager
             {
                 TunnelCount = TunnelCount,
                 ClientUserCount = ClientUserCount,
-                SendAllLenght = resultSendAllLenght,
-                ReciveAllLenght = resultReciveAllLenght,
-                ReciveSecSpeed = (resultReciveAllLenght - netStatus.ReciveAllLenght) / (TimerInterval / 1000),
-                SendSecSpeed = (resultSendAllLenght - netStatus.SendAllLenght) / (TimerInterval / 1000),
+                srcSendAllLenght = resultSendAllLenght,
+                srcReciveAllLenght = resultReciveAllLenght,
+                srcReciveSecSpeed = (resultReciveAllLenght - netStatus.srcReciveAllLenght) / (TimerInterval / 1000),
+                srcSendSecSpeed = (resultSendAllLenght - netStatus.srcSendAllLenght) / (TimerInterval / 1000),
+                tSendAllLenght = g_Local.tSendAllLenght,
+                tReciveAllLenght = g_Local.tReciveAllLenght,
+                tSendSecSpeed = (g_Local.tSendAllLenght - netStatus.tSendAllLenght) / (TimerInterval / 1000),
+                tReciveSecSpeed = (g_Local.tReciveAllLenght - netStatus.tReciveAllLenght) / (TimerInterval / 1000),
             };
             netStatus = resutnetStatus;
             OnUpdateStatus?.Invoke(resutnetStatus);

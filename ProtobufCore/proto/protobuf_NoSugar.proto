@@ -72,7 +72,8 @@ message Protobuf_Login_RESP
 //配置下行
 message Protobuf_Cfgs
 {
-	repeated Protobuf_Cfgs_Single cfgs = 1;//配置
+	int32 CompressAdapterType = 1;//压缩类型
+	repeated Protobuf_Cfgs_Single cfgs = 2;//配置
 }
 
 message Protobuf_Cfgs_Single
