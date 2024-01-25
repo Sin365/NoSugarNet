@@ -169,9 +169,12 @@ namespace ServerCore.Manager
             if (!_DictSocketClient.ContainsKey(sk))
                 return;
 
-            Console.WriteLine("标记玩家UID" + _DictSocketClient[sk].UID + "为离线");
-            _DictSocketClient[sk].IsOffline = true;
-            _DictSocketClient[sk].LogOutDT = DateTime.Now;
+            ClientInfo cinfo = _DictSocketClient[sk];
+            Console.WriteLine("标记玩家UID" + cinfo.UID + "为离线");
+            cinfo.IsOffline = true;
+            cinfo.LogOutDT = DateTime.Now;
+            //断开所有连接
+            ServerManager.g_Local.StopAll(cinfo.UID);
         }
 
         public void RemoveClientForSocket(Socket sk)

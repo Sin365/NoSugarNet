@@ -71,7 +71,7 @@ namespace NoSugarNet.ClientCore.Network
         /// <param name="data">业务数据</param>
         public void GetDataCallBack(int CMDID, int ERRCODE, byte[] data)
         {
-            NetworkDeBugLog("收到消息 CMDID =>" + CMDID + " ERRCODE =>" + ERRCODE + " 数据长度=>" + data.Length);
+            //NetworkDeBugLog("收到消息 CMDID =>" + CMDID + " ERRCODE =>" + ERRCODE + " 数据长度=>" + data.Length);
             try
             {
                 //抛出网络数据

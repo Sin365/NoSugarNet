@@ -5,8 +5,8 @@ namespace NoSugarNet.ServerCore.Common
     public struct TunnelClientData
     {
         public byte TunnelId;
-        public string ServerLocalIP;
-        public ushort ServerLocalPort;
+        public string ServerLocalTargetIP;
+        public ushort ServerLocalTargetPort;
         public ushort ClientLocalPort;
     }
 

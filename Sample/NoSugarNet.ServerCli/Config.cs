@@ -1,39 +1,60 @@
-﻿using NoSugarNet.ServerCore.Common;
-using System.Text;
+﻿using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace NoSugarNet.ServerCli
 {
+    public class ConfigDataModel
+    {
+        public int ServerPort { get; set; }
+        public List<ConfigDataModel_Single> TunnelList { get; set; }
+    }
+
+    public class ConfigDataModel_Single
+    {
+        public string ServerLocalTargetIP { get; set; }
+        public int ServerLocalTargetPort { get; set; }
+        public int ClientLocalPort { get; set; }
+    }
+
     public static class Config
     {
-        public static Dictionary<byte, TunnelClientData> Cfgs = new Dictionary<byte, TunnelClientData>();
+        public static ConfigDataModel cfg;
         public static bool LoadConfig()
         {
             try
             {
-                StreamReader sr = new StreamReader(System.Environment.CurrentDirectory + "//config.cfg", Encoding.Default);
-                String line;
-                while (!string.IsNullOrEmpty((line = sr.ReadLine())))
+                string path = System.Environment.CurrentDirectory + "//config.cfg";
+                if (!File.Exists(path))
                 {
-                    if (!line.Contains(":"))
-                        continue;
-                    try
+                    ConfigDataModel sampleCfg =  new ConfigDataModel
                     {
-                        TunnelClientData cfg = new TunnelClientData()
+                        ServerPort = 1000,
+                        TunnelList = new List<ConfigDataModel_Single>()
                         {
-                            TunnelId = Convert.ToByte(line.Split(':')[0].Trim()),
-                            ServerLocalIP = line.Split(':')[1].Trim(),
-                            ServerLocalPort = Convert.ToUInt16(line.Split(':')[2].Trim()),
-                            ClientLocalPort = Convert.ToUInt16(line.Split(':')[3].Trim())
-                        };
-                        Cfgs[cfg.TunnelId] = cfg;
-                    }
-                    catch
+                            new ConfigDataModel_Single(){ ServerLocalTargetIP = "127.0.0.1",ServerLocalTargetPort=3389,ClientLocalPort = 10001},
+                            new ConfigDataModel_Single(){ ServerLocalTargetIP = "127.0.0.1",ServerLocalTargetPort=3389,ClientLocalPort = 10002}
+                        }
+                    };
+
+                    string jsonString = JsonSerializer.Serialize(sampleCfg, new JsonSerializerOptions()
                     {
-                        continue;
-                    }
+                        // 整齐打印
+                        WriteIndented = true,
+                        //重新编码，解决中文乱码问题
+                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+                    });
+                    System.IO.File.WriteAllText(path, jsonString, Encoding.UTF8);
+
+                    Console.WriteLine("未找到配置，已生成模板，请浏览" + path);
+                    return false;
                 }
+                StreamReader sr = new StreamReader(path, Encoding.Default);
+                String jsonstr = sr.ReadToEnd();
+                cfg = JsonSerializer.Deserialize<ConfigDataModel>(jsonstr);
                 sr.Close();
-                if (Cfgs.Count > 0)
+                if (cfg?.TunnelList.Count > 0)
                     return true;
                 else
                     return false;

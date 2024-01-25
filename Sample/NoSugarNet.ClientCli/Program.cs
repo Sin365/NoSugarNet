@@ -4,6 +4,7 @@ namespace NoSugarNet.ClientCli
 {
     internal class Program
     {
+        static string Title = "NoSugarNetClient";
         static void Main(string[] args)
         {
             if (!Config.LoadConfig())
@@ -12,11 +13,18 @@ namespace NoSugarNet.ClientCli
                 Console.ReadLine();
                 return;
             }
+            AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
             AppNoSugarNet.Init(Config.ServerIP, Config.ServerPort);
             while (true)
             {
                 Console.ReadLine();
             }
         }
+        static void OnUpdateStatus(long resultReciveAllLenght, long resultSendAllLenght)
+        {
+            Console.Title = $"{Title} Recive:{resultReciveAllLenght} Send:{resultSendAllLenght}";
+            Console.WriteLine($"{Title} Recive:{resultReciveAllLenght} Send:{resultSendAllLenght}");
+        }
     }
+
 }

@@ -12,6 +12,8 @@ namespace NoSugarNet.ClientCore.Network
         public long mUID;
         public byte mTunnelID;
         public byte mIdx;
+        public long mReciveAllLenght;
+        public long mSendAllLenght;
         public ServerLocalClient(long UID,byte TunnelID, byte Idx)
         {
             mUID = UID;
@@ -58,6 +60,8 @@ namespace NoSugarNet.ClientCore.Network
             //NetworkDeBugLog("收到消息 数据长度=>" + data.Length);
             try
             {
+                //记录接收数据长度
+                mReciveAllLenght += data.Length;
                 //抛出网络数据
                 ServerManager.g_Local.OnServerLocalDataCallBack(mUID, mTunnelID, mIdx, data);
             }

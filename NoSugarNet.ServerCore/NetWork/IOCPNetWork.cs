@@ -33,7 +33,7 @@ namespace ServerCore.NetWork
 
         public void DataCallBack(Socket sk, int CMDID, byte[] data)
         {
-            ServerManager.g_Log.Debug("收到消息 CMDID =>" + CMDID + " 数据长度=>" + data.Length);
+            //ServerManager.g_Log.Debug("收到消息 CMDID =>" + CMDID + " 数据长度=>" + data.Length);
             try
             {
                 //抛出网络数据

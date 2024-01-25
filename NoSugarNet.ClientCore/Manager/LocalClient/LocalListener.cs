@@ -6,6 +6,8 @@ namespace NoSugarNet.ClientCore
     public class LocalListener : TcpSaeaServer_SourceMode
     {
         public byte mTunnelID;
+        public long mReciveAllLenght;
+        public long mSendAllLenght;
         public LocalListener(int numConnections, int receiveBufferSize, byte TunnelID)
             : base(numConnections, receiveBufferSize)
         {
@@ -40,6 +42,7 @@ namespace NoSugarNet.ClientCore
         {
             if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
             {
+                mSendAllLenght += data.Length;
                 SendToSocket(_localClientInfo._socket, data);
             }
             //TODO连接前缓存数据
@@ -59,7 +62,8 @@ namespace NoSugarNet.ClientCore
         public void DataCallBack(Socket sk, byte[] data)
         {
             //AppNoSugarNet.log.Debug("收到消息 数据长度=>" + data.Length);
-
+            //记录接受长度
+            mReciveAllLenght += data.Length;
             if (!GetSocketIdxBySocket(sk, out int Idx))
                 return;
             try

@@ -4,7 +4,9 @@ using HaoYueNet.ServerNetwork;
 using NoSugarNet.ClientCore;
 using NoSugarNet.ClientCore.Common;
 using NoSugarNet.ClientCore.Network;
+using System.Data;
 using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServerCore.Manager
 {
@@ -26,6 +28,18 @@ namespace ServerCore.Manager
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CData, Recive_TunnelS2CData);
         }
 
+        public void GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght)
+        {
+            resultReciveAllLenght = 0;
+            resultSendAllLenght = 0;
+            byte[] Keys = mDictTunnelID2Listeners.Keys.ToArray();
+            for (int i = 0; i < Keys.Length; i++)
+            {
+                resultReciveAllLenght += mDictTunnelID2Listeners[Keys[i]].mReciveAllLenght;
+                resultSendAllLenght += mDictTunnelID2Listeners[Keys[i]].mSendAllLenght;
+            }
+        }
+
         /// <summary>
         /// 初始化连接，先获取到配置
         /// </summary>
@@ -33,12 +47,13 @@ namespace ServerCore.Manager
         {
             foreach (var cfg in mDictTunnelID2Cfg)
             {
-                LocalListener listener = new LocalListener(1024, 1024, cfg.Key);
+                LocalListener listener = new LocalListener(256, 1024, cfg.Key);
                 AppNoSugarNet.log.Debug($"开始监听配置 Tunnel:{cfg.Key},Port:{cfg.Value.Port}");
                 listener.Init();
                 listener.Start(new IPEndPoint(IPAddress.Any.Address, (int)cfg.Value.Port));
                 AddLocalListener(listener);
             }
+
         }
 
         #region 连接字典管理
@@ -124,7 +139,7 @@ namespace ServerCore.Manager
         }
         public void Recive_TunnelS2CData(byte[] reqData)
         {
-            AppNoSugarNet.log.Debug("Recive_TunnelS2CData");
+            //AppNoSugarNet.log.Debug("Recive_TunnelS2CData");
             Protobuf_S2C_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_S2C_DATA>(reqData);
             OnServerLocalDataCallBack((byte)msg.TunnelID,(byte)msg.Idx, msg.HunterNetCoreData.ToArray());
         }
@@ -172,6 +187,7 @@ namespace ServerCore.Manager
             //告知给服务端，来自客户端本地的连接断开
             AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SDisconnect, respData);
         }
+
         /// <summary>
         /// 当服务端本地端口连接
         /// </summary>
@@ -205,7 +221,6 @@ namespace ServerCore.Manager
             AppNoSugarNet.log.Debug($"OnServerLocalDisconnect {tunnelId},{Idx}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
-
             _listener.SetRemoteConnectd(Idx,false);
             _listener.CloseConnectByIdx(Idx);
         }
@@ -220,7 +235,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnServerLocalDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
-            AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx},Data长度：{data.Length}");
+            //AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx},Data长度：{data.Length}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
             //解压
@@ -235,9 +250,41 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientTunnelDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
-            AppNoSugarNet.log.Debug($"OnClientTunnelDataCallBack {tunnelId},{Idx}");
+            //AppNoSugarNet.log.Debug($"OnClientTunnelDataCallBack {tunnelId},{Idx}");
+
+            int SlienLenght = 1000;
+            //判断数据量大时分包
+            if (data.Length > SlienLenght)
+            {
+                Span<byte> tempSpan = data;
+                Span<byte> tempSpanSlien = null;
+                int PageCount = (int)(data.Length / SlienLenght);
+                if (data.Length % SlienLenght > 0)
+                {
+                    PageCount++;
+                }
+
+                for (int i = 0; i < PageCount; i++)
+                {
+                    int StartIdx = i * SlienLenght;
+                    if (i != PageCount - 1)//不是最后一个包
+                        tempSpanSlien = tempSpan.Slice(StartIdx, SlienLenght);
+                    else//最后一个
+                        tempSpanSlien = tempSpan.Slice(StartIdx);
+
+                    SendDataToRemote(tunnelId, Idx, tempSpanSlien.ToArray());
+                }
+                return;
+            }
+            SendDataToRemote(tunnelId, Idx, data);
+        }
+
+
+        void SendDataToRemote(byte tunnelId, byte Idx, byte[] data)
+        {
             //压缩
             data = mCompressAdapter.Compress(data);
+
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_DATA()
             {
                 TunnelID = tunnelId,
@@ -254,10 +301,10 @@ namespace ServerCore.Manager
                 _listener.EnqueueIdxWithMsg(Idx, respData);
                 return;
             }
-
             //投递给服务端，来自客户端本地的连接数据
             AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SData, respData);
         }
         #endregion
+
     }
 }
