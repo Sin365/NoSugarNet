@@ -52,6 +52,7 @@ namespace ServerCore.Manager
                 AppNoSugarNet.log.Debug($"开始监听配置 Tunnel:{cfg.Key},Port:{cfg.Value.Port}");
                 listener.Init();
                 listener.Start(new IPEndPoint(IPAddress.Any.Address, (int)cfg.Value.Port));
+                //listener.Init((int)cfg.Value.Port);
                 AddLocalListener(listener);
             }
 
@@ -103,7 +104,7 @@ namespace ServerCore.Manager
                 {
                     LocalListener _listener = mDictTunnelID2Listeners[keys[i]];
                     _listener.StopAll();
-                    _listener.Stop();
+                    //_listener.Stop();
                     RemoveLocalListener(_listener);
                 }
             }
