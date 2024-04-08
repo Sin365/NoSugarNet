@@ -45,8 +45,9 @@ namespace ServerCore.Manager
             long[] Keys = mDictCommKey2ServerLocalClients.Keys.ToArray();
             for(int i =0; i < Keys.Length; i++) 
             {
-                resultReciveAllLenght += mDictCommKey2ServerLocalClients[Keys[i]].mReciveAllLenght;
-                resultSendAllLenght += mDictCommKey2ServerLocalClients[Keys[i]].mSendAllLenght;
+                //local和转发 收发相反
+                resultSendAllLenght += mDictCommKey2ServerLocalClients[Keys[i]].mReciveAllLenght;
+                resultReciveAllLenght += mDictCommKey2ServerLocalClients[Keys[i]].mSendAllLenght;
             }
         }
 
@@ -284,7 +285,7 @@ namespace ServerCore.Manager
             if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
                 return;
             //记录数据长度
-            tSendAllLenght += data.Length;
+            tReciveAllLenght += data.Length;
             //解压
             data = mCompressAdapter.Decompress(data);
             //记录数据长度
@@ -336,11 +337,10 @@ namespace ServerCore.Manager
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
                 return;
 
-
             //压缩
             data = mCompressAdapter.Compress(data);
             //记录压缩后数据长度
-            tReciveAllLenght += data.Length;
+            tSendAllLenght += data.Length;
 
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_DATA()
             {

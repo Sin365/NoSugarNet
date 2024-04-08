@@ -17,6 +17,9 @@ namespace ServerCore.Manager
         E_CompressAdapter compressAdapterType;
         public LocalMsgQueuePool _localMsgPool = new LocalMsgQueuePool(1000);
 
+        public long tReciveAllLenght { get; private set; }
+        public long tSendAllLenght { get; private set; }
+
         public AppLocalClient()
         {
             //注册网络消息
@@ -33,9 +36,17 @@ namespace ServerCore.Manager
             byte[] Keys = mDictTunnelID2Listeners.Keys.ToArray();
             for (int i = 0; i < Keys.Length; i++)
             {
-                resultReciveAllLenght += mDictTunnelID2Listeners[Keys[i]].mReciveAllLenght;
-                resultSendAllLenght += mDictTunnelID2Listeners[Keys[i]].mSendAllLenght;
+                //local和转发 收发相反
+                resultSendAllLenght += mDictTunnelID2Listeners[Keys[i]].mReciveAllLenght;
+                resultReciveAllLenght += mDictTunnelID2Listeners[Keys[i]].mSendAllLenght;
             }
+        }
+
+
+        public void GetClientCount(out int ClientUserCount, out int TunnelCount)
+        {
+            TunnelCount = mDictTunnelID2Listeners.Count;
+            ClientUserCount = mDictTunnelID2Listeners.Count;
         }
 
         /// <summary>
@@ -241,6 +252,8 @@ namespace ServerCore.Manager
             //AppNoSugarNet.log.Debug($"OnServerLocalDataCallBack {tunnelId},{Idx},Data长度：{data.Length}");
             if (!GetLocalListener(tunnelId, out LocalListener _listener))
                 return;
+            //记录压缩前数据长度
+            tReciveAllLenght += data.Length;
             //解压
             data = mCompressAdapter.Decompress(data);
             _listener.SendSocketByIdx(Idx,data);
@@ -286,6 +299,8 @@ namespace ServerCore.Manager
         {
             //压缩
             data = mCompressAdapter.Compress(data);
+            //记录压缩后数据长度
+            tSendAllLenght += data.Length;
 
             byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_DATA()
             {
