@@ -23,6 +23,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.DataHelper", "NoSugarNet.DataHelper\NoSugarNet.DataHelper.csproj", "{3C41B685-B46B-4057-826B-C8C6F395BFA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetLib_Standard2", "NetLib_Standard2", "{4A660CAE-CD92-411C-9D8E-7CB677DB3C74}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\NetLib_Standard2\HaoYueNet.ClientNetworkNet.Standard2.dll = Lib\NetLib_Standard2\HaoYueNet.ClientNetworkNet.Standard2.dll
+		Lib\NetLib_Standard2\HaoYueNet.ServerNetwork.Standard2.dll = Lib\NetLib_Standard2\HaoYueNet.ServerNetwork.Standard2.dll
+		Lib\NetLib_Standard2\NoSugarNet.DataHelper.deps.json = Lib\NetLib_Standard2\NoSugarNet.DataHelper.deps.json
+		Lib\NetLib_Standard2\NoSugarNet.DataHelper.dll = Lib\NetLib_Standard2\NoSugarNet.DataHelper.dll
+		Lib\NetLib_Standard2\NoSugarNet.DataHelper.pdb = Lib\NetLib_Standard2\NoSugarNet.DataHelper.pdb
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ClientCore.Standard2", "NoSugarNet.ClientCore.Standard2\NoSugarNet.ClientCore.Standard2.csproj", "{5DB2B608-6F99-430A-99AC-534410393955}"
 EndProject
