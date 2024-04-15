@@ -17,7 +17,7 @@
       <HintPath>..\Lib\HaoYueNet.ServerNetwork.dll</HintPath>
     </Reference>
     <Reference Include="NoSugarNet.DataHelper">
-      <HintPath>..\Lib\NoSugarNet.DataHelper.dll</HintPath>
+      <HintPath>..\Lib\NetLib_Standard2\NoSugarNet.DataHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
 
