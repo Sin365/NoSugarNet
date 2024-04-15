@@ -14,7 +14,7 @@ namespace NoSugarNet.ClientCli
                 return;
             }
             AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
-            AppNoSugarNet.Init(Config.ServerIP, Config.ServerPort);
+            AppNoSugarNet.Init(Config.ServerIP, Config.ServerPort, OnNoSugarNetLog);
             while (true)
             {
                 Console.ReadLine();
@@ -31,5 +31,10 @@ namespace NoSugarNet.ClientCli
         {
             return Math.Round((double)bytes / 1024, 2).ToString("F2");
         }
+        static void OnNoSugarNetLog(int LogLevel, string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
     }
 }

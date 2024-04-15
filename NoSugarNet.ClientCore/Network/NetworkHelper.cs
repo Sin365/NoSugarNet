@@ -60,7 +60,7 @@ namespace NoSugarNet.ClientCore.Network
         {
             //用于Unity内的输出
             //Debug.Log("NetCoreDebug >> "+str);
-            Console.WriteLine("NetCoreDebug >> " + str);
+            AppNoSugarNet.log.Debug("NetCoreDebug >> " + str);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using NoSugarNet.ClientCore.Manager;
 using NoSugarNet.ClientCore.Network;
 using ServerCore.Manager;
+using static NoSugarNet.ClientCore.Manager.LogManager;
 
 namespace NoSugarNet.ClientCore
 {
@@ -25,22 +26,25 @@ namespace NoSugarNet.ClientCore
         public static event OnUpdateStatusHandler OnUpdateStatus;
         #endregion
 
-        public static void Init(string IP, int port)
+        public static void Init(string IP, int port, OnLogHandler onLog = null)
         {
             log = new LogManager();
+            if(onLog != null)
+                LogManager.OnLog += onLog;
             networkHelper = new NetworkHelper();
             login = new AppLogin();
             chat = new AppChat();
             local = new AppLocalClient();
             user = new UserDataManager();
             netStatus = new NetStatus();
-            networkHelper.Init(IP, port);
-
-            _SpeedCheckTimeTimer = new System.Timers.Timer();
-            _SpeedCheckTimeTimer.Interval = TimerInterval;
-            _SpeedCheckTimeTimer.Elapsed += Checktimer_Elapsed;
-            _SpeedCheckTimeTimer.AutoReset = true;
-            _SpeedCheckTimeTimer.Enabled = true;
+            if (networkHelper.Init(IP, port))
+			{
+				_SpeedCheckTimeTimer = new System.Timers.Timer();
+				_SpeedCheckTimeTimer.Interval = TimerInterval;
+				_SpeedCheckTimeTimer.Elapsed += Checktimer_Elapsed;
+				_SpeedCheckTimeTimer.AutoReset = true;
+				_SpeedCheckTimeTimer.Enabled = true;
+			}
         }
 
         static void Checktimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

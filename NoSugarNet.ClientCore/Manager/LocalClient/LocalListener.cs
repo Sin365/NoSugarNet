@@ -21,7 +21,7 @@ namespace NoSugarNet.ClientCore
 
         private void ClientNumberChange(int num, AsyncUserToken token)
         {
-            Console.WriteLine("Client数发生变化");
+            AppNoSugarNet.log.Debug("Client数发生变化");
             //增加连接数
             if (num > 0)
             {
@@ -73,7 +73,7 @@ namespace NoSugarNet.ClientCore
             }
             catch (Exception ex)
             {
-                Console.WriteLine("逻辑处理错误：" + ex.ToString());
+                AppNoSugarNet.log.Debug("逻辑处理错误：" + ex.ToString());
             }
         }
 

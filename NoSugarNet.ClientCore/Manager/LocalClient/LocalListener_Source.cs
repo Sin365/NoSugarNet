@@ -22,7 +22,7 @@ namespace NoSugarNet.ClientCore
 
         private void ClientNumberChange(Socket socket)
         {
-            Console.WriteLine("Client数发生变化");
+            AppNoSugarNet.log.Debug("Client数发生变化");
             //增加连接数
             int Idx = AddDictSocket(socket);
             if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInf))
@@ -83,7 +83,7 @@ namespace NoSugarNet.ClientCore
             }
             catch (Exception ex)
             {
-                Console.WriteLine("逻辑处理错误：" + ex.ToString());
+                AppNoSugarNet.log.Debug("逻辑处理错误：" + ex.ToString());
             }
         }
 
