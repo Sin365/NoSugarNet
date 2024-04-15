@@ -1,8 +1,8 @@
 ﻿using AxibugProtobuf;
-using NoSugarNet.ClientCore.Common;
-using NoSugarNet.ClientCore.Network;
+using NoSugarNet.ClientCoreNet.Standard2.Common;
+using NoSugarNet.ClientCoreNet.Standard2.Network;
 
-namespace NoSugarNet.ClientCore.Manager
+namespace NoSugarNet.ClientCoreNet.Standard2.Manager
 {
     public class AppLogin
     {

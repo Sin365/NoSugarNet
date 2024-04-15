@@ -1,9 +1,9 @@
-﻿using NoSugarNet.ClientCore.Manager;
-using NoSugarNet.ClientCore.Network;
+﻿using NoSugarNet.ClientCoreNet.Standard2.Manager;
+using NoSugarNet.ClientCoreNet.Standard2.Network;
 using ServerCore.Manager;
-using static NoSugarNet.ClientCore.Manager.LogManager;
+using static NoSugarNet.ClientCoreNet.Standard2.Manager.LogManager;
 
-namespace NoSugarNet.ClientCore
+namespace NoSugarNet.ClientCoreNet.Standard2
 {
     public class AppNoSugarNet
     {

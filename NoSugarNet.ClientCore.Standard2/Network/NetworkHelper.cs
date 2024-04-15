@@ -1,13 +1,8 @@
-﻿using AxibugProtobuf;
-using Google.Protobuf;
-using HaoYueNet.ClientNetwork;
+﻿using HaoYueNet.ClientNetworkNet.Standard2;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
-namespace NoSugarNet.ClientCore.Network
+namespace NoSugarNet.ClientCoreNet.Standard2.Network
 {
     /// <summary>
     /// 继承网络库，以支持网络功能

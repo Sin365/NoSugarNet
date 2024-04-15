@@ -1,4 +1,4 @@
-﻿namespace NoSugarNet.ClientCore.Manager
+﻿namespace NoSugarNet.ClientCoreNet.Standard2.Manager
 {
     public class LogManager
     {

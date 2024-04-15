@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.IO;
+using System.IO.Compression;
 
 namespace NoSugarNet.DataHelper
 {
@@ -49,8 +50,8 @@ namespace NoSugarNet.DataHelper
 
     public interface IDataCompress
     {
-        public byte[] Compress(byte[] data);
-        public byte[] Decompress(byte[] data);
+        byte[] Compress(byte[] data);
+        byte[] Decompress(byte[] data);
     }
 
     public class NoCompress : IDataCompress

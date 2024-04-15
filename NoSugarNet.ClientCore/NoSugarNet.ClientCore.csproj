@@ -4,11 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>  
-
-  <ItemGroup>
-    <ProjectReference Include="..\NoSugarNet.DataHelper\NoSugarNet.DataHelper.csproj" />
-  </ItemGroup>
+  </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="Google.Protobuf">
@@ -19,6 +15,9 @@
     </Reference>
     <Reference Include="HaoYueNet.ServerNetwork">
       <HintPath>..\Lib\HaoYueNet.ServerNetwork.dll</HintPath>
+    </Reference>
+    <Reference Include="NoSugarNet.DataHelper">
+      <HintPath>..\Lib\NoSugarNet.DataHelper.dll</HintPath>
     </Reference>
   </ItemGroup>
 

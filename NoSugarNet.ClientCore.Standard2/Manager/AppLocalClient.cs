@@ -1,10 +1,12 @@
 ﻿using AxibugProtobuf;
 using Google.Protobuf;
-using HaoYueNet.ServerNetwork;
-using NoSugarNet.ClientCore;
-using NoSugarNet.ClientCore.Common;
-using NoSugarNet.ClientCore.Network;
+using NoSugarNet.ClientCoreNet.Standard2;
+using NoSugarNet.ClientCoreNet.Standard2.Common;
+using NoSugarNet.ClientCoreNet.Standard2.Network;
 using NoSugarNet.DataHelper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace ServerCore.Manager
@@ -272,8 +274,8 @@ namespace ServerCore.Manager
             //判断数据量大时分包
             if (data.Length > SlienLenght)
             {
-                Span<byte> tempSpan = data;
-                Span<byte> tempSpanSlien = null;
+                byte[] tempSpan = data;
+                byte[] tempSpanSlien = null;
                 int PageCount = (int)(data.Length / SlienLenght);
                 if (data.Length % SlienLenght > 0)
                 {
@@ -282,13 +284,21 @@ namespace ServerCore.Manager
 
                 for (int i = 0; i < PageCount; i++)
                 {
+                    tempSpanSlien = new byte[SlienLenght];
                     int StartIdx = i * SlienLenght;
                     if (i != PageCount - 1)//不是最后一个包
+                        Array.Copy(tempSpan, StartIdx, tempSpanSlien, 0, SlienLenght);
+                    else//最后一个
+                        Array.Copy(tempSpan, StartIdx, tempSpanSlien, 0, tempSpanSlien.Length - StartIdx);
+
+                    SendDataToRemote(tunnelId, Idx, tempSpanSlien);
+
+                    /*if (i != PageCount - 1)//不是最后一个包
                         tempSpanSlien = tempSpan.Slice(StartIdx, SlienLenght);
                     else//最后一个
                         tempSpanSlien = tempSpan.Slice(StartIdx);
 
-                    SendDataToRemote(tunnelId, Idx, tempSpanSlien.ToArray());
+                    SendDataToRemote(tunnelId, Idx, tempSpanSlien.ToArray());*/
                 }
                 return;
             }

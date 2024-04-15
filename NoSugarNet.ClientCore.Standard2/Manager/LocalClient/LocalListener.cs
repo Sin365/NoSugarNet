@@ -1,33 +1,38 @@
-﻿using HaoYueNet.ClientNetwork.OtherMode;
-using HaoYueNet.ServerNetwork;
+﻿using HaoYueNet.ServerNetwork.Standard2;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 
-namespace NoSugarNet.ClientCore
+namespace NoSugarNet.ClientCoreNet.Standard2
 {
-    public class LocalListener_Source : NetworkHelperCore_ListenerMode
+    public class LocalListener : TcpSaeaServer_SourceMode
     {
         public byte mTunnelID;
         public long mReciveAllLenght;
         public long mSendAllLenght;
-        public LocalListener_Source(int numConnections, int receiveBufferSize, byte TunnelID)
-            : base()
+        public LocalListener(int numConnections, int receiveBufferSize, byte TunnelID)
+            : base(numConnections, receiveBufferSize)
         {
-            OnConnected += ClientNumberChange;
+            OnClientNumberChange += ClientNumberChange;
             OnReceive += ReceiveData;
-            OnDisconnected += OnDisconnectClient;
+            OnDisconnected += OnDisconnect;
             OnNetLog += OnShowNetLog;
 
             mTunnelID = TunnelID;
         }
 
-        private void ClientNumberChange(Socket socket)
+        private void ClientNumberChange(int num, AsyncUserToken token)
         {
             AppNoSugarNet.log.Info("Client数发生变化");
             //增加连接数
-            int Idx = AddDictSocket(socket);
-            if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInf))
+            if (num > 0)
             {
-                AppNoSugarNet.local.OnClientLocalConnect(mTunnelID, (byte)Idx);
+                int Idx = AddDictSocket(token.Socket);
+                if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInf))
+                {
+                    AppNoSugarNet.local.OnClientLocalConnect(mTunnelID, (byte)Idx);
+                }
             }
         }
 
@@ -41,7 +46,7 @@ namespace NoSugarNet.ClientCore
             if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
             {
                 mSendAllLenght += data.Length;
-                SendToClient(_localClientInfo._socket, data);
+                SendToSocket(_localClientInfo._socket, data);
             }
             //TODO连接前缓存数据
         }
@@ -52,9 +57,9 @@ namespace NoSugarNet.ClientCore
         /// <param name="CMDID">协议ID</param>
         /// <param name="ERRCODE">错误编号</param>
         /// <param name="data">业务数据</param>
-        private void ReceiveData(Socket sk, byte[] data)
+        private void ReceiveData(AsyncUserToken token, byte[] data)
         {
-            DataCallBack(sk, data);
+            DataCallBack(token.Socket, data);
         }
 
         public void DataCallBack(Socket sk, byte[] data)
@@ -66,20 +71,8 @@ namespace NoSugarNet.ClientCore
                 return;
             try
             {
-                if (GetMsgQueueByIdx(sk.Handle, out Queue<byte[]> _queue))
-                {
-                    lock (_queue) 
-                    {
-                        _queue.Enqueue(data);
-                        while (_queue.Count > 0)
-                        { 
-                            AppNoSugarNet.local.OnClientTunnelDataCallBack(mTunnelID, (byte)Idx, _queue.Dequeue());
-                        }
-                    }
-                }
-
-                ////抛出网络数据
-                //AppNoSugarNet.local.OnClientTunnelDataCallBack(mTunnelID, (byte)Idx, data);
+                //抛出网络数据
+                AppNoSugarNet.local.OnClientTunnelDataCallBack(mTunnelID, (byte)Idx, data);
             }
             catch (Exception ex)
             {
@@ -99,15 +92,15 @@ namespace NoSugarNet.ClientCore
         /// 断开连接
         /// </summary>
         /// <param name="sk"></param>
-        public void OnDisconnectClient(Socket sk)
+        public void OnDisconnect(AsyncUserToken token)
         {
             AppNoSugarNet.log.Info("断开连接");
 
-            if (!GetSocketIdxBySocket(sk, out int Idx))
+            if (!GetSocketIdxBySocket(token.Socket, out int Idx))
                 return;
 
             AppNoSugarNet.local.OnClientLocalDisconnect(mTunnelID, (byte)Idx);
-            RemoveDictSocket(sk);
+            RemoveDictSocket(token.Socket);
         }
 
         public void OnShowNetLog(string msg)
@@ -116,8 +109,7 @@ namespace NoSugarNet.ClientCore
         }
 
         #region 一个轻量级无用户连接管理
-        Dictionary<nint, int> DictSocketHandle2Idx = new Dictionary<nint, int>();
-        Dictionary<nint, Queue<byte[]>> DictSocketHandle2Msg = new Dictionary<nint, Queue<byte[]>>();
+        Dictionary<IntPtr, int> DictSocketHandle2Idx = new Dictionary<IntPtr, int>();
         Dictionary<int, LocalClientInfo> DictIdx2LocalClientInfo = new Dictionary<int, LocalClientInfo>();
         int mSeedIdx = 0;
         List<int> FreeIdxs = new List<int>();
@@ -154,7 +146,6 @@ namespace NoSugarNet.ClientCore
                 int Idx = GetNextIdx();
                 DictSocketHandle2Idx[socket.Handle] = Idx;
                 DictIdx2LocalClientInfo[Idx] = new LocalClientInfo() { _socket = socket,bRemoteConnect = false};
-                DictSocketHandle2Msg[socket.Handle] = new Queue<byte[]>();
                 return Idx;
             }
         }
@@ -171,10 +162,6 @@ namespace NoSugarNet.ClientCore
                 FreeIdxs.Add(Idx);
                 if (DictIdx2LocalClientInfo.ContainsKey(Idx))
                     DictIdx2LocalClientInfo.Remove(Idx);
-                
-                if (DictSocketHandle2Msg.ContainsKey(socket.Handle))
-                    DictSocketHandle2Msg.Remove(socket.Handle);
-
                 DictSocketHandle2Idx.Remove(socket.Handle);
             }
         }
@@ -188,18 +175,6 @@ namespace NoSugarNet.ClientCore
             }
 
             _localClientInfo = DictIdx2LocalClientInfo[Idx];
-            return true;
-        }
-
-        bool GetMsgQueueByIdx(nint handle, out Queue<byte[]> _queue)
-        {
-            if (!DictSocketHandle2Msg.ContainsKey(handle))
-            {
-                _queue = null;
-                return false;
-            }
-
-            _queue = DictSocketHandle2Msg[handle];
             return true;
         }
 
@@ -253,7 +228,6 @@ namespace NoSugarNet.ClientCore
         }
 
         #endregion
-
 
         #region 缓存
         public void EnqueueIdxWithMsg(byte Idx, byte[] data)

@@ -22,16 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ServerCli", "Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.DataHelper", "NoSugarNet.DataHelper\NoSugarNet.DataHelper.csproj", "{3C41B685-B46B-4057-826B-C8C6F395BFA8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net4X", "Net4X", "{4A660CAE-CD92-411C-9D8E-7CB677DB3C74}"
-	ProjectSection(SolutionItems) = preProject
-		Lib\Net4x\HaoYueNet.ClientNetworkNet4x.dll = Lib\Net4x\HaoYueNet.ClientNetworkNet4x.dll
-		Lib\Net4x\HaoYueNet.ServerNetworkNet4x.dll = Lib\Net4x\HaoYueNet.ServerNetworkNet4x.dll
-		Lib\Net4x\System.Buffers.dll = Lib\Net4x\System.Buffers.dll
-		Lib\Net4x\System.Memory.dll = Lib\Net4x\System.Memory.dll
-		Lib\Net4x\System.Runtime.CompilerServices.Unsafe.dll = Lib\Net4x\System.Runtime.CompilerServices.Unsafe.dll
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetLib_Standard2", "NetLib_Standard2", "{4A660CAE-CD92-411C-9D8E-7CB677DB3C74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.ClientCoreNet4x", "NoSugarNet.ClientCoreNet4x\NoSugarNet.ClientCoreNet4x.csproj", "{F565C3B8-E210-45F5-9B9E-8C1A49438753}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ClientCore.Standard2", "NoSugarNet.ClientCore.Standard2\NoSugarNet.ClientCore.Standard2.csproj", "{5DB2B608-6F99-430A-99AC-534410393955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +52,10 @@ Global
 		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F565C3B8-E210-45F5-9B9E-8C1A49438753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F565C3B8-E210-45F5-9B9E-8C1A49438753}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F565C3B8-E210-45F5-9B9E-8C1A49438753}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F565C3B8-E210-45F5-9B9E-8C1A49438753}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB2B608-6F99-430A-99AC-534410393955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB2B608-6F99-430A-99AC-534410393955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB2B608-6F99-430A-99AC-534410393955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB2B608-6F99-430A-99AC-534410393955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

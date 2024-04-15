@@ -21,7 +21,7 @@ namespace NoSugarNet.ClientCore
 
         private void ClientNumberChange(int num, AsyncUserToken token)
         {
-            AppNoSugarNet.log.Debug("Client数发生变化");
+            AppNoSugarNet.log.Info("Client数发生变化");
             //增加连接数
             if (num > 0)
             {
@@ -61,7 +61,7 @@ namespace NoSugarNet.ClientCore
 
         public void DataCallBack(Socket sk, byte[] data)
         {
-            //AppNoSugarNet.log.Debug("收到消息 数据长度=>" + data.Length);
+            //AppNoSugarNet.log.Info("收到消息 数据长度=>" + data.Length);
             //记录接受长度
             mReciveAllLenght += data.Length;
             if (!GetSocketIdxBySocket(sk, out int Idx))
@@ -73,7 +73,7 @@ namespace NoSugarNet.ClientCore
             }
             catch (Exception ex)
             {
-                AppNoSugarNet.log.Debug("逻辑处理错误：" + ex.ToString());
+                AppNoSugarNet.log.Info("逻辑处理错误：" + ex.ToString());
             }
         }
 
@@ -91,7 +91,7 @@ namespace NoSugarNet.ClientCore
         /// <param name="sk"></param>
         public void OnDisconnect(AsyncUserToken token)
         {
-            AppNoSugarNet.log.Debug("断开连接");
+            AppNoSugarNet.log.Info("断开连接");
 
             if (!GetSocketIdxBySocket(token.Socket, out int Idx))
                 return;
@@ -102,7 +102,7 @@ namespace NoSugarNet.ClientCore
 
         public void OnShowNetLog(string msg)
         {
-            AppNoSugarNet.log.Debug(msg);
+            AppNoSugarNet.log.Info(msg);
         }
 
         #region 一个轻量级无用户连接管理
@@ -205,9 +205,9 @@ namespace NoSugarNet.ClientCore
             if (!GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
                 return;
             if (bConnected)
-                AppNoSugarNet.log.Debug("远端本地连接已连接！！！！");
+                AppNoSugarNet.log.Info("远端本地连接已连接！！！！");
             else
-                AppNoSugarNet.log.Debug("远端本地连接已断开连接！！！！");
+                AppNoSugarNet.log.Info("远端本地连接已断开连接！！！！");
             _localClientInfo.bRemoteConnect = bConnected;
         }
 

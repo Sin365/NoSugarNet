@@ -1,4 +1,4 @@
-using NoSugarNet.ClientCoreNet4x;
+using NoSugarNet.ClientCoreNet.Standard2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +9,32 @@ public class MainUI : MonoBehaviour
 {
 
     public Button btnStart;
+    public Button btnStop;
     public InputField inputIP;
     public InputField inputPort;
-    public Text textLog;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        string LastIP =  PlayerPrefs.GetString("LastIP");
+        string LastPort = PlayerPrefs.GetString("LastPort");
+        if(!string.IsNullOrEmpty(LastIP))
+            inputIP.text = LastIP;
+        if (!string.IsNullOrEmpty(LastPort))
+            inputPort.text = LastPort;
+
         btnStart.onClick.AddListener(InitNoSugarNetClient);
-        textLog.text = "-";
-        AddLog("123");
+        btnStop.onClick.AddListener(StopNoSugarNetClient);
+        AddLog("");
+
+        AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
+        AppNoSugarNet.Init(OnNoSugarNetLog);
+    }
+
+    private void OnDisable()
+    {
+        AppNoSugarNet.Close();
     }
 
     // Update is called once per frame
@@ -34,8 +50,14 @@ public class MainUI : MonoBehaviour
             OnNoSugarNetLog(0,"配置错误");
             return;
         }
-        AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
-        AppNoSugarNet.Init(inputIP.text, Convert.ToInt32(inputPort.text), OnNoSugarNetLog);
+
+        PlayerPrefs.SetString("LastIP", inputIP.text);
+        PlayerPrefs.GetString("LastPort",inputPort.text);
+        AppNoSugarNet.Connect(inputIP.text, Convert.ToInt32(inputPort.text));
+    }
+    void StopNoSugarNetClient()
+    {
+        AppNoSugarNet.Close();
     }
 
 
@@ -63,7 +85,10 @@ public class MainUI : MonoBehaviour
 
         // 设置字体大小
         style.fontSize = 24;
-        GUI.TextField(new Rect(10, 300, Screen.width - 20, 1000), logText, style);
+        style.fontStyle = FontStyle.Bold;
+        style.normal.textColor = Color.white;
+
+        GUI.TextField(new Rect(10, 400, Screen.width - 20, 1520), logText, style);
     }
 
     static void AddLog(string msg)
@@ -72,7 +97,7 @@ public class MainUI : MonoBehaviour
         logText += string.Format("{0}\n", System.DateTime.Now.ToString("HH:mm:ss> ") + msg);
 
         // 限制文本框显示的最大行数
-        if (logText.Split('\n').Length > 50)
+        if (logText.Split('\n').Length > 80)
         {
             string[] lines = logText.Split('\n');
             logText = "";

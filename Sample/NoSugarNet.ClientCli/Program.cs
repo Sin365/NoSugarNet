@@ -14,10 +14,25 @@ namespace NoSugarNet.ClientCli
                 return;
             }
             AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
-            AppNoSugarNet.Init(Config.ServerIP, Config.ServerPort, OnNoSugarNetLog);
+            AppNoSugarNet.Init(OnNoSugarNetLog);
+            AppNoSugarNet.Connect(Config.ServerIP, Config.ServerPort);
             while (true)
             {
-                Console.ReadLine();
+                string CommandStr = Console.ReadLine();
+                string Command = "";
+                Command = ((CommandStr.IndexOf(" ") <= 0) ? CommandStr : CommandStr.Substring(0, CommandStr.IndexOf(" ")));
+                string[] CmdArr = CommandStr.Split(' ');
+                switch (Command)
+                {
+                    case "con":
+                        AppNoSugarNet.Connect(Config.ServerIP, Config.ServerPort);
+                        break;
+                    case "stop":
+                        AppNoSugarNet.Close();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         static void OnUpdateStatus(NetStatus netState)

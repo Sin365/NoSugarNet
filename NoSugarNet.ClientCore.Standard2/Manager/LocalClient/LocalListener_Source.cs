@@ -1,8 +1,10 @@
-﻿using HaoYueNet.ClientNetwork.OtherMode;
-using HaoYueNet.ServerNetwork;
+﻿using HaoYueNet.ClientNetworkNet.Standard2.OtherMode;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 
-namespace NoSugarNet.ClientCore
+namespace NoSugarNet.ClientCoreNet.Standard2
 {
     public class LocalListener_Source : NetworkHelperCore_ListenerMode
     {
@@ -116,8 +118,8 @@ namespace NoSugarNet.ClientCore
         }
 
         #region 一个轻量级无用户连接管理
-        Dictionary<nint, int> DictSocketHandle2Idx = new Dictionary<nint, int>();
-        Dictionary<nint, Queue<byte[]>> DictSocketHandle2Msg = new Dictionary<nint, Queue<byte[]>>();
+        Dictionary<IntPtr, int> DictSocketHandle2Idx = new Dictionary<IntPtr, int>();
+        Dictionary<IntPtr, Queue<byte[]>> DictSocketHandle2Msg = new Dictionary<IntPtr, Queue<byte[]>>();
         Dictionary<int, LocalClientInfo> DictIdx2LocalClientInfo = new Dictionary<int, LocalClientInfo>();
         int mSeedIdx = 0;
         List<int> FreeIdxs = new List<int>();
@@ -191,7 +193,7 @@ namespace NoSugarNet.ClientCore
             return true;
         }
 
-        bool GetMsgQueueByIdx(nint handle, out Queue<byte[]> _queue)
+        bool GetMsgQueueByIdx(IntPtr handle, out Queue<byte[]> _queue)
         {
             if (!DictSocketHandle2Msg.ContainsKey(handle))
             {

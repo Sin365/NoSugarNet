@@ -1,4 +1,6 @@
-﻿namespace NoSugarNet.ClientCore
+﻿using System.Collections.Generic;
+
+namespace NoSugarNet.ClientCoreNet.Standard2
 {
     public class IdxWithMsg
     {
