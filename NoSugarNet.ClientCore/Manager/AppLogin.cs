@@ -6,16 +6,22 @@ namespace NoSugarNet.ClientCore.Manager
 {
     public class AppLogin
     {
+        static string LastLoginGuid = "";
         public AppLogin()
         {
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdLogin, RecvLoginMsg);
         }
-        public void Login(string Account)
+
+        public void Login()
         {
+            if(string.IsNullOrEmpty(LastLoginGuid))
+                LastLoginGuid = Guid.NewGuid().ToString();
+
+            AppNoSugarNet.user.userdata.Account = LastLoginGuid;
             Protobuf_Login msg = new Protobuf_Login()
             {
                 LoginType = 0,
-                Account = Account,
+                Account = AppNoSugarNet.user.userdata.Account,
             };
             AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdLogin, ProtoBufHelper.Serizlize(msg));
         }

@@ -49,6 +49,24 @@ namespace ServerCore.Manager
             ClientUserCount = mDictTunnelID2Listeners.Count;
         }
 
+        public void GetClientDebugInfo()
+        {
+            AppNoSugarNet.log.Debug($"------------ mDictTunnelID2Listeners {mDictTunnelID2Listeners.Count} ------------");
+            lock (mDictTunnelID2Listeners)
+            {
+                foreach (var item in mDictTunnelID2Listeners)
+                {
+                    var cinfo = item.Value.GetDictIdx2LocalClientInfo();
+                    AppNoSugarNet.log.Debug($"----- TunnelID {item.Key} ObjcurrSeed->{item.Value.currSeed} ClientList->{item.Value.ClientList.Count} Idx2LocalClient->{cinfo.Count} -----");
+                    
+                    foreach (var c in cinfo)
+                    {
+                        AppNoSugarNet.log.Debug($"----- Idx {c.Key} bRemoteConnect->{c.Value.bRemoteConnect} msgQueue.Count->{c.Value.msgQueue.Count} -----");
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 初始化连接，先获取到配置
         /// </summary>
@@ -114,10 +132,12 @@ namespace ServerCore.Manager
                 for (int i = 0; i < keys.Length; i++) 
                 {
                     LocalListener _listener = mDictTunnelID2Listeners[keys[i]];
-                    _listener.StopAll();
+                    _listener.StopAllLocalClient();
+                    _listener.Stop();
                     //_listener.Stop();
                     RemoveLocalListener(_listener);
                 }
+                mDictTunnelID2Listeners.Clear();
             }
         }
         #endregion
@@ -266,7 +286,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientTunnelDataCallBack(byte tunnelId,byte Idx, byte[] data)
         {
-            //AppNoSugarNet.log.Info($"OnClientTunnelDataCallBack {tunnelId},{Idx}");
+            //AppNoSugarNet.log.Info($"OnClientTunnelDataCallBack {tunnelId},{Idx} data.Length->{data.Length}");
 
             int SlienLenght = 1000;
             //判断数据量大时分包

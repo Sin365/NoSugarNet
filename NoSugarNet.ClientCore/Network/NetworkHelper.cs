@@ -33,7 +33,7 @@ namespace NoSugarNet.ClientCore.Network
         /// <summary>
         /// 是否自动重连
         /// </summary>
-        public bool bAutoReConnect = false;
+        public bool bAutoReConnect = true;
         /// <summary>
         /// 重连尝试时间
         /// </summary>
@@ -44,12 +44,21 @@ namespace NoSugarNet.ClientCore.Network
             NetworkDeBugLog($"NetworkConnected:{IsConnect}");
             if (IsConnect)
             {
-                AppNoSugarNet.login.Login(Guid.NewGuid().ToString());
+                //从未登录过
+                if (!AppNoSugarNet.user.IsLoggedIn)
+                {
+                    //首次登录
+                    AppNoSugarNet.login.Login();
+                }
             }
             else
             {
                 //连接失败
                 NetworkDeBugLog("连接失败！");
+
+                //停止所有
+                AppNoSugarNet.local.StopAll();
+
                 //自动重连开关
                 if (bAutoReConnect)
                     ReConnect();

@@ -8,6 +8,9 @@ namespace NoSugarNet.ClientCore
         public byte mTunnelID;
         public long mReciveAllLenght;
         public long mSendAllLenght;
+        public long currSeed;
+        static long Seed;
+
         public LocalListener(int numConnections, int receiveBufferSize, byte TunnelID)
             : base(numConnections, receiveBufferSize)
         {
@@ -17,12 +20,14 @@ namespace NoSugarNet.ClientCore
             OnNetLog += OnShowNetLog;
 
             mTunnelID = TunnelID;
+
+            currSeed = Seed++;
         }
 
         private void ClientNumberChange(int num, AsyncUserToken token)
         {
             AppNoSugarNet.log.Info("Client数发生变化");
-            //增加连接数
+            //增加连接数stsc
             if (num > 0)
             {
                 int Idx = AddDictSocket(token.Socket);
@@ -79,9 +84,16 @@ namespace NoSugarNet.ClientCore
 
         public void CloseConnectByIdx(byte Idx)
         {
-            if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInf))
+            if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
             {
-                _localClientInf._socket.Shutdown(SocketShutdown.Both);
+                //把未发送消息队列回收了
+                while (_localClientInfo.msgQueue.Count > 0)
+                {
+                    IdxWithMsg msg = _localClientInfo.msgQueue.Dequeue();
+                    AppNoSugarNet.local._localMsgPool.Enqueue(msg);
+                }
+
+                _localClientInfo._socket.Shutdown(SocketShutdown.Both);
             }
         }
 
@@ -118,6 +130,11 @@ namespace NoSugarNet.ClientCore
             public Queue<IdxWithMsg> msgQueue = new Queue<IdxWithMsg>();
         }
 
+        public Dictionary<int, LocalClientInfo> GetDictIdx2LocalClientInfo()
+        {
+            return DictIdx2LocalClientInfo;
+        }
+
         int GetNextIdx()
         {
             if (FreeIdxs.Count > 0)
@@ -127,6 +144,12 @@ namespace NoSugarNet.ClientCore
                 return Idx;
             }
             return mSeedIdx++;
+        }
+
+        void ResetFree()
+        {
+            FreeIdxs.Clear();
+            mSeedIdx = 0;
         }
 
         /// <summary>
@@ -143,6 +166,7 @@ namespace NoSugarNet.ClientCore
                 int Idx = GetNextIdx();
                 DictSocketHandle2Idx[socket.Handle] = Idx;
                 DictIdx2LocalClientInfo[Idx] = new LocalClientInfo() { _socket = socket,bRemoteConnect = false};
+                AppNoSugarNet.log.Debug($"AddDictSocket mTunnelID->{mTunnelID} Idx->{Idx} socket.Handle{socket.Handle}");
                 return Idx;
             }
         }
@@ -160,6 +184,7 @@ namespace NoSugarNet.ClientCore
                 if (DictIdx2LocalClientInfo.ContainsKey(Idx))
                     DictIdx2LocalClientInfo.Remove(Idx);
                 DictSocketHandle2Idx.Remove(socket.Handle);
+                AppNoSugarNet.log.Debug($"RemoveDictSocket mTunnelID->{mTunnelID} Idx->{Idx} socket.Handle{socket.Handle}");
             }
         }
 
@@ -211,7 +236,7 @@ namespace NoSugarNet.ClientCore
             _localClientInfo.bRemoteConnect = bConnected;
         }
 
-        public void StopAll()
+        public void StopAllLocalClient()
         {
             lock (DictIdx2LocalClientInfo)
             {
@@ -221,6 +246,14 @@ namespace NoSugarNet.ClientCore
                     CloseConnectByIdx((byte)Idxs[i]);
                 }
                 DictIdx2LocalClientInfo.Clear();
+                DictSocketHandle2Idx.Clear();
+                ResetFree();
+
+                //清理事件
+                OnClientNumberChange -= ClientNumberChange;
+                OnReceive -= ReceiveData;
+                OnDisconnected -= OnDisconnect;
+                OnNetLog -= OnShowNetLog;
             }
         }
 

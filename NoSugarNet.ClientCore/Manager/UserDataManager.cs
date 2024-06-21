@@ -49,7 +49,7 @@ namespace NoSugarNet.ClientCore.Manager
             //如果之前已登录，则重新登录
             if (userdata.IsLoggedIn)
             {
-                AppNoSugarNet.login.Login(userdata.Account);
+                AppNoSugarNet.login.Login();
             }
         }
     }
