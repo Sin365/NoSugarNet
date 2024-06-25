@@ -57,7 +57,7 @@ namespace NoSugarNet.ClientCore.Network
                 NetworkDeBugLog("连接失败！");
 
                 //停止所有
-                AppNoSugarNet.local.StopAll();
+                AppNoSugarNet.forwardlocal.StopAll();
 
                 //自动重连开关
                 if (bAutoReConnect)
@@ -100,7 +100,7 @@ namespace NoSugarNet.ClientCore.Network
             NetworkDeBugLog("OnConnectClose");
 
             //停止所有
-            AppNoSugarNet.local.StopAll();
+            AppNoSugarNet.forwardlocal.StopAll();
 
             //自动重连开关
             if (bAutoReConnect)

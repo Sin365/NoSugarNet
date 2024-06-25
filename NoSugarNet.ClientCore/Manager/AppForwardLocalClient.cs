@@ -11,7 +11,7 @@ using System.Net;
 
 namespace ServerCore.Manager
 {
-    public class AppLocalClient
+    public class AppForwardLocalClient
     {
         Dictionary<byte, Protobuf_Cfgs_Single> mDictTunnelID2Cfg = new Dictionary<byte, Protobuf_Cfgs_Single>();
         Dictionary<byte, ForwardLocalListener> mDictTunnelID2Listeners = new Dictionary<byte, ForwardLocalListener>();
@@ -22,13 +22,13 @@ namespace ServerCore.Manager
         public long tReciveAllLenght { get; private set; }
         public long tSendAllLenght { get; private set; }
 
-        public AppLocalClient()
+        public AppForwardLocalClient()
         {
             //注册网络消息
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdCfgs, Recive_CmdCfgs);
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CConnect, Recive_TunnelS2CConnect);
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CDisconnect, Recive_TunnelS2CDisconnect);
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CData, Recive_TunnelS2CData);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardConnect, Recive_TunnelS2CConnect);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardDisconnect, Recive_TunnelS2CDisconnect);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardData, Recive_TunnelS2CData);
         }
 
         public void GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght)
@@ -202,7 +202,7 @@ namespace ServerCore.Manager
             });
             
             //告知给服务端，来自客户端本地的连接建立
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SConnect, respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SForwardConnect, respData);
         }
         /// <summary>
         /// 当客户端本地端口连接断开
@@ -223,7 +223,7 @@ namespace ServerCore.Manager
             });
 
             //告知给服务端，来自客户端本地的连接断开
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SDisconnect, respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SForwardDisconnect, respData);
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace ServerCore.Manager
                 {
                     IdxWithMsg msg = msglist[i];
                     //投递给服务端，来自客户端本地的连接数据
-                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SData, msg.data);
+                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SForwardData, msg.data);
                     //发送后回收
                     LocalMsgQueuePool._localMsgPool.Enqueue(msg);
                 }
@@ -343,7 +343,7 @@ namespace ServerCore.Manager
                 return;
             }
             //投递给服务端，来自客户端本地的连接数据
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SData, respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SForwardData, respData);
         }
         #endregion
 

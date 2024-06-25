@@ -45,13 +45,19 @@ namespace AxibugProtobuf {
             "IAEoDRILCgNJZHgYAiABKA0iTgoRUHJvdG9idWZfQzJTX0RBVEESEAoIVHVu",
             "bmVsSUQYASABKA0SCwoDSWR4GAIgASgNEhoKEkh1bnRlck5ldENvcmVfRGF0",
             "YRgDIAEoDCJOChFQcm90b2J1Zl9TMkNfREFUQRIQCghUdW5uZWxJRBgBIAEo",
-            "DRILCgNJZHgYAiABKA0SGgoSSHVudGVyTmV0Q29yZV9EYXRhGAMgASgMKvoB",
+            "DRILCgNJZHgYAiABKA0SGgoSSHVudGVyTmV0Q29yZV9EYXRhGAMgASgMKogE",
             "CglDb21tYW5kSUQSDgoKQ01EX0RFRkFVTBAAEg4KCUNNRF9MT0dJThDRDxIN",
-            "CghDTURfQ0ZHUxC5FxIQCgtDTURfQ0hBVE1TRxChHxIbChZDTURfVFVOTkVM",
-            "X0MyU19DT05ORUNUEIgnEhsKFkNNRF9UVU5ORUxfUzJDX0NPTk5FQ1QQiScS",
-            "HgoZQ01EX1RVTk5FTF9DMlNfRElTQ09OTkVDVBCKJxIeChlDTURfVFVOTkVM",
-            "X1MyQ19ESVNDT05ORUNUEIsnEhgKE0NNRF9UVU5ORUxfQzJTX0RBVEEQjCcS",
-            "GAoTQ01EX1RVTk5FTF9TMkNfREFUQRCNJyorCglFcnJvckNvZGUSEAoMRVJS",
+            "CghDTURfQ0ZHUxC5FxIQCgtDTURfQ0hBVE1TRxChHxIjCh5DTURfVFVOTkVM",
+            "X0MyU19GT1JXQVJEX0NPTk5FQ1QQiCcSIwoeQ01EX1RVTk5FTF9TMkNfRk9S",
+            "V0FSRF9DT05ORUNUEIknEiYKIUNNRF9UVU5ORUxfQzJTX0ZPUldBUkRfRElT",
+            "Q09OTkVDVBCKJxImCiFDTURfVFVOTkVMX1MyQ19GT1JXQVJEX0RJU0NPTk5F",
+            "Q1QQiycSIAobQ01EX1RVTk5FTF9DMlNfRk9SV0FSRF9EQVRBEIwnEiAKG0NN",
+            "RF9UVU5ORUxfUzJDX0ZPUldBUkRfREFUQRCNJxIjCh5DTURfVFVOTkVMX0My",
+            "U19SRVZFUlNFX0NPTk5FQ1QQ8C4SIwoeQ01EX1RVTk5FTF9TMkNfUkVWRVJT",
+            "RV9DT05ORUNUEPEuEiYKIUNNRF9UVU5ORUxfQzJTX1JFVkVSU0VfRElTQ09O",
+            "TkVDVBDyLhImCiFDTURfVFVOTkVMX1MyQ19SRVZFUlNFX0RJU0NPTk5FQ1QQ",
+            "8y4SIAobQ01EX1RVTk5FTF9DMlNfUkVWRVJTRV9EQVRBEPQuEiAKG0NNRF9U",
+            "VU5ORUxfUzJDX1JFVkVSU0VfREFUQRD1LiorCglFcnJvckNvZGUSEAoMRVJS",
             "T1JfREVGQVVMEAASDAoIRVJST1JfT0sQASo+CglMb2dpblR5cGUSDwoLQmFz",
             "ZURlZmF1bHQQABIOCgpIYW9ZdWVBdXRoEAESBwoDQkYzEAMSBwoDQkY0EAQq",
             "SwoKRGV2aWNlVHlwZRIWChJEZXZpY2VUeXBlX0RlZmF1bHQQABIGCgJQQxAB",
@@ -97,29 +103,53 @@ namespace AxibugProtobuf {
     /// </summary>
     [pbr::OriginalName("CMD_CHATMSG")] CmdChatmsg = 4001,
     /// <summary>
-    ///客户端告知服务端 客户端本地连接建立 上行 Protobuf_C2S_Connect
+    ///正向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_C2S_Connect
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_C2S_CONNECT")] CmdTunnelC2SConnect = 5000,
+    [pbr::OriginalName("CMD_TUNNEL_C2S_FORWARD_CONNECT")] CmdTunnelC2SForwardConnect = 5000,
     /// <summary>
-    ///服务端告知客户端 服务端本地连接建立 下行 Protobuf_S2C_Connect
+    ///正向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_S2C_Connect
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_S2C_CONNECT")] CmdTunnelS2CConnect = 5001,
+    [pbr::OriginalName("CMD_TUNNEL_S2C_FORWARD_CONNECT")] CmdTunnelS2CForwardConnect = 5001,
     /// <summary>
-    ///客户端告知服务端 客户端本地连接断开 上行 Protobuf_C2S_Disconnect
+    ///正向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_C2S_Disconnect
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_C2S_DISCONNECT")] CmdTunnelC2SDisconnect = 5002,
+    [pbr::OriginalName("CMD_TUNNEL_C2S_FORWARD_DISCONNECT")] CmdTunnelC2SForwardDisconnect = 5002,
     /// <summary>
-    ///服务端告知客户端 服务端本地连接断开 下行 Protobuf_S2C_Disconnect
+    ///正向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_S2C_Disconnect
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_S2C_DISCONNECT")] CmdTunnelS2CDisconnect = 5003,
+    [pbr::OriginalName("CMD_TUNNEL_S2C_FORWARD_DISCONNECT")] CmdTunnelS2CForwardDisconnect = 5003,
     /// <summary>
-    ///客户端投递本地TCP通讯数据包 上行 Protobuf_C2S_DATA
+    ///正向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_C2S_DATA
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_C2S_DATA")] CmdTunnelC2SData = 5004,
+    [pbr::OriginalName("CMD_TUNNEL_C2S_FORWARD_DATA")] CmdTunnelC2SForwardData = 5004,
     /// <summary>
-    ///服务端投递本地TCP通讯数据包 下行 Protobuf_S2C_DATA
+    ///正向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_S2C_DATA
     /// </summary>
-    [pbr::OriginalName("CMD_TUNNEL_S2C_DATA")] CmdTunnelS2CData = 5005,
+    [pbr::OriginalName("CMD_TUNNEL_S2C_FORWARD_DATA")] CmdTunnelS2CForwardData = 5005,
+    /// <summary>
+    ///反向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_C2S_Connect
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_C2S_REVERSE_CONNECT")] CmdTunnelC2SReverseConnect = 6000,
+    /// <summary>
+    ///反向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_S2C_Connect
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_S2C_REVERSE_CONNECT")] CmdTunnelS2CReverseConnect = 6001,
+    /// <summary>
+    ///反向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_C2S_Disconnect
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_C2S_REVERSE_DISCONNECT")] CmdTunnelC2SReverseDisconnect = 6002,
+    /// <summary>
+    ///反向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_S2C_Disconnect
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_S2C_REVERSE_DISCONNECT")] CmdTunnelS2CReverseDisconnect = 6003,
+    /// <summary>
+    ///反向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_C2S_DATA
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_C2S_REVERSE_DATA")] CmdTunnelC2SReverseData = 6004,
+    /// <summary>
+    ///反向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_S2C_DATA
+    /// </summary>
+    [pbr::OriginalName("CMD_TUNNEL_S2C_REVERSE_DATA")] CmdTunnelS2CReverseData = 6005,
   }
 
   public enum ErrorCode {

@@ -174,7 +174,7 @@ namespace ServerCore.Manager
             cinfo.IsOffline = true;
             cinfo.LogOutDT = DateTime.Now;
             //断开所有连接
-            ServerManager.g_Local.StopAll(cinfo.UID);
+            ServerManager.g_ForwardLocal.StopAll(cinfo.UID);
         }
 
         public void RemoveClientForSocket(Socket sk)

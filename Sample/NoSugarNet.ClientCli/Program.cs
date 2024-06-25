@@ -28,10 +28,10 @@ namespace NoSugarNet.ClientCli
                         AppNoSugarNet.Connect(Config.ServerIP, Config.ServerPort);
                         break;
                     case "tlist":
-                        AppNoSugarNet.local.GetClientCount(out int ClientUserCount, out int TunnelCount);
+                        AppNoSugarNet.forwardlocal.GetClientCount(out int ClientUserCount, out int TunnelCount);
                         Console.WriteLine($"GetClientCount->{ClientUserCount} TunnelCount->{TunnelCount}");
 
-                        AppNoSugarNet.local.GetClientDebugInfo();
+                        AppNoSugarNet.forwardlocal.GetClientDebugInfo();
                         break;
                     case "stop":
                         AppNoSugarNet.Close();

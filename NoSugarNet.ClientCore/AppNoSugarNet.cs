@@ -15,7 +15,7 @@ namespace NoSugarNet.ClientCore
         public static NetworkHelper networkHelper;
         public static AppLogin login;
         public static AppChat chat;
-        public static AppLocalClient local;
+        public static AppForwardLocalClient forwardlocal;
         public static UserDataManager user;
         public static System.Timers.Timer _SpeedCheckTimeTimer;//速度检测计时器
         public static int TimerInterval = 1000;//计时器间隔
@@ -34,7 +34,7 @@ namespace NoSugarNet.ClientCore
             networkHelper = new NetworkHelper();
             login = new AppLogin();
             chat = new AppChat();
-            local = new AppLocalClient();
+            forwardlocal = new AppForwardLocalClient();
             user = new UserDataManager();
             netStatus = new NetStatus();
             _SpeedCheckTimeTimer = new System.Timers.Timer();
@@ -53,7 +53,7 @@ namespace NoSugarNet.ClientCore
 
         public static void Close()
         {
-            local.StopAll();
+            forwardlocal.StopAll();
             networkHelper.CloseConntect();
             AppNoSugarNet.log.Info("停止");
             _SpeedCheckTimeTimer.Enabled = false;
@@ -61,8 +61,8 @@ namespace NoSugarNet.ClientCore
 
         static void Checktimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            local.GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght);
-            local.GetClientCount(out int ClientUserCount, out int TunnelCount);
+            forwardlocal.GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght);
+            forwardlocal.GetClientCount(out int ClientUserCount, out int TunnelCount);
 
             NetStatus resutnetStatus = new NetStatus()
             {
@@ -72,10 +72,10 @@ namespace NoSugarNet.ClientCore
                 srcReciveAllLenght = resultReciveAllLenght,
                 srcReciveSecSpeed = (resultReciveAllLenght - netStatus.srcReciveAllLenght) / (TimerInterval / 1000),
                 srcSendSecSpeed = (resultSendAllLenght - netStatus.srcSendAllLenght) / (TimerInterval / 1000),
-                tSendAllLenght = local.tSendAllLenght,
-                tReciveAllLenght = local.tReciveAllLenght,
-                tSendSecSpeed = (local.tSendAllLenght - netStatus.tSendAllLenght) / (TimerInterval / 1000),
-                tReciveSecSpeed = (local.tReciveAllLenght - netStatus.tReciveAllLenght) / (TimerInterval / 1000),
+                tSendAllLenght = forwardlocal.tSendAllLenght,
+                tReciveAllLenght = forwardlocal.tReciveAllLenght,
+                tSendSecSpeed = (forwardlocal.tSendAllLenght - netStatus.tSendAllLenght) / (TimerInterval / 1000),
+                tReciveSecSpeed = (forwardlocal.tReciveAllLenght - netStatus.tReciveAllLenght) / (TimerInterval / 1000),
             };
             netStatus = resutnetStatus;
             OnUpdateStatus?.Invoke(resutnetStatus);

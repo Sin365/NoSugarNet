@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace ServerCore.Manager
 {
-    public class LocalClientManager
+    public class ForwardLocalClientManager
     {
         Dictionary<long, BackwardLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, BackwardLocalClient>();
         CompressAdapter mCompressAdapter;
@@ -27,15 +27,15 @@ namespace ServerCore.Manager
             return CommKey / 10000000;
         }
 
-        public LocalClientManager(E_CompressAdapter compressAdapterType)
+        public ForwardLocalClientManager(E_CompressAdapter compressAdapterType)
         {
             ServerManager.g_Log.Debug("初始化压缩适配器" + compressAdapterType);
             //初始化压缩适配器，暂时使用0，代表压缩类型
             mCompressAdapter = new CompressAdapter(compressAdapterType);
             //注册网络消息
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SConnect, Recive_TunnelC2SConnect);
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SDisconnect, Recive_TunnelC2SDisconnect);
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SData, Recive_TunnelC2SData);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SForwardConnect, Recive_TunnelC2SConnect);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SForwardDisconnect, Recive_TunnelC2SDisconnect);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SForwardData, Recive_TunnelC2SData);
         }
 
         public void GetCurrLenght(out long resultReciveAllLenght,out long resultSendAllLenght)
@@ -204,7 +204,7 @@ namespace ServerCore.Manager
                         Connected = 0//失败
                     });
                     //发送给客户端，指定服务端本地端口已连接
-                    ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CConnect, (int)ErrorCode.ErrorOk, respData);
+                    ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CForwardConnect, (int)ErrorCode.ErrorOk, respData);
                 }
             });
             thread.Start();
@@ -248,7 +248,7 @@ namespace ServerCore.Manager
                 Connected = 1
             });
             //发送给客户端，指定服务端本地端口已连接
-            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CConnect, (int)ErrorCode.ErrorOk, respData);
+            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CForwardConnect, (int)ErrorCode.ErrorOk, respData);
         }
         /// <summary>
         /// 当服务端本地端口连接断开
@@ -269,7 +269,7 @@ namespace ServerCore.Manager
                 Idx= Idx,
             });
             //发送给客户端，指定服务端本地端口连接已断开
-            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CDisconnect, (int)ErrorCode.ErrorOk, respData);
+            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CForwardDisconnect, (int)ErrorCode.ErrorOk, respData);
         }
         #endregion
 
@@ -351,7 +351,7 @@ namespace ServerCore.Manager
             });
 
             //发送给客户端，指定客户端本地隧道ID
-            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CData, (int)ErrorCode.ErrorOk, respData);
+            ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CForwardData, (int)ErrorCode.ErrorOk, respData);
         }
         #endregion
     }
