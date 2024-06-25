@@ -16,5 +16,10 @@
         {
             Console.WriteLine(str);
         }
+
+        public void Log(int logtype, string str)
+        {
+            Console.WriteLine(str);
+        }
     }
 }

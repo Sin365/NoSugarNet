@@ -19,8 +19,5 @@
     <Reference Include="HaoYueNet.ServerNetwork.Standard2">
       <HintPath>..\Lib\NetLib_Standard2\HaoYueNet.ServerNetwork.Standard2.dll</HintPath>
     </Reference>
-    <Reference Include="NoSugarNet.DataHelper">
-      <HintPath>..\Lib\NetLib_Standard2\NoSugarNet.DataHelper.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

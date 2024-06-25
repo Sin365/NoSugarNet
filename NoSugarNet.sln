@@ -20,8 +20,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ClientCli", "Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ServerCli", "Sample\NoSugarNet.ServerCli\NoSugarNet.ServerCli.csproj", "{65220036-9A81-49FA-A5BC-DA06783D2E52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.DataHelper", "NoSugarNet.DataHelper\NoSugarNet.DataHelper.csproj", "{3C41B685-B46B-4057-826B-C8C6F395BFA8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetLib_Standard2", "NetLib_Standard2", "{4A660CAE-CD92-411C-9D8E-7CB677DB3C74}"
 	ProjectSection(SolutionItems) = preProject
 		Lib\NetLib_Standard2\HaoYueNet.ClientNetworkNet.Standard2.dll = Lib\NetLib_Standard2\HaoYueNet.ClientNetworkNet.Standard2.dll
@@ -32,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetLib_Standard2", "NetLib_
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoSugarNet.ClientCore.Standard2", "NoSugarNet.ClientCore.Standard2\NoSugarNet.ClientCore.Standard2.csproj", "{5DB2B608-6F99-430A-99AC-534410393955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSugarNet.Adapter", "NoSugarNet.Adapter\NoSugarNet.Adapter.csproj", "{961FA85B-B6A7-4F45-8239-9E91315253B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,14 +55,14 @@ Global
 		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65220036-9A81-49FA-A5BC-DA06783D2E52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C41B685-B46B-4057-826B-C8C6F395BFA8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5DB2B608-6F99-430A-99AC-534410393955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DB2B608-6F99-430A-99AC-534410393955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DB2B608-6F99-430A-99AC-534410393955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DB2B608-6F99-430A-99AC-534410393955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{961FA85B-B6A7-4F45-8239-9E91315253B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961FA85B-B6A7-4F45-8239-9E91315253B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961FA85B-B6A7-4F45-8239-9E91315253B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961FA85B-B6A7-4F45-8239-9E91315253B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

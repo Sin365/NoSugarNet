@@ -44,5 +44,10 @@
         {
             OnLog?.Invoke((int)logtype, str);
         }
+
+        public void Log(int logtype, string str)
+        {
+            OnLog?.Invoke(logtype, str);
+        }
     }
 }

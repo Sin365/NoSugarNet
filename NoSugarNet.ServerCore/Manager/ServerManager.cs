@@ -1,4 +1,4 @@
-﻿using NoSugarNet.DataHelper;
+﻿using NoSugarNet.Adapter.DataHelper;
 using NoSugarNet.ServerCore;
 using NoSugarNet.ServerCore.Common;
 using ServerCore.NetWork;

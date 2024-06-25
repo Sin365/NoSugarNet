@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NoSugarNet.Adapter\NoSugarNet.Adapter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Google.Protobuf">
       <HintPath>..\Lib\Google.Protobuf.dll</HintPath>
     </Reference>

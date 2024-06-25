@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NoSugarNet.Adapter\NoSugarNet.Adapter.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\Lib\Google.Protobuf.dll</HintPath>
-    </Reference>
     <Reference Include="HaoYueNet.ClientNetwork">
       <HintPath>..\Lib\HaoYueNet.ClientNetwork.dll</HintPath>
     </Reference>

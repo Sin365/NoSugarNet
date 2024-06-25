@@ -14,6 +14,7 @@ namespace NoSugarNet.ClientCore.Manager
 
         public void Login()
         {
+            AppNoSugarNet.log.Debug("-->Login");
             if(string.IsNullOrEmpty(LastLoginGuid))
                 LastLoginGuid = Guid.NewGuid().ToString();
 

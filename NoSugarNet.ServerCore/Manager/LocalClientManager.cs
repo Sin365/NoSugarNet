@@ -1,7 +1,7 @@
 ﻿using AxibugProtobuf;
 using Google.Protobuf;
-using NoSugarNet.ClientCore.Network;
-using NoSugarNet.DataHelper;
+using NoSugarNet.Adapter;
+using NoSugarNet.Adapter.DataHelper;
 using NoSugarNet.ServerCore.Common;
 using ServerCore.Common;
 using ServerCore.NetWork;
@@ -11,7 +11,7 @@ namespace ServerCore.Manager
 {
     public class LocalClientManager
     {
-        Dictionary<long, ServerLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, ServerLocalClient>();
+        Dictionary<long, BackwardLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, BackwardLocalClient>();
         CompressAdapter mCompressAdapter;
 
         public long tReciveAllLenght { get; private set; }
@@ -58,7 +58,7 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="serverClient"></param>
-        void AddServerLocalClient(long uid, byte tunnelId,byte Idx, ServerLocalClient serverClient)
+        void AddServerLocalClient(long uid, byte tunnelId,byte Idx, BackwardLocalClient serverClient)
         {
             long CommKey = GetCommKey(uid, tunnelId, Idx);
             lock (mDictCommKey2ServerLocalClients)
@@ -79,11 +79,12 @@ namespace ServerCore.Manager
 
                 if (!mDictCommKey2ServerLocalClients.ContainsKey(CommKey))
                     return;
+                mDictCommKey2ServerLocalClients[CommKey].Release();
                 mDictCommKey2ServerLocalClients.Remove(CommKey);
             }
         }
 
-        bool GetServerLocalClient(long uid, byte tunnelId, byte Idx,out ServerLocalClient serverLocalClient)
+        bool GetServerLocalClient(long uid, byte tunnelId, byte Idx,out BackwardLocalClient serverLocalClient)
         {
             serverLocalClient = null;
 
@@ -99,7 +100,7 @@ namespace ServerCore.Manager
         void CloseServerLocalClient(long uid, byte tunnelId, byte Idx)
         {
             //隧道ID定位投递服务端本地连接
-            if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient _serverLocalClient))
+            if (!GetServerLocalClient(uid, tunnelId, Idx, out BackwardLocalClient _serverLocalClient))
                 return;
             _serverLocalClient.CloseConntect();
             RemoveServerLocalClient(uid, tunnelId, Idx);
@@ -139,7 +140,7 @@ namespace ServerCore.Manager
                 long CommID = TempRemoveCommIDList[i];
                 if (!mDictCommKey2ServerLocalClients.ContainsKey(CommID))
                     continue;
-                ServerLocalClient _serverLoackClient = mDictCommKey2ServerLocalClients[CommID];
+                BackwardLocalClient _serverLoackClient = mDictCommKey2ServerLocalClients[CommID];
                 _serverLoackClient.CloseConntect();
             }
         }
@@ -189,7 +190,8 @@ namespace ServerCore.Manager
             {
                 //服务器本地局域网连接指定端口
                 TunnelClientData tunnelDataCfg = Config.cfgs[tunnelId];
-                ServerLocalClient serverLocalClient = new ServerLocalClient(uid, tunnelId, (byte)Idx);
+                BackwardLocalClient serverLocalClient = new BackwardLocalClient(uid, tunnelId, (byte)Idx);
+                serverLocalClient.BandEvent(ServerManager.g_Log.Log, OnServerLocalConnect, OnServerLocalDisconnect, OnServerLocalDataCallBack);
                 //连接成功
                 if (!serverLocalClient.Init(tunnelDataCfg.ServerLocalTargetIP, tunnelDataCfg.ServerLocalTargetPort))
                 {
@@ -219,7 +221,7 @@ namespace ServerCore.Manager
                 return;
 
             //隧道ID定位投递服务端本地连接
-            if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
+            if (!GetServerLocalClient(uid, tunnelId, Idx, out BackwardLocalClient serverLocalClient))
                 return;
 
             //断开服务端本地客户端连接
@@ -230,7 +232,7 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalConnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
+        public void OnServerLocalConnect(long uid, byte tunnelId, byte Idx, BackwardLocalClient serverLocalClient)
         {
             ServerManager.g_Log.Debug($"OnServerLocalConnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
@@ -253,7 +255,7 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalDisconnect(long uid, byte tunnelId, byte Idx, ServerLocalClient serverLocalClient)
+        public void OnServerLocalDisconnect(long uid, byte tunnelId, byte Idx, BackwardLocalClient serverLocalClient)
         {
             ServerManager.g_Log.Debug($"OnServerLocalDisconnect {uid},{tunnelId},{Idx}");
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
@@ -282,7 +284,7 @@ namespace ServerCore.Manager
         {
             //ServerManager.g_Log.Debug($"OnClientTunnelDataCallBack {uid},{tunnelId},{Idx}");
             //隧道ID定位投递服务端本地连接
-            if (!GetServerLocalClient(uid, tunnelId, Idx, out ServerLocalClient serverLocalClient))
+            if (!GetServerLocalClient(uid, tunnelId, Idx, out BackwardLocalClient serverLocalClient))
                 return;
             //记录数据长度
             tReciveAllLenght += data.Length;
@@ -331,7 +333,6 @@ namespace ServerCore.Manager
             }
             SendDataToRemote(uid, tunnelId, Idx, data);
         }
-
         void SendDataToRemote(long uid, byte tunnelId, byte Idx, byte[] data)
         {
             if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
