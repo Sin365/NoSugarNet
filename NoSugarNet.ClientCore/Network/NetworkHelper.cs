@@ -101,6 +101,7 @@ namespace NoSugarNet.ClientCore.Network
 
             //停止所有
             AppNoSugarNet.forwardlocal.StopAll();
+            AppNoSugarNet.reverselocal.StopAll(AppNoSugarNet.user.userdata.UID);
 
             //自动重连开关
             if (bAutoReConnect)

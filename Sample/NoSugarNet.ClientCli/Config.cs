@@ -1,33 +1,64 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace NoSugarNet.ClientCli
 {
+
+    public class ConfigDataModel
+    {
+        public string ServerIP { get; set; }
+        public int ServerPort { get; set; }
+        public int CompressAdapterType { get; set; }
+        public List<ConfigDataModel_Single> TunnelList { get; set; }
+    }
+
+    public class ConfigDataModel_Single
+    {
+        public string LocalTargetIP { get; set; }
+        public int LocalTargetPort { get; set; }
+        public int ClientLocalPort { get; set; }
+    }
+
     public static class Config
     {
-        public static string ServerIP;
-        public static int ServerPort;
+        public static ConfigDataModel cfg;
         public static bool LoadConfig()
         {
             try
             {
-                StreamReader sr = new StreamReader(System.Environment.CurrentDirectory + "//config.cfg", Encoding.Default);
-                String line;
-                while (!string.IsNullOrEmpty((line = sr.ReadLine())))
+                string path = System.Environment.CurrentDirectory + "//config.cfg";
+                if (!File.Exists(path))
                 {
-                    if (!line.Contains(":"))
-                        continue;
-                    try
+                    ConfigDataModel sampleCfg = new ConfigDataModel
                     {
-                        ServerIP = line.Split(':')[0].Trim();
-                        ServerPort = Convert.ToInt32(line.Split(':')[1].Trim());
-                    }
-                    catch
+                        ServerIP = "127.0.0.1",
+                        ServerPort = 1000,
+                        TunnelList = new List<ConfigDataModel_Single>()
+                        {
+                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,ClientLocalPort = 20001},
+                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,ClientLocalPort = 20002}
+                        }
+                    };
+
+                    string jsonString = JsonSerializer.Serialize(sampleCfg, new JsonSerializerOptions()
                     {
-                        continue;
-                    }
+                        // 整齐打印
+                        WriteIndented = true,
+                        //重新编码，解决中文乱码问题
+                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+                    });
+                    System.IO.File.WriteAllText(path, jsonString, Encoding.UTF8);
+
+                    Console.WriteLine("未找到配置，已生成模板，请浏览" + path);
+                    return false;
                 }
+                StreamReader sr = new StreamReader(path, Encoding.Default);
+                String jsonstr = sr.ReadToEnd();
+                cfg = JsonSerializer.Deserialize<ConfigDataModel>(jsonstr);
                 sr.Close();
-                if (!string.IsNullOrEmpty(ServerIP))
+                if (cfg?.TunnelList.Count > 0)
                     return true;
                 else
                     return false;

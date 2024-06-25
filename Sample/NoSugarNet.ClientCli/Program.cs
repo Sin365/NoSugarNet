@@ -1,4 +1,5 @@
 ﻿using NoSugarNet.ClientCore;
+using NoSugarNet.ClientCore.Common;
 
 namespace NoSugarNet.ClientCli
 {
@@ -14,8 +15,22 @@ namespace NoSugarNet.ClientCli
                 return;
             }
             AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
-            AppNoSugarNet.Init(OnNoSugarNetLog);
-            AppNoSugarNet.Connect(Config.ServerIP, Config.ServerPort);
+
+            Dictionary<byte, TunnelClientData> dictTunnel = new Dictionary<byte, TunnelClientData>();
+            for (int i = 0; i < Config.cfg.TunnelList.Count; i++)
+            {
+                ConfigDataModel_Single cfgSingle = Config.cfg.TunnelList[i];
+                dictTunnel[(byte)i] = new TunnelClientData()
+                {
+                    TunnelId = (byte)i,
+                    ServerLocalTargetIP = cfgSingle.LocalTargetIP,
+                    ServerLocalTargetPort = (ushort)cfgSingle.LocalTargetPort,
+                    ClientLocalPort = (ushort)cfgSingle.ClientLocalPort,
+                };
+            }
+
+            AppNoSugarNet.Init(dictTunnel, Config.cfg.CompressAdapterType, OnNoSugarNetLog);
+            AppNoSugarNet.Connect(Config.cfg.ServerIP, Config.cfg.ServerPort);
             while (true)
             {
                 string CommandStr = Console.ReadLine();
@@ -25,7 +40,7 @@ namespace NoSugarNet.ClientCli
                 switch (Command)
                 {
                     case "con":
-                        AppNoSugarNet.Connect(Config.ServerIP, Config.ServerPort);
+                        AppNoSugarNet.Connect(Config.cfg.ServerIP, Config.cfg.ServerPort);
                         break;
                     case "tlist":
                         AppNoSugarNet.forwardlocal.GetClientCount(out int ClientUserCount, out int TunnelCount);

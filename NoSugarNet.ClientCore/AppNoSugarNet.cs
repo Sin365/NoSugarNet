@@ -1,4 +1,6 @@
-﻿using NoSugarNet.ClientCore.Manager;
+﻿using NoSugarNet.Adapter.DataHelper;
+using NoSugarNet.ClientCore.Common;
+using NoSugarNet.ClientCore.Manager;
 using NoSugarNet.ClientCore.Network;
 using ServerCore.Manager;
 using static NoSugarNet.ClientCore.Manager.LogManager;
@@ -16,6 +18,7 @@ namespace NoSugarNet.ClientCore
         public static AppLogin login;
         public static AppChat chat;
         public static AppForwardLocalClient forwardlocal;
+        public static AppReverseLocalClient reverselocal;
         public static UserDataManager user;
         public static System.Timers.Timer _SpeedCheckTimeTimer;//速度检测计时器
         public static int TimerInterval = 1000;//计时器间隔
@@ -26,8 +29,11 @@ namespace NoSugarNet.ClientCore
         public static event OnUpdateStatusHandler OnUpdateStatus;
         #endregion
 
-        public static void Init(OnLogHandler onLog = null)
+        public static void Init(Dictionary<byte, TunnelClientData> cfgs, int compressAdapterType = 0,OnLogHandler onLog = null)
         {
+            Config.cfgs = cfgs;
+            Config.compressAdapterType = (E_CompressAdapter)compressAdapterType;
+
             log = new LogManager();
             if(onLog != null)
                 LogManager.OnLog += onLog;
@@ -35,6 +41,7 @@ namespace NoSugarNet.ClientCore
             login = new AppLogin();
             chat = new AppChat();
             forwardlocal = new AppForwardLocalClient();
+            reverselocal = new AppReverseLocalClient(Config.compressAdapterType);
             user = new UserDataManager();
             netStatus = new NetStatus();
             _SpeedCheckTimeTimer = new System.Timers.Timer();

@@ -24,7 +24,8 @@ namespace ServerCore.Manager
                 Status = LoginResultStatus.Ok,
                 RegDate = "",
                 LastLoginDate = "",
-                Token = ""
+                Token = "",
+                UID = cinfo.UID
             });
 
             ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdLogin, (int)ErrorCode.ErrorOk, respData);
@@ -39,7 +40,7 @@ namespace ServerCore.Manager
             cfgsSP.CompressAdapterType = (int)Config.compressAdapterType;
 
             byte[] respDataCfg = ProtoBufHelper.Serizlize(cfgsSP);
-            ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdCfgs, (int)ErrorCode.ErrorOk, respDataCfg);
+            ServerManager.g_ClientMgr.ClientSend(cinfo, (int)CommandID.CmdServerCfgs, (int)ErrorCode.ErrorOk, respDataCfg);
         }
     }
 }

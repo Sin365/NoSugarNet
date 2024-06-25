@@ -33,13 +33,13 @@ namespace NoSugarNet.ClientCore.Manager
             if (msg.Status == LoginResultStatus.Ok)
             {
                 AppNoSugarNet.log.Info("登录成功");
-                AppNoSugarNet.user.InitMainUserData(AppNoSugarNet.user.userdata.Account);
+                AppNoSugarNet.user.InitMainUserData(AppNoSugarNet.user.userdata.Account,msg.UID);
+                AppNoSugarNet.reverselocal.Send_ClientCfg();
             }
             else
             {
                 AppNoSugarNet.log.Info("登录失败");
             }
         }
-
     }
 }

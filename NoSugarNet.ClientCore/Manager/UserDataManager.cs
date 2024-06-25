@@ -23,10 +23,11 @@ namespace NoSugarNet.ClientCore.Manager
         public MainUserDataBase userdata { get;private set; } = new MainUserDataBase();
         public bool IsLoggedIn => userdata.IsLoggedIn;
 
-        public void InitMainUserData(string UName)
+        public void InitMainUserData(string UName,long UID)
         {
             userdata.Account = UName;
             userdata.IsLoggedIn = true;
+            userdata.UID = UID;
             //以及其他数据初始化
             //...
         }

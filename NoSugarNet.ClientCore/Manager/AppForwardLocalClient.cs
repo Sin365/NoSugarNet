@@ -25,7 +25,7 @@ namespace ServerCore.Manager
         public AppForwardLocalClient()
         {
             //注册网络消息
-            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdCfgs, Recive_CmdCfgs);
+            NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdServerCfgs, Recive_CmdCfgs);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardConnect, Recive_TunnelS2CConnect);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardDisconnect, Recive_TunnelS2CDisconnect);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CForwardData, Recive_TunnelS2CData);
