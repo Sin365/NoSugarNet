@@ -49,7 +49,7 @@ namespace ServerCore.Manager
             _Protobuf_Cfgs.Cfgs.Clear();
             foreach (var cfg in Config.cfgs)
             {
-                _Protobuf_Cfgs.Cfgs.Add(new Protobuf_Cfgs_Single() { Port = cfg.Value.ClientLocalPort, TunnelID = cfg.Value.TunnelId });
+                _Protobuf_Cfgs.Cfgs.Add(new Protobuf_Cfgs_Single() { Port = cfg.Value.RemoteLocalPort, TunnelID = cfg.Value.TunnelId });
             }
             AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdClientCfgs, ProtoBufHelper.Serizlize(_Protobuf_Cfgs));
         }
@@ -101,7 +101,7 @@ namespace ServerCore.Manager
                 BackwardLocalClient serverLocalClient = new BackwardLocalClient(AppNoSugarNet.user.userdata.UID, tunnelId, (byte)Idx);
                 serverLocalClient.BandEvent(AppNoSugarNet.log.Log, OnClientLocalConnect, OnClientLocalDisconnect, OnClientLocalDataCallBack);
                 //连接成功
-                if (!serverLocalClient.Init(tunnelDataCfg.ServerLocalTargetIP, tunnelDataCfg.ServerLocalTargetPort))
+                if (!serverLocalClient.Init(tunnelDataCfg.LocalTargetIP, tunnelDataCfg.LocalTargetPort))
                 {
                     //TODO告知客户端连接失败
 

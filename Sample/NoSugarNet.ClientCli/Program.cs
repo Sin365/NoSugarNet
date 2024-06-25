@@ -23,9 +23,9 @@ namespace NoSugarNet.ClientCli
                 dictTunnel[(byte)i] = new TunnelClientData()
                 {
                     TunnelId = (byte)i,
-                    ServerLocalTargetIP = cfgSingle.LocalTargetIP,
-                    ServerLocalTargetPort = (ushort)cfgSingle.LocalTargetPort,
-                    ClientLocalPort = (ushort)cfgSingle.ClientLocalPort,
+                    LocalTargetIP = cfgSingle.LocalTargetIP,
+                    LocalTargetPort = (ushort)cfgSingle.LocalTargetPort,
+                    RemoteLocalPort = (ushort)cfgSingle.RemoteLocalPort,
                 };
             }
 

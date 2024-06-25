@@ -5,11 +5,10 @@ namespace NoSugarNet.ClientCore.Common
     public struct TunnelClientData
     {
         public byte TunnelId;
-        public string ServerLocalTargetIP;
-        public ushort ServerLocalTargetPort;
-        public ushort ClientLocalPort;
+        public string LocalTargetIP;
+        public ushort LocalTargetPort;
+        public ushort RemoteLocalPort;
     }
-
     public static class Config
     {
         public static Dictionary<byte, TunnelClientData> cfgs = new Dictionary<byte, TunnelClientData>();
