@@ -17,6 +17,8 @@ namespace ServerCore.Manager
         public long tReciveAllLenght { get; private set; }
         public long tSendAllLenght { get; private set; }
 
+        Protobuf_Cfgs _Send_Protobuf_Cfgs = new Protobuf_Cfgs();
+
         static long GetCommKey(long Uid, int Tunnel, int Idx)
         {
             return (Uid * 10000000) + (Tunnel * 10000) + Idx;
@@ -39,19 +41,30 @@ namespace ServerCore.Manager
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelS2CReverseData, Recive_TunnelS2CData);
         }
 
-        Protobuf_Cfgs _Protobuf_Cfgs = new Protobuf_Cfgs();
+        public void GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght)
+        {
+            resultReciveAllLenght = 0;
+            resultSendAllLenght = 0;
+            long[] Keys = mDictCommKey2LocalClients.Keys.ToArray();
+            for (int i = 0; i < Keys.Length; i++)
+            {
+                //local和转发 收发相反
+                resultSendAllLenght += mDictCommKey2LocalClients[Keys[i]].mReciveAllLenght;
+                resultReciveAllLenght += mDictCommKey2LocalClients[Keys[i]].mSendAllLenght;
+            }
+        }
 
         public void Send_ClientCfg()
         {
             AppNoSugarNet.log.Debug("Reverse->-->Send_ClientCfg");
 
-            _Protobuf_Cfgs.CompressAdapterType = (int)Config.compressAdapterType;
-            _Protobuf_Cfgs.Cfgs.Clear();
+            _Send_Protobuf_Cfgs.CompressAdapterType = (int)Config.compressAdapterType;
+            _Send_Protobuf_Cfgs.Cfgs.Clear();
             foreach (var cfg in Config.cfgs)
             {
-                _Protobuf_Cfgs.Cfgs.Add(new Protobuf_Cfgs_Single() { Port = cfg.Value.RemoteLocalPort, TunnelID = cfg.Value.TunnelId });
+                _Send_Protobuf_Cfgs.Cfgs.Add(new Protobuf_Cfgs_Single() { Port = cfg.Value.RemoteLocalPort, TunnelID = cfg.Value.TunnelId });
             }
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdClientCfgs, ProtoBufHelper.Serizlize(_Protobuf_Cfgs));
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdClientCfgs, ProtoBufHelper.Serizlize(_Send_Protobuf_Cfgs));
         }
 
 
@@ -61,21 +74,20 @@ namespace ServerCore.Manager
             AppNoSugarNet.log.Debug("Reverse->Recive_TunnelS2CConnect");
             Protobuf_Tunnel_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Connect>(reqData);
             if (msg.Connected == 1)
-                OnServerLocalConnect((byte)msg.TunnelID, (byte)msg.Idx);
+                OnRemoteLocalConnect((byte)msg.TunnelID, (byte)msg.Idx);
             else
-                OnServerLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
+                OnRemoteLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
         }
         public void Recive_TunnelS2CDisconnect(byte[] reqData)
         {
             AppNoSugarNet.log.Debug("Reverse->Recive_TunnelS2CDisconnect");
             Protobuf_Tunnel_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Disconnect>(reqData);
-            OnServerLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
+            OnRemoteLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
         }
         public void Recive_TunnelS2CData(byte[] reqData)
         {
-            //AppNoSugarNet.log.Debug("Recive_TunnelS2CData");
             Protobuf_Tunnel_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_DATA>(reqData);
-            OnServerTunnelDataCallBack(AppNoSugarNet.user.userdata.UID, (byte)msg.TunnelID, (byte)msg.Idx, msg.HunterNetCoreData.ToArray());
+            OnRemoteTunnelDataCallBack(AppNoSugarNet.user.userdata.UID, (byte)msg.TunnelID, (byte)msg.Idx, msg.HunterNetCoreData.ToArray());
         }
         #endregion
 
@@ -86,9 +98,9 @@ namespace ServerCore.Manager
         /// 当服务端本地端口连接
         /// </summary>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalConnect(byte tunnelId, byte Idx)
+        public void OnRemoteLocalConnect(byte tunnelId, byte Idx)
         {
-            AppNoSugarNet.log.Debug($"Reverse->OnClientLocalConnect!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnRemoteLocalConnect{AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
 
             if (!Config.cfgs.ContainsKey(tunnelId))
                 return;
@@ -104,7 +116,6 @@ namespace ServerCore.Manager
                 if (!serverLocalClient.Init(tunnelDataCfg.LocalTargetIP, tunnelDataCfg.LocalTargetPort))
                 {
                     //TODO告知客户端连接失败
-
                     byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Connect()
                     {
                         TunnelID = tunnelId,
@@ -122,9 +133,9 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnServerLocalDisconnect(byte tunnelId, byte Idx)
+        public void OnRemoteLocalDisconnect(byte tunnelId, byte Idx)
         {
-            AppNoSugarNet.log.Debug($"Reverse->OnServerLocalDisconnect,收到客户端断开链接!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnRemoteLocalDisconnect {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
             
             //隧道ID定位投递服务端本地连接
             if (!GetClientLocalClient(AppNoSugarNet.user.userdata.UID, tunnelId, Idx, out BackwardLocalClient LocalClient))
@@ -279,9 +290,8 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="data"></param>
-        public void OnServerTunnelDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
+        public void OnRemoteTunnelDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
-            AppNoSugarNet.log.Debug($"Reverse->OnServerTunnelDataCallBack {uid},{tunnelId},{Idx},data -> {data.Length}");
             //隧道ID定位投递服务端本地连接
             if (!GetClientLocalClient(uid, tunnelId, Idx, out BackwardLocalClient serverLocalClient))
                 return;
@@ -302,11 +312,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientLocalDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
-            AppNoSugarNet.log.Debug($"Reverse->OnClientLocalDataCallBack {uid},{tunnelId},{Idx},data -> {data.Length}");
-            //ServerManager.g_Log.Debug($"OnServerLocalDataCallBack {uid},{tunnelId},{Idx}");
-            //if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
-            //    return;
-
+            //AppNoSugarNet.log.Debug($"Reverse->OnClientLocalDataCallBack {uid},{tunnelId},{Idx},data -> {data.Length}");
             int SlienLenght = 1000;
             //判断数据量大时分包
             if (data.Length > SlienLenght)
@@ -335,9 +341,6 @@ namespace ServerCore.Manager
         }
         void SendDataToRemote(long uid, byte tunnelId, byte Idx, byte[] data)
         {
-            //if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
-            //    return;
-
             //压缩
             data = mCompressAdapter.Compress(data);
             //记录压缩后数据长度

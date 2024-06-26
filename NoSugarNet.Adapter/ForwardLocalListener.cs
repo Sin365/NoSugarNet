@@ -134,7 +134,7 @@ namespace NoSugarNet.Adapter
                 while (_localClientInfo.msgQueue.Count > 0)
                 {
                     IdxWithMsg msg = _localClientInfo.msgQueue.Dequeue();
-                    LocalMsgQueuePool._localMsgPool.Enqueue(msg);
+                    MsgQueuePool._MsgPool.Enqueue(msg);
                 }
 
                 _localClientInfo._socket.Shutdown(SocketShutdown.Both);
@@ -314,7 +314,7 @@ namespace NoSugarNet.Adapter
             if (!GetSocketByIdx(Idx, out LocalClientInfo _localClientInfo))
                 return;
 
-            IdxWithMsg Msg = LocalMsgQueuePool._localMsgPool.Dequeue();
+            IdxWithMsg Msg = MsgQueuePool._MsgPool.Dequeue();
             Msg.Idx = Idx;
             Msg.data = data;
             _localClientInfo.msgQueue.Enqueue(Msg);

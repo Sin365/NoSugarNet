@@ -6,13 +6,13 @@
         public byte[] data;
     }
 
-    public class LocalMsgQueuePool
+    public class MsgQueuePool
     {
-        public static LocalMsgQueuePool _localMsgPool = new LocalMsgQueuePool(1000);
+        public static MsgQueuePool _MsgPool = new MsgQueuePool(1000);
 
         Queue<IdxWithMsg> msg_pool;
 
-        public LocalMsgQueuePool(int capacity)
+        public MsgQueuePool(int capacity)
         {
             msg_pool = new Queue<IdxWithMsg>(capacity);
         }

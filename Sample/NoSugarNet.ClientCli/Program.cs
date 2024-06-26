@@ -56,10 +56,10 @@ namespace NoSugarNet.ClientCli
                 }
             }
         }
-        static void OnUpdateStatus(NetStatus netState)
+        static void OnUpdateStatus(NetStatus Forward_NetStatus, NetStatus Reverse_NetStatus)
         {
-            //string info = $"User:{netState.ClientUserCount}   Tun:{netState.TunnelCount}    rec:{netState.srcReciveAllLenght}|{netState.tReciveAllLenght}   {ConvertBytesToKilobytes(netState.srcReciveSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tReciveSecSpeed)}K/s   send:{netState.srcSendAllLenght}|{netState.tSendAllLenght} {ConvertBytesToKilobytes(netState.srcSendSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tSendSecSpeed)}K/s";
-            string info = $"User:{netState.ClientUserCount} Tun:{netState.TunnelCount}      rec: {ConvertBytesToKilobytes(netState.srcReciveSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tReciveSecSpeed)}K/s        send: {ConvertBytesToKilobytes(netState.srcSendSecSpeed)}K/s|{ConvertBytesToKilobytes(netState.tSendSecSpeed)}K/s";
+            string info = $"Forward: t:{Forward_NetStatus.TunnelCount} r:{ConvertBytesToKilobytes(Forward_NetStatus.srcReciveSecSpeed)}K/s|{ConvertBytesToKilobytes(Forward_NetStatus.tReciveSecSpeed)}K/s s: {ConvertBytesToKilobytes(Forward_NetStatus.srcSendSecSpeed)}K/s|{ConvertBytesToKilobytes(Forward_NetStatus.tSendSecSpeed)}K/s" +
+                $"| Reverse t:{Reverse_NetStatus.TunnelCount} r:{ConvertBytesToKilobytes(Reverse_NetStatus.srcReciveSecSpeed)}K/s|{ConvertBytesToKilobytes(Reverse_NetStatus.tReciveSecSpeed)}K/s s: {ConvertBytesToKilobytes(Reverse_NetStatus.srcSendSecSpeed)}K/s|{ConvertBytesToKilobytes(Reverse_NetStatus.tSendSecSpeed)}K/s";
             Console.Title = Title + info;
             Console.WriteLine(info);
         }

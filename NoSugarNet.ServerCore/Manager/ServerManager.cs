@@ -20,9 +20,10 @@ namespace ServerCore.Manager
         public static int TimerInterval = 1000;//计时器间隔
         static long mLastReciveAllLenght = 0;
         static long mSendAllLenght = 0;
-        static NetStatus netStatus;
+        static NetStatus Forward_NetStatus;
+        static NetStatus Reverse_NetStatus;
         #region 委托和事件
-        public delegate void OnUpdateStatusHandler(NetStatus Status);
+        public delegate void OnUpdateStatusHandler(NetStatus ForwardStatus, NetStatus ReverseStatus);
         public static event OnUpdateStatusHandler OnUpdateStatus;
         #endregion
 
@@ -40,7 +41,8 @@ namespace ServerCore.Manager
             //g_SocketMgr = new IOCPNetWork(1024, 1024);
             g_SocketMgr = new IOCPNetWork(1024, 4096);
 
-            netStatus = new NetStatus();
+            Forward_NetStatus = new NetStatus();
+            Reverse_NetStatus = new NetStatus();
 
             g_SocketMgr.Init();
             g_SocketMgr.Start(new IPEndPoint(IPAddress.Any.Address, port));
@@ -55,23 +57,47 @@ namespace ServerCore.Manager
 
         static void Checktimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            g_ForwardLocal.GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght);
-            g_ForwardLocal.GetClientCount(out int ClientUserCount, out int TunnelCount);
-            NetStatus resutnetStatus = new NetStatus()
             {
-                TunnelCount = TunnelCount,
-                ClientUserCount = ClientUserCount,
-                srcSendAllLenght = resultSendAllLenght,
-                srcReciveAllLenght = resultReciveAllLenght,
-                srcReciveSecSpeed = (resultReciveAllLenght - netStatus.srcReciveAllLenght) / (TimerInterval / 1000),
-                srcSendSecSpeed = (resultSendAllLenght - netStatus.srcSendAllLenght) / (TimerInterval / 1000),
-                tSendAllLenght = g_ForwardLocal.tSendAllLenght,
-                tReciveAllLenght = g_ForwardLocal.tReciveAllLenght,
-                tSendSecSpeed = (g_ForwardLocal.tSendAllLenght - netStatus.tSendAllLenght) / (TimerInterval / 1000),
-                tReciveSecSpeed = (g_ForwardLocal.tReciveAllLenght - netStatus.tReciveAllLenght) / (TimerInterval / 1000),
-            };
-            netStatus = resutnetStatus;
-            OnUpdateStatus?.Invoke(resutnetStatus);
+
+                g_ForwardLocal.GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght);
+                g_ForwardLocal.GetClientCount(out int ClientUserCount, out int TunnelCount);
+                NetStatus resutnetStatus = new NetStatus()
+                {
+                    TunnelCount = TunnelCount,
+                    ClientUserCount = ClientUserCount,
+                    srcSendAllLenght = resultSendAllLenght,
+                    srcReciveAllLenght = resultReciveAllLenght,
+                    srcReciveSecSpeed = (resultReciveAllLenght - Forward_NetStatus.srcReciveAllLenght) / (TimerInterval / 1000),
+                    srcSendSecSpeed = (resultSendAllLenght - Forward_NetStatus.srcSendAllLenght) / (TimerInterval / 1000),
+                    tSendAllLenght = g_ForwardLocal.tSendAllLenght,
+                    tReciveAllLenght = g_ForwardLocal.tReciveAllLenght,
+                    tSendSecSpeed = (g_ForwardLocal.tSendAllLenght - Forward_NetStatus.tSendAllLenght) / (TimerInterval / 1000),
+                    tReciveSecSpeed = (g_ForwardLocal.tReciveAllLenght - Forward_NetStatus.tReciveAllLenght) / (TimerInterval / 1000),
+                };
+                Forward_NetStatus = resutnetStatus;
+            }
+
+            {
+
+                g_ReverseLocal.GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght);
+                g_ReverseLocal.GetClientCount(out int ClientUserCount, out int TunnelCount);
+                NetStatus resutnetStatus = new NetStatus()
+                {
+                    TunnelCount = TunnelCount,
+                    ClientUserCount = ClientUserCount,
+                    srcSendAllLenght = resultSendAllLenght,
+                    srcReciveAllLenght = resultReciveAllLenght,
+                    srcReciveSecSpeed = (resultReciveAllLenght - Reverse_NetStatus.srcReciveAllLenght) / (TimerInterval / 1000),
+                    srcSendSecSpeed = (resultSendAllLenght - Reverse_NetStatus.srcSendAllLenght) / (TimerInterval / 1000),
+                    tSendAllLenght = g_ForwardLocal.tSendAllLenght,
+                    tReciveAllLenght = g_ForwardLocal.tReciveAllLenght,
+                    tSendSecSpeed = (g_ForwardLocal.tSendAllLenght - Reverse_NetStatus.tSendAllLenght) / (TimerInterval / 1000),
+                    tReciveSecSpeed = (g_ForwardLocal.tReciveAllLenght - Reverse_NetStatus.tReciveAllLenght) / (TimerInterval / 1000),
+                };
+                Reverse_NetStatus = resutnetStatus;
+            }
+
+            OnUpdateStatus?.Invoke(Forward_NetStatus, Reverse_NetStatus);
         }
 
     }

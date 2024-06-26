@@ -26,6 +26,33 @@ namespace ServerCore.Manager
             return CommKey / 10000000;
         }
 
+        public void GetCurrLenght(out long resultReciveAllLenght, out long resultSendAllLenght)
+        {
+            resultReciveAllLenght = 0;
+            resultSendAllLenght = 0;
+            long[] Keys = mDictCommKey2LocalListeners.Keys.ToArray();
+            for (int i = 0; i < Keys.Length; i++)
+            {
+                //local和转发 收发相反
+                resultSendAllLenght += mDictCommKey2LocalListeners[Keys[i]].mReciveAllLenght;
+                resultReciveAllLenght += mDictCommKey2LocalListeners[Keys[i]].mSendAllLenght;
+            }
+        }
+
+        public void GetClientCount(out int ClientUserCount, out int TunnelCount)
+        {
+            TunnelCount = mDictCommKey2LocalListeners.Count;
+            long[] CommIDKeys = mDictCommKey2LocalListeners.Keys.ToArray();
+            List<long> TempHadLocalConnetList = new List<long>();
+            for (int i = 0; i < CommIDKeys.Length; i++)
+            {
+                long uid = GetUidForCommKey(CommIDKeys[i]);
+                if (!TempHadLocalConnetList.Contains(uid))
+                    TempHadLocalConnetList.Add(uid);
+            }
+            ClientUserCount = TempHadLocalConnetList.Count;
+        }
+
         public ReverseLocalClientManager()
         {
             //注册网络消息
@@ -151,7 +178,7 @@ namespace ServerCore.Manager
         }
         public void Recive_TunnelC2SData(Socket sk, byte[] reqData)
         {
-            ServerManager.g_Log.Debug("Reverse->Recive_TunnelC2SData");
+            //ServerManager.g_Log.Debug("Reverse->Recive_TunnelC2SData");
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             Protobuf_Tunnel_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_DATA>(reqData);
             OnRemoteLocalDataCallBack(_c.UID, (byte)msg.TunnelID, (byte)msg.Idx, msg.HunterNetCoreData.ToArray());
@@ -234,7 +261,7 @@ namespace ServerCore.Manager
                     //投递给服务端，来自客户端本地的连接数据
                     ServerManager.g_ClientMgr.ClientSend(client, (int)CommandID.CmdTunnelS2CReverseData, (int)ErrorCode.ErrorOk, msg.data);
                     //发送后回收
-                    LocalMsgQueuePool._localMsgPool.Enqueue(msg);
+                    MsgQueuePool._MsgPool.Enqueue(msg);
                 }
             }
         }
@@ -268,7 +295,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnRemoteLocalDataCallBack(long UID, byte tunnelId, byte Idx, byte[] data)
         {
-            ServerManager.g_Log.Debug($"Reverse->OnRemoteLocalDataCallBack {UID},{tunnelId},{Idx},Data长度：{data.Length}");
+            //ServerManager.g_Log.Debug($"Reverse->OnRemoteLocalDataCallBack {UID},{tunnelId},{Idx},Data长度：{data.Length}");
 
             if (!ServerManager.g_ClientMgr.GetClientByUID(UID, out ClientInfo client))
                 return;
@@ -290,7 +317,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnTunnelDataCallBack(long UID, byte tunnelId, byte Idx, byte[] data)
         {
-            ServerManager.g_Log.Debug($"Reverse->OnTunnelDataCallBack {UID},{tunnelId},{Idx},Data长度：{data.Length}");
+            //ServerManager.g_Log.Debug($"Reverse->OnTunnelDataCallBack {UID},{tunnelId},{Idx},Data长度：{data.Length}");
 
             int SlienLenght = 1000;
             //判断数据量大时分包
@@ -321,7 +348,7 @@ namespace ServerCore.Manager
 
         void SendDataToRemote(long UID, byte tunnelId, byte Idx, byte[] data)
         {
-            ServerManager.g_Log.Debug($"Reverse->SendDataToRemote {UID},{tunnelId},{Idx},Data长度：{data.Length}");
+            //ServerManager.g_Log.Debug($"Reverse->SendDataToRemote {UID},{tunnelId},{Idx},Data长度：{data.Length}");
 
             if (!ServerManager.g_ClientMgr.GetClientByUID(UID, out ClientInfo client))
                 return;
