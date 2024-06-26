@@ -29,7 +29,7 @@ namespace ServerCore.Manager
 
         public AppReverseLocalClient(NoSugarNet.Adapter.DataHelper.E_CompressAdapter compressAdapterType)
         {
-            AppNoSugarNet.log.Debug("初始化压缩适配器" + compressAdapterType);
+            AppNoSugarNet.log.Debug("Reverse->初始化压缩适配器" + compressAdapterType);
             //初始化压缩适配器，暂时使用0，代表压缩类型
             mCompressAdapter = new CompressAdapter(compressAdapterType);
 
@@ -43,7 +43,7 @@ namespace ServerCore.Manager
 
         public void Send_ClientCfg()
         {
-            AppNoSugarNet.log.Debug("-->Send_ClientCfg");
+            AppNoSugarNet.log.Debug("Reverse->-->Send_ClientCfg");
 
             _Protobuf_Cfgs.CompressAdapterType = (int)Config.compressAdapterType;
             _Protobuf_Cfgs.Cfgs.Clear();
@@ -58,7 +58,7 @@ namespace ServerCore.Manager
         #region 解析服务端下行数据
         public void Recive_TunnelS2CConnect(byte[] reqData)
         {
-            AppNoSugarNet.log.Debug("Recive_TunnelS2CConnect");
+            AppNoSugarNet.log.Debug("Reverse->Recive_TunnelS2CConnect");
             Protobuf_Tunnel_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Connect>(reqData);
             if (msg.Connected == 1)
                 OnServerLocalConnect((byte)msg.TunnelID, (byte)msg.Idx);
@@ -67,7 +67,7 @@ namespace ServerCore.Manager
         }
         public void Recive_TunnelS2CDisconnect(byte[] reqData)
         {
-            AppNoSugarNet.log.Debug("Recive_TunnelS2CDisconnect");
+            AppNoSugarNet.log.Debug("Reverse->Recive_TunnelS2CDisconnect");
             Protobuf_Tunnel_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Disconnect>(reqData);
             OnServerLocalDisconnect((byte)msg.TunnelID, (byte)msg.Idx);
         }
@@ -88,7 +88,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalConnect(byte tunnelId, byte Idx)
         {
-            AppNoSugarNet.log.Debug($"OnClientLocalConnect!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnClientLocalConnect!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
 
             if (!Config.cfgs.ContainsKey(tunnelId))
                 return;
@@ -112,7 +112,7 @@ namespace ServerCore.Manager
                         Connected = 0//失败
                     });
                     //发送给客户端，指定服务端本地端口已连接
-                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelS2CForwardConnect, respData);
+                    AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SReverseConnect, respData);
                 }
             });
             thread.Start();
@@ -124,7 +124,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnServerLocalDisconnect(byte tunnelId, byte Idx)
         {
-            AppNoSugarNet.log.Debug($"OnServerLocalDisconnect,收到客户端断开链接!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnServerLocalDisconnect,收到客户端断开链接!!!!!! {AppNoSugarNet.user.userdata.UID},{tunnelId},{Idx}");
             
             //隧道ID定位投递服务端本地连接
             if (!GetClientLocalClient(AppNoSugarNet.user.userdata.UID, tunnelId, Idx, out BackwardLocalClient LocalClient))
@@ -141,7 +141,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnClientLocalConnect(long uid, byte tunnelId, byte Idx, BackwardLocalClient serverLocalClient)
         {
-            AppNoSugarNet.log.Debug($"OnServerLocalConnect {uid},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnServerLocalConnect {uid},{tunnelId},{Idx}");
 
             //添加到服务端本地连接列表
             AddClientLocalClient(uid, tunnelId, Idx, serverLocalClient);
@@ -153,7 +153,7 @@ namespace ServerCore.Manager
                 Connected = 1
             });
             //发送给客户端，指定服务端本地端口已连接
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelS2CForwardConnect,  respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SReverseConnect,  respData);
         }
         /// <summary>
         /// 当服务端本地端口连接断开
@@ -162,7 +162,7 @@ namespace ServerCore.Manager
         /// <param name="tunnelId"></param>
         public void OnClientLocalDisconnect(long uid, byte tunnelId, byte Idx, BackwardLocalClient serverLocalClient)
         {
-            AppNoSugarNet.log.Debug($"OnServerLocalDisconnect {uid},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnClientLocalDisconnect {uid},{tunnelId},{Idx}");
             //移除到服务端本地连接列表
             RemoveClientLocalClient(uid, tunnelId, Idx);
 
@@ -172,7 +172,7 @@ namespace ServerCore.Manager
                 Idx = Idx,
             });
             //发送给客户端，指定服务端本地端口连接已断开
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelS2CForwardDisconnect,  respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SReverseDisconnect,  respData);
         }
         #endregion
 
@@ -281,7 +281,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnServerTunnelDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
-            //ServerManager.g_Log.Debug($"OnClientTunnelDataCallBack {uid},{tunnelId},{Idx}");
+            AppNoSugarNet.log.Debug($"Reverse->OnServerTunnelDataCallBack {uid},{tunnelId},{Idx},data -> {data.Length}");
             //隧道ID定位投递服务端本地连接
             if (!GetClientLocalClient(uid, tunnelId, Idx, out BackwardLocalClient serverLocalClient))
                 return;
@@ -302,6 +302,7 @@ namespace ServerCore.Manager
         /// <param name="data"></param>
         public void OnClientLocalDataCallBack(long uid, byte tunnelId, byte Idx, byte[] data)
         {
+            AppNoSugarNet.log.Debug($"Reverse->OnClientLocalDataCallBack {uid},{tunnelId},{Idx},data -> {data.Length}");
             //ServerManager.g_Log.Debug($"OnServerLocalDataCallBack {uid},{tunnelId},{Idx}");
             //if (!ServerManager.g_ClientMgr.GetClientByUID(uid, out ClientInfo client))
             //    return;
@@ -350,7 +351,7 @@ namespace ServerCore.Manager
             });
 
             //发送给客户端，指定客户端本地隧道ID
-            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelS2CForwardData, respData);
+            AppNoSugarNet.networkHelper.SendToServer((int)CommandID.CmdTunnelC2SReverseData, respData);
         }
         #endregion
     }

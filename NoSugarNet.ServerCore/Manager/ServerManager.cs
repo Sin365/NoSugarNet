@@ -14,6 +14,7 @@ namespace ServerCore.Manager
         public static LoginManager g_Login;
         public static ChatManager g_Chat;
         public static ForwardLocalClientManager g_ForwardLocal;
+        public static ReverseLocalClientManager g_ReverseLocal;
         public static IOCPNetWork g_SocketMgr;
         public static System.Timers.Timer _SpeedCheckTimeTimer;//速度检测计时器
         public static int TimerInterval = 1000;//计时器间隔
@@ -35,6 +36,7 @@ namespace ServerCore.Manager
             g_Login = new LoginManager();
             g_Chat = new ChatManager();
             g_ForwardLocal = new ForwardLocalClientManager((E_CompressAdapter)compressAdapterType);
+            g_ReverseLocal = new ReverseLocalClientManager();
             //g_SocketMgr = new IOCPNetWork(1024, 1024);
             g_SocketMgr = new IOCPNetWork(1024, 4096);
 

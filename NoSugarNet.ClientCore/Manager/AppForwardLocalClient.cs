@@ -15,7 +15,7 @@ namespace ServerCore.Manager
     {
         Dictionary<byte, Protobuf_Cfgs_Single> mDictTunnelID2Cfg = new Dictionary<byte, Protobuf_Cfgs_Single>();
         Dictionary<byte, ForwardLocalListener> mDictTunnelID2Listeners = new Dictionary<byte, ForwardLocalListener>();
-        NoSugarNet.Adapter.DataHelper.CompressAdapter mCompressAdapter;
+        //NoSugarNet.Adapter.DataHelper.CompressAdapter mCompressAdapter;
         NoSugarNet.Adapter.DataHelper.E_CompressAdapter compressAdapterType;
         //public LocalMsgQueuePool _localMsgPool = new LocalMsgQueuePool(1000);
 
@@ -75,8 +75,8 @@ namespace ServerCore.Manager
         void InitListenerMode()
         {
             AppNoSugarNet.log.Info("初始化压缩适配器" + compressAdapterType);
-            //初始化压缩适配器，代表压缩类型
-            mCompressAdapter = new NoSugarNet.Adapter.DataHelper.CompressAdapter(compressAdapterType);
+            ////初始化压缩适配器，代表压缩类型
+            //mCompressAdapter = new NoSugarNet.Adapter.DataHelper.CompressAdapter(compressAdapterType);
             foreach (var cfg in mDictTunnelID2Cfg)
             {
                 ForwardLocalListener listener = new ForwardLocalListener(256, 1024, cfg.Key,AppNoSugarNet.user.userdata.UID);
@@ -279,7 +279,7 @@ namespace ServerCore.Manager
             //记录压缩前数据长度
             tReciveAllLenght += data.Length;
             //解压
-            data = mCompressAdapter.Decompress(data);
+            data = CompressAdapterSelector.Adapter(compressAdapterType).Decompress(data);
             _listener.SendSocketByIdx(Idx,data);
         }
         /// <summary>
@@ -322,7 +322,7 @@ namespace ServerCore.Manager
         void SendDataToRemote(byte tunnelId, byte Idx, byte[] data)
         {
             //压缩
-            data = mCompressAdapter.Compress(data);
+            data = CompressAdapterSelector.Adapter(compressAdapterType).Compress(data);
             //记录压缩后数据长度
             tSendAllLenght += data.Length;
 

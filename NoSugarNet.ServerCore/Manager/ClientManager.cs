@@ -187,7 +187,8 @@ namespace ServerCore.Manager
             cinfo.IsOffline = true;
             cinfo.LogOutDT = DateTime.Now;
             //断开所有连接
-            ServerManager.g_ForwardLocal.StopAll(cinfo.UID);
+            ServerManager.g_ForwardLocal.StopAllByUid(cinfo.UID);
+            ServerManager.g_ReverseLocal.StopAllByUid(cinfo.UID);
         }
 
         public void RemoveClientForSocket(Socket sk)

@@ -12,7 +12,8 @@ namespace ServerCore.Manager
     public class ForwardLocalClientManager
     {
         Dictionary<long, BackwardLocalClient> mDictCommKey2ServerLocalClients = new Dictionary<long, BackwardLocalClient>();
-        CompressAdapter mCompressAdapter;
+        E_CompressAdapter compressAdapterType;
+        //CompressAdapter mCompressAdapter;
 
         public long tReciveAllLenght { get; private set; }
         public long tSendAllLenght { get;private set; }
@@ -27,11 +28,10 @@ namespace ServerCore.Manager
             return CommKey / 10000000;
         }
 
-        public ForwardLocalClientManager(E_CompressAdapter compressAdapterType)
+        public ForwardLocalClientManager(E_CompressAdapter _compressAdapterType)
         {
-            ServerManager.g_Log.Debug("初始化压缩适配器" + compressAdapterType);
-            //初始化压缩适配器，暂时使用0，代表压缩类型
-            mCompressAdapter = new CompressAdapter(compressAdapterType);
+            ServerManager.g_Log.Debug("初始化压缩适配器" + _compressAdapterType);
+            compressAdapterType = _compressAdapterType;
             //注册网络消息
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SForwardConnect, Recive_TunnelC2SConnect);
             NetMsg.Instance.RegNetMsgEvent((int)CommandID.CmdTunnelC2SForwardDisconnect, Recive_TunnelC2SDisconnect);
@@ -120,7 +120,7 @@ namespace ServerCore.Manager
             ClientUserCount = TempHadLocalConnetList.Count;
         }
 
-        public void StopAll(long Uid)
+        public void StopAllByUid(long Uid)
         {
             List<long> TempRemoveCommIDList = new List<long>();
             lock (mDictCommKey2ServerLocalClients)
@@ -289,7 +289,7 @@ namespace ServerCore.Manager
             //记录数据长度
             tReciveAllLenght += data.Length;
             //解压
-            data = mCompressAdapter.Decompress(data);
+            data = CompressAdapterSelector.Adapter(compressAdapterType).Decompress(data);
             //记录数据长度
             serverLocalClient.mSendAllLenght += data.LongLength;
             //发送给对应服务端本地连接数据
@@ -339,7 +339,7 @@ namespace ServerCore.Manager
                 return;
 
             //压缩
-            data = mCompressAdapter.Compress(data);
+            data = CompressAdapterSelector.Adapter(compressAdapterType).Compress(data);
             //记录压缩后数据长度
             tSendAllLenght += data.Length;
 
