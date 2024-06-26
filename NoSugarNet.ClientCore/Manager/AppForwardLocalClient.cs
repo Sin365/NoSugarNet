@@ -79,7 +79,7 @@ namespace ServerCore.Manager
             mCompressAdapter = new NoSugarNet.Adapter.DataHelper.CompressAdapter(compressAdapterType);
             foreach (var cfg in mDictTunnelID2Cfg)
             {
-                ForwardLocalListener listener = new ForwardLocalListener(256, 1024, cfg.Key);
+                ForwardLocalListener listener = new ForwardLocalListener(256, 1024, cfg.Key,AppNoSugarNet.user.userdata.UID);
                 AppNoSugarNet.log.Info($"开始监听配置 Tunnel:{cfg.Key},Port:{cfg.Value.Port}");
                 listener.BandEvent(AppNoSugarNet.log.Log, OnClientLocalConnect, OnClientLocalDisconnect, OnClientTunnelDataCallBack);
                 listener.StartListener((uint)cfg.Value.Port);
@@ -163,7 +163,7 @@ namespace ServerCore.Manager
         public void Recive_TunnelS2CConnect(byte[] reqData)
         {
             AppNoSugarNet.log.Debug("Recive_TunnelS2CConnect");
-            Protobuf_S2C_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_S2C_Connect>(reqData);
+            Protobuf_Tunnel_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Connect>(reqData);
             if(msg.Connected == 1)
                 OnServerLocalConnect((byte)msg.TunnelID,(byte)msg.Idx);
             else
@@ -172,13 +172,13 @@ namespace ServerCore.Manager
         public void Recive_TunnelS2CDisconnect(byte[] reqData)
         {
             AppNoSugarNet.log.Debug("Recive_TunnelS2CDisconnect");
-            Protobuf_S2C_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_S2C_Disconnect>(reqData);
+            Protobuf_Tunnel_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Disconnect>(reqData);
             OnServerLocalDisconnect((byte)msg.TunnelID,(byte)msg.Idx);
         }
         public void Recive_TunnelS2CData(byte[] reqData)
         {
             //AppNoSugarNet.log.Debug("Recive_TunnelS2CData");
-            Protobuf_S2C_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_S2C_DATA>(reqData);
+            Protobuf_Tunnel_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_DATA>(reqData);
             OnServerLocalDataCallBack((byte)msg.TunnelID,(byte)msg.Idx, msg.HunterNetCoreData.ToArray());
         }
         #endregion
@@ -189,13 +189,13 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnClientLocalConnect(byte tunnelId,byte _Idx)
+        public void OnClientLocalConnect(long UID, byte tunnelId,byte _Idx)
         {
             AppNoSugarNet.log.Debug($"OnClientLocalConnect {tunnelId},{_Idx}");
             if (!mDictTunnelID2Cfg.ContainsKey(tunnelId))
                 return;
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_Connect()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Connect()
             {
                 TunnelID = tunnelId,
                 Idx = _Idx,
@@ -209,14 +209,14 @@ namespace ServerCore.Manager
         /// </summary>
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
-        public void OnClientLocalDisconnect(byte tunnelId, byte _Idx)
+        public void OnClientLocalDisconnect(long UID, byte tunnelId, byte _Idx)
         {
             AppNoSugarNet.log.Debug($"OnClientLocalDisconnect {tunnelId},{_Idx}");
             //隧道ID定位投递服务端本地连接
             if (!mDictTunnelID2Cfg.ContainsKey(tunnelId))
                 return;
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_Disconnect()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Disconnect()
             {
                 TunnelID = tunnelId,
                 Idx= _Idx,
@@ -288,7 +288,7 @@ namespace ServerCore.Manager
         /// <param name="uid"></param>
         /// <param name="tunnelId"></param>
         /// <param name="data"></param>
-        public void OnClientTunnelDataCallBack(byte tunnelId,byte Idx, byte[] data)
+        public void OnClientTunnelDataCallBack(long UID, byte tunnelId,byte Idx, byte[] data)
         {
             //AppNoSugarNet.log.Info($"OnClientTunnelDataCallBack {tunnelId},{Idx} data.Length->{data.Length}");
 
@@ -326,7 +326,7 @@ namespace ServerCore.Manager
             //记录压缩后数据长度
             tSendAllLenght += data.Length;
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_C2S_DATA()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_DATA()
             {
                 TunnelID = tunnelId,
                 Idx = Idx,

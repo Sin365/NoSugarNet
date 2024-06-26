@@ -151,21 +151,21 @@ namespace ServerCore.Manager
         {
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             ServerManager.g_Log.Debug("OnTunnelC2SConnect");
-            Protobuf_C2S_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_Connect>(reqData);
+            Protobuf_Tunnel_Connect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Connect>(reqData);
             OnClientLocalConnect(_c.UID, (byte)msg.TunnelID, (byte)msg.Idx);
         }
         public void Recive_TunnelC2SDisconnect(Socket sk, byte[] reqData)
         {
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             ServerManager.g_Log.Debug("Recive_TunnelC2SDisconnect");
-            Protobuf_C2S_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_Disconnect>(reqData);
+            Protobuf_Tunnel_Disconnect msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_Disconnect>(reqData);
             OnClientLocalDisconnect(_c.UID, (byte)msg.TunnelID,(byte)msg.Idx);
         }
         public void Recive_TunnelC2SData(Socket sk, byte[] reqData)
         {
             ClientInfo _c = ServerManager.g_ClientMgr.GetClientForSocket(sk);
             //ServerManager.g_Log.Debug("OnTunnelC2SData");
-            Protobuf_C2S_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_C2S_DATA>(reqData);
+            Protobuf_Tunnel_DATA msg = ProtoBufHelper.DeSerizlize<Protobuf_Tunnel_DATA>(reqData);
             OnClientTunnelDataCallBack(_c.UID, (byte)msg.TunnelID, (byte)msg.Idx, msg.HunterNetCoreData.ToArray());
         }
         #endregion
@@ -197,7 +197,7 @@ namespace ServerCore.Manager
                 {
                     //TODO告知客户端连接失败
 
-                    byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Connect()
+                    byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Connect()
                     {
                         TunnelID = tunnelId,
                         Idx = (uint)Idx,
@@ -241,7 +241,7 @@ namespace ServerCore.Manager
             //添加到服务端本地连接列表
             AddServerLocalClient(uid, tunnelId, Idx, serverLocalClient);
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Connect()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Connect()
             {
                 TunnelID = tunnelId,
                 Idx = Idx,
@@ -263,7 +263,7 @@ namespace ServerCore.Manager
             //移除到服务端本地连接列表
             RemoveServerLocalClient(uid, tunnelId, Idx);
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_Disconnect()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_Disconnect()
             {
                 TunnelID = tunnelId,
                 Idx= Idx,
@@ -343,7 +343,7 @@ namespace ServerCore.Manager
             //记录压缩后数据长度
             tSendAllLenght += data.Length;
 
-            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_S2C_DATA()
+            byte[] respData = ProtoBufHelper.Serizlize(new Protobuf_Tunnel_DATA()
             {
                 TunnelID = tunnelId,
                 Idx = Idx,

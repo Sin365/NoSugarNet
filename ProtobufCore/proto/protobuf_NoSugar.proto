@@ -14,19 +14,19 @@ enum CommandID
 	
 	CMD_CHATMSG = 4001;  //广播信息上行 | 下行 对应 Protobuf_ChatMsg | Protobuf_ChatMsg_RESP
 	
-	CMD_TUNNEL_C2S_FORWARD_CONNECT = 5000;  //正向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_C2S_Connect
-	CMD_TUNNEL_S2C_FORWARD_CONNECT = 5001;  //正向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_S2C_Connect
-	CMD_TUNNEL_C2S_FORWARD_DISCONNECT = 5002;  //正向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_C2S_Disconnect
-	CMD_TUNNEL_S2C_FORWARD_DISCONNECT = 5003;  //正向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_S2C_Disconnect
-	CMD_TUNNEL_C2S_FORWARD_DATA = 5004;  //正向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_C2S_DATA
-	CMD_TUNNEL_S2C_FORWARD_DATA = 5005;  //正向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_S2C_DATA
+	CMD_TUNNEL_C2S_FORWARD_CONNECT = 5000;  //正向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_Tunnel_Connect
+	CMD_TUNNEL_S2C_FORWARD_CONNECT = 5001;  //正向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_Tunnel_Connect
+	CMD_TUNNEL_C2S_FORWARD_DISCONNECT = 5002;  //正向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_Tunnel_Disconnect
+	CMD_TUNNEL_S2C_FORWARD_DISCONNECT = 5003;  //正向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_Tunnel_Disconnect
+	CMD_TUNNEL_C2S_FORWARD_DATA = 5004;  //正向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_Tunnel_DATA
+	CMD_TUNNEL_S2C_FORWARD_DATA = 5005;  //正向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_Tunnel_DATA
 	
-	CMD_TUNNEL_C2S_REVERSE_CONNECT = 6000;  //反向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_C2S_Connect
-	CMD_TUNNEL_S2C_REVERSE_CONNECT = 6001;  //反向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_S2C_Connect
-	CMD_TUNNEL_C2S_REVERSE_DISCONNECT = 6002;  //反向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_C2S_Disconnect
-	CMD_TUNNEL_S2C_REVERSE_DISCONNECT = 6003;  //反向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_S2C_Disconnect
-	CMD_TUNNEL_C2S_REVERSE_DATA = 6004;  //反向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_C2S_DATA
-	CMD_TUNNEL_S2C_REVERSE_DATA = 6005;  //反向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_S2C_DATA
+	CMD_TUNNEL_C2S_REVERSE_CONNECT = 6000;  //反向代理，客户端告知服务端 客户端本地连接建立 上行 Protobuf_Tunnel_Connect
+	CMD_TUNNEL_S2C_REVERSE_CONNECT = 6001;  //反向代理，服务端告知客户端 服务端本地连接建立 下行 Protobuf_Tunnel_Connect
+	CMD_TUNNEL_C2S_REVERSE_DISCONNECT = 6002;  //反向代理，客户端告知服务端 客户端本地连接断开 上行 Protobuf_Tunnel_Disconnect
+	CMD_TUNNEL_S2C_REVERSE_DISCONNECT = 6003;  //反向代理，服务端告知客户端 服务端本地连接断开 下行 Protobuf_Tunnel_Disconnect
+	CMD_TUNNEL_C2S_REVERSE_DATA = 6004;  //反向代理，客户端投递本地TCP通讯数据包 上行 Protobuf_Tunnel_DATA
+	CMD_TUNNEL_S2C_REVERSE_DATA = 6005;  //反向代理，服务端投递本地TCP通讯数据包 下行 Protobuf_Tunnel_DATA
 }
 
 enum ErrorCode
@@ -106,39 +106,20 @@ message Protobuf_ChatMsg_RESP
 }
 
 
-message Protobuf_C2S_Connect
-{
-	uint32 TunnelID = 1;//TunnelID
-	uint32 Idx = 2;//单个隧道连接下标
-}
-
-message Protobuf_S2C_Connect
+message Protobuf_Tunnel_Connect
 {
 	uint32 TunnelID = 1;//TunnelID
 	uint32 Idx = 2;//单个隧道连接下标
 	uint32 Connected = 3;//[0]连接失败 [1]连接成功
 }
 
-message Protobuf_C2S_Disconnect
+message Protobuf_Tunnel_Disconnect
 {
 	uint32 TunnelID = 1;//TunnelID
 	uint32 Idx = 2;//单个隧道连接下标
 }
 
-message Protobuf_S2C_Disconnect
-{
-	uint32 TunnelID = 1;//TunnelID
-	uint32 Idx = 2;//单个隧道连接下标
-}
-
-message Protobuf_C2S_DATA
-{
-	uint32 TunnelID = 1;//TunnelID
-	uint32 Idx = 2;//单个隧道连接下标
-    bytes HunterNetCore_Data = 3;
-}
-
-message Protobuf_S2C_DATA
+message Protobuf_Tunnel_DATA
 {
 	uint32 TunnelID = 1;//TunnelID
 	uint32 Idx = 2;//单个隧道连接下标

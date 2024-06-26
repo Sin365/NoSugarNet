@@ -2,6 +2,10 @@
 {
     public class LogManager
     {
+        public void Info(string str)
+        {
+            Console.WriteLine(str);
+        }
         public void Debug(string str)
         {
             Console.WriteLine(str);

@@ -10,6 +10,7 @@ namespace NoSugarNet.Adapter
         public long mReciveAllLenght;
         public long mSendAllLenght;
         public long currSeed;
+        public long mUid;
         static long Seed;
 
         public enum AdptLogLevel
@@ -21,16 +22,16 @@ namespace NoSugarNet.Adapter
         }
 
         public delegate void OnLogOutHandler(int LogLevel,string Msg);
-        public delegate void OnClientLocalConnectHandler(byte tunnelId, byte _Idx);
-        public delegate void OnClientLocalDisconnectHandler(byte tunnelId, byte _Idx);
-        public delegate void OnClientTunnelDataCallBackHandler(byte tunnelId, byte Idx, byte[] data);
+        public delegate void OnClientLocalConnectHandler(long UID, byte tunnelId, byte _Idx);
+        public delegate void OnClientLocalDisconnectHandler(long UID, byte tunnelId, byte _Idx);
+        public delegate void OnClientTunnelDataCallBackHandler(long UID, byte tunnelId, byte Idx, byte[] data);
 
         public event OnLogOutHandler OnForwardLogOut;
         public event OnClientLocalConnectHandler OnClientLocalConnect;
         public event OnClientLocalDisconnectHandler OnClientLocalDisconnect;
         public event OnClientTunnelDataCallBackHandler OnClientTunnelDataCallBack;
 
-        public ForwardLocalListener(int numConnections, int receiveBufferSize, byte TunnelID)
+        public ForwardLocalListener(int numConnections, int receiveBufferSize, byte TunnelID, long mUid)
             : base(numConnections, receiveBufferSize)
         {
             OnClientNumberChange += ClientNumberChange;
@@ -41,6 +42,7 @@ namespace NoSugarNet.Adapter
             mTunnelID = TunnelID;
 
             currSeed = Seed++;
+            this.mUid = mUid;
         }
 
 
@@ -75,7 +77,7 @@ namespace NoSugarNet.Adapter
                 int Idx = AddDictSocket(token.Socket);
                 if (GetSocketByIdx(Idx, out LocalClientInfo _localClientInf))
                 {
-                    OnClientLocalConnect?.Invoke(mTunnelID, (byte)Idx);
+                    OnClientLocalConnect?.Invoke(mUid, mTunnelID, (byte)Idx);
                 }
             }
         }
@@ -116,7 +118,7 @@ namespace NoSugarNet.Adapter
             try
             {
                 //抛出网络数据
-                OnClientTunnelDataCallBack?.Invoke(mTunnelID, (byte)Idx, data);
+                OnClientTunnelDataCallBack?.Invoke(mUid, mTunnelID, (byte)Idx, data);
             }
             catch (Exception ex)
             {
@@ -150,7 +152,7 @@ namespace NoSugarNet.Adapter
             if (!GetSocketIdxBySocket(token.Socket, out int Idx))
                 return;
 
-            OnClientLocalDisconnect?.Invoke(mTunnelID, (byte)Idx);
+            OnClientLocalDisconnect?.Invoke(mUid, mTunnelID, (byte)Idx);
             RemoveDictSocket(token.Socket);
         }
 

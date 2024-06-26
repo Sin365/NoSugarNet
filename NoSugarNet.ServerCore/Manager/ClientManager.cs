@@ -12,6 +12,10 @@ namespace ServerCore.Manager
         public bool IsOffline { get; set; } = false;
         public DateTime LogOutDT { get; set; }
 
+        public NoSugarNet.Adapter.DataHelper.E_CompressAdapter e_CompressAdapter { get; set; }
+
+        public Dictionary<byte, Protobuf_Cfgs_Single> _cfgs { get; set; }
+
     }
 
     public class ClientManager
@@ -83,6 +87,15 @@ namespace ServerCore.Manager
                 AddClient(cinfo);
             }
             return cinfo;
+        }
+
+        public void SetUserCfg(long uid, NoSugarNet.Adapter.DataHelper.E_CompressAdapter CompressAdapter, Dictionary<byte, Protobuf_Cfgs_Single> cfg)
+        {
+            if (GetClientByUID(uid, out ClientInfo _c))
+            {
+                _c._cfgs = cfg;
+                _c.e_CompressAdapter = CompressAdapter;
+            }
         }
 
         /// <summary>
