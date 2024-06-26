@@ -18,7 +18,7 @@ namespace NoSugarNet.ClientCli
     {
         public string LocalTargetIP { get; set; }
         public int LocalTargetPort { get; set; }
-        public int ClientLocalPort { get; set; }
+        public int RemoteLocalPort { get; set; }
     }
 
     public static class Config
@@ -37,8 +37,8 @@ namespace NoSugarNet.ClientCli
                         ServerPort = 1000,
                         TunnelList = new List<ConfigDataModel_Single>()
                         {
-                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,ClientLocalPort = 20001},
-                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,ClientLocalPort = 20002}
+                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,RemoteLocalPort = 20001},
+                            new ConfigDataModel_Single(){ LocalTargetIP = "127.0.0.1",LocalTargetPort=3389,RemoteLocalPort = 20002}
                         }
                     };
 
