@@ -89,10 +89,10 @@ namespace ServerCore.Manager
                     srcReciveAllLenght = resultReciveAllLenght,
                     srcReciveSecSpeed = (resultReciveAllLenght - Reverse_NetStatus.srcReciveAllLenght) / (TimerInterval / 1000),
                     srcSendSecSpeed = (resultSendAllLenght - Reverse_NetStatus.srcSendAllLenght) / (TimerInterval / 1000),
-                    tSendAllLenght = g_ForwardLocal.tSendAllLenght,
-                    tReciveAllLenght = g_ForwardLocal.tReciveAllLenght,
-                    tSendSecSpeed = (g_ForwardLocal.tSendAllLenght - Reverse_NetStatus.tSendAllLenght) / (TimerInterval / 1000),
-                    tReciveSecSpeed = (g_ForwardLocal.tReciveAllLenght - Reverse_NetStatus.tReciveAllLenght) / (TimerInterval / 1000),
+                    tSendAllLenght = g_ReverseLocal.tSendAllLenght,
+                    tReciveAllLenght = g_ReverseLocal.tReciveAllLenght,
+                    tSendSecSpeed = (g_ReverseLocal.tSendAllLenght - Reverse_NetStatus.tSendAllLenght) / (TimerInterval / 1000),
+                    tReciveSecSpeed = (g_ReverseLocal.tReciveAllLenght - Reverse_NetStatus.tReciveAllLenght) / (TimerInterval / 1000),
                 };
                 Reverse_NetStatus = resutnetStatus;
             }
