@@ -1,9 +1,9 @@
 ﻿using AxibugProtobuf;
-using NoSugarNet.ClientCoreNet.Standard2.Common;
-using NoSugarNet.ClientCoreNet.Standard2.Event;
-using NoSugarNet.ClientCoreNet.Standard2.Network;
+using NoSugarNet.ClientCore.Common;
+using NoSugarNet.ClientCore.Event;
+using NoSugarNet.ClientCore.Network;
 
-namespace NoSugarNet.ClientCoreNet.Standard2.Manager
+namespace NoSugarNet.ClientCore.Manager
 {
     public class AppChat
     {

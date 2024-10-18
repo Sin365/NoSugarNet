@@ -1,6 +1,6 @@
 ﻿using AxibugProtobuf;
 
-namespace NoSugarNet.ClientCoreNet.Standard2.Manager
+namespace NoSugarNet.ClientCore.Manager
 {
     public class UserDataBase
     {
@@ -23,10 +23,11 @@ namespace NoSugarNet.ClientCoreNet.Standard2.Manager
         public MainUserDataBase userdata { get;private set; } = new MainUserDataBase();
         public bool IsLoggedIn => userdata.IsLoggedIn;
 
-        public void InitMainUserData(string UName)
+        public void InitMainUserData(string UName,long UID)
         {
             userdata.Account = UName;
             userdata.IsLoggedIn = true;
+            userdata.UID = UID;
             //以及其他数据初始化
             //...
         }
@@ -49,7 +50,7 @@ namespace NoSugarNet.ClientCoreNet.Standard2.Manager
             //如果之前已登录，则重新登录
             if (userdata.IsLoggedIn)
             {
-                AppNoSugarNet.login.Login(userdata.Account);
+                AppNoSugarNet.login.Login();
             }
         }
     }

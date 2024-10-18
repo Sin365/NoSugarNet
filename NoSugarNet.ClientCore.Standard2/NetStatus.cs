@@ -1,4 +1,4 @@
-﻿namespace NoSugarNet.ClientCoreNet.Standard2
+﻿namespace NoSugarNet.ClientCore
 {
     public struct NetStatus
     {

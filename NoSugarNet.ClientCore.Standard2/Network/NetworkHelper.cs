@@ -1,8 +1,14 @@
-﻿using HaoYueNet.ClientNetworkNet.Standard2;
+﻿using AxibugProtobuf;
+using Google.Protobuf;
+using HaoYueNet.ClientNetwork;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace NoSugarNet.ClientCoreNet.Standard2.Network
+namespace NoSugarNet.ClientCore.Network
 {
     /// <summary>
     /// 继承网络库，以支持网络功能
@@ -28,7 +34,7 @@ namespace NoSugarNet.ClientCoreNet.Standard2.Network
         /// <summary>
         /// 是否自动重连
         /// </summary>
-        public bool bAutoReConnect = false;
+        public bool bAutoReConnect = true;
         /// <summary>
         /// 重连尝试时间
         /// </summary>
@@ -39,12 +45,21 @@ namespace NoSugarNet.ClientCoreNet.Standard2.Network
             NetworkDeBugLog($"NetworkConnected:{IsConnect}");
             if (IsConnect)
             {
-                AppNoSugarNet.login.Login(Guid.NewGuid().ToString());
+                //从未登录过
+                if (!AppNoSugarNet.user.IsLoggedIn)
+                {
+                    //首次登录
+                    AppNoSugarNet.login.Login();
+                }
             }
             else
             {
                 //连接失败
                 NetworkDeBugLog("连接失败！");
+
+                //停止所有
+                AppNoSugarNet.forwardlocal.StopAll();
+
                 //自动重连开关
                 if (bAutoReConnect)
                     ReConnect();
@@ -86,7 +101,8 @@ namespace NoSugarNet.ClientCoreNet.Standard2.Network
             NetworkDeBugLog("OnConnectClose");
 
             //停止所有
-            AppNoSugarNet.local.StopAll();
+            AppNoSugarNet.forwardlocal.StopAll();
+            AppNoSugarNet.reverselocal.StopAll(AppNoSugarNet.user.userdata.UID);
 
             //自动重连开关
             if (bAutoReConnect)

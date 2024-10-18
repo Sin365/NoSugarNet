@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NoSugarNet.ClientCore.Standard2\NoSugarNet.ClientCore.Standard2.csproj" />
     <ProjectReference Include="..\..\NoSugarNet.ServerCore\NoSugarNet.ServerCore.csproj" />
   </ItemGroup>
 

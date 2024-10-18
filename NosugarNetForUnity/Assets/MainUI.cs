@@ -1,7 +1,6 @@
-using NoSugarNet.ClientCoreNet.Standard2;
+using NoSugarNet.ClientCore;
+using NoSugarNet.ClientCore.Common;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,8 +27,7 @@ public class MainUI : MonoBehaviour
         btnStop.onClick.AddListener(StopNoSugarNetClient);
         AddLog("");
 
-        AppNoSugarNet.OnUpdateStatus += OnUpdateStatus;
-        AppNoSugarNet.Init(OnNoSugarNetLog);
+        AppNoSugarNet.Init(new System.Collections.Generic.Dictionary<byte, TunnelClientData>(),0, OnNoSugarNetLog);
     }
 
     private void OnDisable()

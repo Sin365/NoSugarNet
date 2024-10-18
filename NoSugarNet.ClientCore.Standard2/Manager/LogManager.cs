@@ -1,4 +1,4 @@
-﻿namespace NoSugarNet.ClientCoreNet.Standard2.Manager
+﻿namespace NoSugarNet.ClientCore.Manager
 {
     public class LogManager
     {
@@ -43,6 +43,11 @@
         public void Log(E_LogType logtype,string str)
         {
             OnLog?.Invoke((int)logtype, str);
+        }
+
+        public void Log(int logtype, string str)
+        {
+            OnLog?.Invoke(logtype, str);
         }
     }
 }

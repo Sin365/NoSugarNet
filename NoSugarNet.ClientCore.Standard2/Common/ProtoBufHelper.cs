@@ -1,7 +1,7 @@
 ﻿using Google.Protobuf;
 using System;
 
-namespace NoSugarNet.ClientCoreNet.Standard2.Common
+namespace NoSugarNet.ClientCore.Common
 {
     public static class ProtoBufHelper
     {

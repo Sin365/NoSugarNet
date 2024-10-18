@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NoSugarNet.ClientCoreNet.Standard2.Network
+namespace NoSugarNet.ClientCore.Network
 {
 
     public class NetMsg

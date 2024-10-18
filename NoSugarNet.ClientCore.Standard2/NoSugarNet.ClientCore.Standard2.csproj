@@ -13,8 +13,8 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\Lib\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="HaoYueNet.ClientNetworkNet.Standard2">
-      <HintPath>..\Lib\NetLib_Standard2\HaoYueNet.ClientNetworkNet.Standard2.dll</HintPath>
+    <Reference Include="HaoYueNet.ClientNetwork.Standard2">
+      <HintPath>..\Lib\NetLib_Standard2\HaoYueNet.ClientNetwork.Standard2.dll</HintPath>
     </Reference>
     <Reference Include="HaoYueNet.ServerNetwork.Standard2">
       <HintPath>..\Lib\NetLib_Standard2\HaoYueNet.ServerNetwork.Standard2.dll</HintPath>

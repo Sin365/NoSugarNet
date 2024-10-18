@@ -1,4 +1,4 @@
-﻿namespace NoSugarNet.ClientCoreNet.Standard2.Event
+﻿namespace NoSugarNet.ClientCore.Event
 {
     public enum EEvent
     {
